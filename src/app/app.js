@@ -1,5 +1,5 @@
 'use strict';
-
+console.log(Parse);
 angular.module('BlurAdmin', [
   'ngAnimate',
   'ui.bootstrap',
