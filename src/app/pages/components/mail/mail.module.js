@@ -17,7 +17,7 @@
           templateUrl: 'app/pages/components/mail/mail.html',
           controller: "MailTabCtrl",
           controllerAs: "tabCtrl",
-          title: 'Mail',
+          title: 'Inbox',
           sidebarMeta: {
             order: 0,
           },
