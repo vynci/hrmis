@@ -9,7 +9,7 @@
     .controller('ProfilePageCtrl', ProfilePageCtrl);
 
   /** @ngInject */
-  function ProfilePageCtrl($scope, fileReader, $filter, $uibModal) {
+  function ProfilePageCtrl($scope, fileReader, $filter, $uibModal, $window) {
     $scope.picture = $filter('profilePicture')('Nasta');
 
     $scope.removePicture = function () {

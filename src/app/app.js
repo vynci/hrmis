@@ -1,5 +1,9 @@
 'use strict';
-console.log(Parse);
+console.log('heyy');
+
+Parse.initialize("myAppId", "myJavascriptKey");
+Parse.serverURL = 'https://hrmis-api.herokuapp.com/parse';
+
 angular.module('BlurAdmin', [
   'ngAnimate',
   'ui.bootstrap',

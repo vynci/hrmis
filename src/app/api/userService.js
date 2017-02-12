@@ -1,15 +1,11 @@
-/**
-* @author v.lugovsky
-* created on 03.05.2016
-*/
 (function () {
 	'use strict';
 
 	angular.module('BlurAdmin.api')
-	.service('vinceTest', vinceTest);
+	.service('userService', userService);
 
 	/** @ngInject */
-	function vinceTest($q) {
+	function userService($q) {
 
 		this.userType = function(id) {
 			var defer = $q.defer();
@@ -55,5 +51,5 @@
 			var attr = $(elem).attr(attrName);
 			return (typeof attr !== typeof undefined && attr !== false);
 		}
-}
+	}
 })();

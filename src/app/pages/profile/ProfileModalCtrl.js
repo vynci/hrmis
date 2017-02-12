@@ -9,8 +9,9 @@
     .controller('ProfileModalCtrl', ProfileModalCtrl);
 
   /** @ngInject */
-  function ProfileModalCtrl($scope, $uibModalInstance) {
+  function ProfileModalCtrl($scope, $uibModalInstance, $window) {
     $scope.link = '';
+
     $scope.ok = function () {
       $uibModalInstance.close($scope.link);
     };

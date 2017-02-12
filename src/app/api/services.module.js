@@ -5,14 +5,6 @@
 (function () {
 	'use strict';
 
-	angular.module('BlurAdmin.services', [
-	'toastr',
-	'chart.js',
-	'angular-chartist',
-	'angular.morris-chart',
-	'textAngular',
-	'BlurAdmin.theme.components',
-	'BlurAdmin.theme.inputs'
-	]);
+	angular.module('BlurAdmin.api', []);
 
 })();
