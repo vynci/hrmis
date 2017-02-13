@@ -9,19 +9,14 @@
     .run(runPages);
 
   /** @ngInject */
-  function runPages($window, $rootScope) {
+  function runPages($window, $rootScope, $state) {
     console.log('run!');
 
-    if(Parse.User.current()){
-      $rootScope.isLogged = true;
-      $rootScope.logout = function(){
-        Parse.User.logOut().then(function(){
-          $window.location.href = "#/auth";
-        });
-      }
-    }else{
-      $rootScope.isLogged = false;
-      $window.location.href = "#/auth";
+    $rootScope.logout = function(){
+      Parse.User.logOut().then(function(){
+        $window.location.href = "#/auth";
+        $state.go('auth');
+      });
     }
 
   }

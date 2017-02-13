@@ -9,15 +9,20 @@
     .controller('AuthCtrl', AuthCtrl);
 
   /** @ngInject */
-  function AuthCtrl($scope, fileReader, $filter, $uibModal, $window, $rootScope, $state, $timeout) {
+  function AuthCtrl($scope, fileReader, $filter, $uibModal, $window, $rootScope, $state, $timeout, $q) {
     console.log('auth!');
+    var defer = $q.defer();
+
     $rootScope.isLogged = false;
     $scope.loginData = {};
-    $scope.progress = false;
 
     if(Parse.User.current()){
       $rootScope.isLogged = true;
       $state.go('dashboard');
+    }
+
+    $scope.progressFunction = function(){
+      return defer.promise;
     }
 
     $scope.doLogin = function() {
@@ -29,12 +34,12 @@
         success: function(user) {
           // Do stuff after successful login.
           console.log(user.attributes);
-          $scope.progress = true;
+          defer.resolve(true);
           $rootScope.isLogged = true;
           $state.go('dashboard');
         },
         error: function(user, error) {
-          $scope.progress = false;
+          defer.resolve(true);
           $uibModal.open({
             animation: true,
             templateUrl: 'app/pages/auth/invalidModal.html',
