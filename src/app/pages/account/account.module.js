@@ -11,6 +11,7 @@
 			url: '/account',
 			templateUrl: 'app/pages/account/account.html',
 			title: 'My Account',
+			controller : 'AccountCtrl',
 			sidebarMeta: {
 				icon: 'ion-android-contact',
 				order: 803,

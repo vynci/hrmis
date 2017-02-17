@@ -16,7 +16,7 @@
     'BlurAdmin.pages.charts',
     // 'BlurAdmin.pages.maps',
     'BlurAdmin.pages.profile',
-    'BlurAdmin.pages.employeeAdministration',
+    'BlurAdmin.pages.manageEmployees',
     'BlurAdmin.pages.leavesManager',
     'BlurAdmin.pages.reports',
     'BlurAdmin.pages.account',

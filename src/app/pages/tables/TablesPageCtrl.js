@@ -506,7 +506,10 @@
         username: '@mdo',
         email: 'mdo@gmail.com',
         age: '28',
-        status: 'info'
+        status: {
+          type : 'success',
+          message : 'active'
+        }
       },
       {
         id: 2,
@@ -515,7 +518,10 @@
         username: '@fat',
         email: 'fat@yandex.ru',
         age: '45',
-        status: 'primary'
+        status: {
+          type : 'success',
+          message : 'active'
+        }
       },
       {
         id: 3,
@@ -524,7 +530,10 @@
         username: '@twitter',
         email: 'twitter@outlook.com',
         age: '18',
-        status: 'success'
+        status: {
+          type : 'danger',
+          message : 'active'
+        }
       },
       {
         id: 4,
