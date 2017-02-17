@@ -9,8 +9,7 @@
       .controller('DashboardLineChartCtrl', DashboardLineChartCtrl);
 
   /** @ngInject */
-  function DashboardLineChartCtrl(baConfig, layoutPaths, baUtil, vinceTest) {
-    console.log(vinceTest);
+  function DashboardLineChartCtrl(baConfig, layoutPaths, baUtil) {
     var layoutColors = baConfig.colors;
     var graphColor = baConfig.theme.blur ? '#000000' : layoutColors.primary;
     var chartData = [
