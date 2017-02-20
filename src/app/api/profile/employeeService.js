@@ -26,5 +26,21 @@
 			});
 			return defer.promise;
 		};
+
+		this.getAll = function() {
+			var defer = $q.defer();
+			var EmployeeObject = Parse.Object.extend("Employee");
+			var query = new Parse.Query(EmployeeObject);
+
+			query.find({
+				success: function(results) {
+					defer.resolve(results);
+				},
+				error: function(error) {
+					defer.reject(error);
+				}
+			});
+			return defer.promise;
+		};
 	}
 })();

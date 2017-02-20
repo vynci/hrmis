@@ -1,0 +1,220 @@
+<div class="row">
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputFirstName">First Name</label>
+			<input type="text" class="form-control"  placeholder="First Name" ng-model="personalInfo.firstName">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">Middle Name</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="personalInfo.middleName">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputSurname">Surname</label>
+			<input type="text" class="form-control" id="inputSurname" placeholder="Last Name" ng-model="personalInfo.lastName">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputExtension">Name Extension</label>
+			<input type="text" class="form-control" id="inputExtension" placeholder="Name Extension" ng-model="personalInfo.nameExtension">
+		</div>
+	</div>
+</div>
+
+<hr>
+
+<div class="row">
+	<div class="col-sm-4 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>Date of Birth</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="personalInfo.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputWebsite">Place of Birth</label>
+			<ui-select ng-model="personalInfo.birthPlace" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Place">
+					<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in placeList">
+					<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Sex</label>
+			<ui-select ng-model="personalInfo.gender" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Gender">
+					<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in genderList">
+					<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="inputWebsite">Civil Status</label>
+			<ui-select ng-model="personalInfo.civilStatus" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Status">
+					<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in civilStatusList">
+					<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+	<div class="col-md-6">
+		<div class="form-group">
+			<label for="inputWebsite">Citizenship</label>
+			<ui-select ng-model="personalInfo.citizenship" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Citizenship">
+					<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in citizenshipList">
+					<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Height (m)</label>
+			<input type="number" class="form-control" id="inputFirstName" placeholder="Height" ng-model="personalInfo.height">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">Weight (kg)</label>
+			<input type="number" class="form-control" id="inputLastName" placeholder="Weight" ng-model="personalInfo.weight">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputWebsite">Blood Type</label>
+			<ui-select ng-model="personalInfo.bloodType" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Type">
+					<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in bloodTypeList">
+					<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+			</ui-select>
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputFirstName">GSIS Id No.</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="GSIS Id No." ng-model="personalInfo.gsisIdNumber">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">PAG-IBIG No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="PAG-IBIG No." ng-model="personalInfo.pagibigNumber">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">PhilHealth No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="PhilHealth No." ng-model="personalInfo.philHealthNumber">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">SSS No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="SSS No." ng-model="personalInfo.sssNumber">
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Resedential Address</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="Resedential Address" ng-model="personalInfo.residentialAddressInfo.address">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">ZIP Code</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="ZIP Code" ng-model="personalInfo.residentialAddressInfo.zipCode">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">Telephone No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="personalInfo.residentialAddressInfo.telNo">
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Permanent Address</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="Resedential Address" ng-model="personalInfo.permanentAddressInfo.address">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">ZIP Code</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="ZIP Code" ng-model="personalInfo.permanentAddressInfo.zipCode">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">Telephone No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="personalInfo.permanentAddressInfo.telNo">
+		</div>
+	</div>
+</div>
+<hr>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputFirstName">Email Address</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="Email Address" ng-model="personalInfo.emailAddress">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">Cellphone No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Cellphone No." ng-model="personalInfo.mobileNumber">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">Agency Employee No.</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber">
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputLastName">TIN</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="TIN" ng-model="personalInfo.tinNumber">
+		</div>
+	</div>
+</div>

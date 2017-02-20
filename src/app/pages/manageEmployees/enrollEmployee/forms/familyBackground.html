@@ -1,0 +1,166 @@
+
+<div ng-if="personalInfo.civilStatus.value != 'Single'">
+	<h4>Spouse Info</h4>
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputFirstName">Surname</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Spouse's Surname" ng-model="familyBackground.spouseInfo.surname">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">First Name</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.spouseInfo.firstName">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">Middle Name</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.spouseInfo.middleName">
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputFirstName">Occupation</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Occupation" ng-model="familyBackground.spouseInfo.occupation">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Employer/Business Name</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Employer/Business Name" ng-model="familyBackground.spouseInfo.employerName">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Business Address</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Business Address" ng-model="familyBackground.spouseInfo.businessAddress">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Telephone No.</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="familyBackground.spouseInfo.businessTelephoneNumber">
+			</div>
+		</div>
+	</div>
+	<hr>
+</div>
+
+<h3>Father Info</h3>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Surname</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="Father's Surname" ng-model="familyBackground.fatherInfo.surname">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">First Name</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.fatherInfo.firstName">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">Middle Name</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.fatherInfo.middleName">
+		</div>
+	</div>
+</div>
+<hr>
+<h3>Mother Info</h3>
+<div class="row">
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputFirstName">Surname</label>
+			<input type="text" class="form-control" id="inputFirstName" placeholder="Mother's Surname" ng-model="familyBackground.motherInfo.surname">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">First Name</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.motherInfo.firstName">
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="form-group">
+			<label for="inputLastName">Middle Name</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.motherInfo.middleName">
+		</div>
+	</div>
+</div>
+
+<hr>
+<h3>Dependent List</h3>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="add-row-editable-table">
+			<button class="btn btn-primary" ng-click="addChild()"><i class="ion-plus"></i> Add Child</button>
+		</div>
+		<table class="table table-bordered table-hover table-condensed">
+			<tr>
+				<td>#</td>
+				<td>Name</td>
+				<td>Date of birth</td>
+				<td>Actions</td>
+			</tr>
+			<tr ng-repeat="child in familyBackground.children" class="editable-row">
+				<td>
+					{{$index + 1}}
+				</td>
+				<td>
+					<span editable-text="child.name" e-name="name" e-form="rowform" e-required>
+						{{ child.name || 'empty' }}
+					</span>
+				</td>
+				<td>
+					<div ng-controller="EnrollEmployeeCtrl">
+							<div class="row">
+								<div class="col-sm-6" style="padding-right: 0px;">
+									<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="child.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+								</div>
+								<div class="col-sm-6" style="padding-left: 0px;">
+									<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</div>
+							</div>
+					</div>
+				</td>
+				<td>
+					<form editable-form name="rowform" ng-show="rowform.$visible" class="form-buttons form-inline"
+					shown="inserted == child">
+						<button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary editable-table-button btn-xs">
+							Save
+						</button>
+						<button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default editable-table-button btn-xs">
+							Cancel
+						</button>
+					</form>
+					<div class="buttons" ng-show="!rowform.$visible">
+						<button class="btn btn-primary editable-table-button btn-xs" ng-click="rowform.$show()">Edit</button>
+						<button class="btn btn-danger editable-table-button btn-xs" ng-click="removeChild($index)">Delete</button>
+					</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+<!-- <div class="row">
+	<div class="col-sm-4">
+
+	</div>
+	<div class="col-sm-4">
+
+	</div>
+	<div class="col-sm-4" style="text-align:right;">
+		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon ">
+			<i class="ion-plus"></i> Add
+		</button>
+	</div>
+</div> -->

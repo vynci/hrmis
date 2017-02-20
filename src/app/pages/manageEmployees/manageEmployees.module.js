@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 
-	angular.module('BlurAdmin.pages.manageEmployees', [])
+	angular.module('BlurAdmin.pages.manageEmployees', ['ui.select', 'ngSanitize'])
 	.config(routeConfig);
 
 	/** @ngInject */
@@ -31,6 +31,7 @@
 			url: '/enroll',
 			templateUrl: 'app/pages/manageEmployees/enrollEmployee/enrollEmployee.html',
 			title: 'Enroll Employee',
+			controller : 'EnrollEmployeeCtrl',
 			sidebarMeta: {
 				order: 0,
 			},

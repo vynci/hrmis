@@ -17,7 +17,7 @@
 	</label>
 </div>
 
-<table class="table table-bordered table-hover" st-table="smartTableData">
+<table class="table table-bordered table-hover" st-table="employees">
 	<thead>
 		<tr class="sortable ">
 			<th class="table-id" st-sort="id" st-sort-default="true">#</th>
@@ -51,11 +51,11 @@
 		</tr> -->
 				</thead>
 				<tbody>
-					<tr ng-repeat="item in smartTableData" ng-click="editEmployee()" style="cursor:pointer;">
-						<td class="table-id">{{item.id}}</td>
-						<td>{{item.firstName}}</td>
-						<td>{{item.lastName}}</td>
-						<td><a class="email-link" ng-href="mailto:{{item.email}}">{{item.email}}</a></td>
+					<tr ng-repeat="item in employees" ng-click="editEmployee(item)" style="cursor:pointer;">
+						<td class="table-id">{{$index + 1}}</td>
+						<td>{{item.attributes.firstName}}</td>
+						<td>{{item.attributes.lastName}}</td>
+						<td><a class="email-link">{{item.attributes.emailAddress}}</a></td>
 						<td>Engineering</td>
 						<td>DAR</td>
 						<td><button class="status-button btn btn-xs btn-{{item.status.type || 'success'}}">{{item.status.message || 'active'}}</button></td>
@@ -63,7 +63,7 @@
 				</tbody>
 				<tfoot>
 					<tr>
-						<td colspan="6" class="text-center">
+						<td colspan="7" class="text-center">
 							<div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
 						</td>
 					</tr>

@@ -8,38 +8,45 @@
 
 	</div>
 	<div class="col-md-4 col-lg-4" style="text-align:right">
-		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon">
-			<i class="ion-checkmark"></i> Save
+		<button ng-click="createEmployee()" class="btn btn-success btn-with-icon">
+			<i class="ion-checkmark"></i> Create Employee
 		</button>
 	</div>
 </div>
 <br>
 
-<div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel medium-panel">
+<div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel large-panel">
 	<uib-tabset active="$tabSetStatus.activeTab">
 		<uib-tab heading="Personal Information">
-			<p>This contains the <b>personal info</b> section</p>
-
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/personalInfo.html'"></div>
 		</uib-tab>
 
 		<uib-tab heading="Family Background">
-			<p>This contains the <b>Family Background</b> section</p>
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/familyBackground.html'"></div>
 		</uib-tab>
 
 		<uib-tab heading="Educational Background">
-			<p>This contains the <b>Educational Background</b> section</p>
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/educationalBackground.html'"></div>
+		</uib-tab>
+
+		<uib-tab heading="Civil Service Eligibility">
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/civilService.html'"></div>
 		</uib-tab>
 
 		<uib-tab heading="Work Experience">
-			<p>This contains the <b>Work Experience</b> section</p>
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/workExperience.html'"></div>
 		</uib-tab>
 
 		<uib-tab heading="Voluntary Work">
-			<p>This contains the <b>Voluntary Work</b> section</p>
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/voluntaryWork.html'"></div>
 		</uib-tab>
 
 		<uib-tab heading="Training Programs">
-			<p>This contains the <b>Training Programs</b> section</p>
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/trainingPrograms.html'"></div>
+		</uib-tab>
+
+		<uib-tab heading="Other Info">
+			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/otherInfo.html'"></div>
 		</uib-tab>
 
 	</uib-tabset>
