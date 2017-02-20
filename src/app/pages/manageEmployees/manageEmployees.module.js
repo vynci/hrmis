@@ -19,9 +19,10 @@
 		})
 
 		.state('editEmployee', {
-			url: '/edit-employee',
+			url: '/edit-employee/:employeeId',
 			templateUrl: 'app/pages/manageEmployees/enrollEmployee/enrollEmployee.html',
 			title: 'Edit Employee Profile',
+			controller : 'EditEmployeeCtrl',
 			sidebarMeta: {
 				order: 0,
 			},
@@ -33,7 +34,7 @@
 			title: 'Enroll Employee',
 			controller : 'EnrollEmployeeCtrl',
 			sidebarMeta: {
-				order: 0,
+				order: 1,
 			},
 		});
 	}

@@ -20,13 +20,13 @@
 <table class="table table-bordered table-hover" st-table="employees">
 	<thead>
 		<tr class="sortable ">
-			<th class="table-id" st-sort="id" st-sort-default="true">#</th>
-			<th st-sort="firstName">First Name</th>
-			<th st-sort="lastName">Last Name</th>
-			<th st-sort="email">Email</th>
-			<th st-sort="desgination">Designation</th>
-			<th st-sort="unit">Unit</th>
-			<th st-sort="status">Status</th>
+			<th class="table-id">#</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email</th>
+			<th>Designation</th>
+			<th>Unit</th>
+			<th>Status</th>
 		</tr>
 		<!-- <tr>
 			<th>
@@ -64,7 +64,8 @@
 				<tfoot>
 					<tr>
 						<td colspan="7" class="text-center">
-							<div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div>
+							<!-- <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div> -->
+							<span ng-if="isLoading">Loading Employees...Please Wait</span>
 						</td>
 					</tr>
 				</tfoot>

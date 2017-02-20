@@ -8,8 +8,12 @@
 
 	</div>
 	<div class="col-md-4 col-lg-4" style="text-align:right">
-		<button ng-click="createEmployee()" class="btn btn-success btn-with-icon">
+		<button ng-if="!isEdit" ng-click="createEmployee()" class="btn btn-success btn-with-icon">
 			<i class="ion-checkmark"></i> Create Employee
+		</button>
+
+		<button ng-if="isEdit" ng-click="updateEmployee()" class="btn btn-success btn-with-icon">
+			<i class="ion-checkmark"></i> Update Information
 		</button>
 	</div>
 </div>
@@ -17,15 +21,15 @@
 
 <div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel large-panel">
 	<uib-tabset active="$tabSetStatus.activeTab">
-		<uib-tab heading="Personal Information">
+		<uib-tab heading="Personal Information" ng-click="profileTabs.personalInfo()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/personalInfo.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Family Background">
+		<uib-tab heading="Family Background" ng-click="profileTabs.familyBackground()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/familyBackground.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Educational Background">
+		<uib-tab heading="Educational Background" ng-click="profileTabs.educationalBackground()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/educationalBackground.html'"></div>
 		</uib-tab>
 

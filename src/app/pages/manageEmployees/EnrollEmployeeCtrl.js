@@ -11,6 +11,10 @@
 	/** @ngInject */
 	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr) {
 		console.log('enroll employee!');
+
+		$scope.isEdit = false;
+		var lastCountIndicator = 0;
+
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 
@@ -20,6 +24,11 @@
 		}
 
 		$scope.personalInfo = {
+			birthPlace : stringToObject('Cebu City'),
+			citizenship : stringToObject('Filipino'),
+			gender : stringToObject('Male'),
+			civilStatus : stringToObject('Single'),
+			bloodType : stringToObject('A+'),
 			birthDate : new Date(),
 			residentialAddressInfo : {},
 			permanentAddressInfo : {}
@@ -32,7 +41,10 @@
 			children : []
 		};
 
-		$scope.educationInfo = {};
+		$scope.educationInfo = {
+			from : new Date(),
+			to : new Date()
+		};
 
 		$scope.educationalBackground = [];
 
@@ -43,30 +55,48 @@
 			console.log($scope.personalInfo);
 			console.log($scope.familyBackground);
 			console.log($scope.educationalBackground);
-			// var Employee = Parse.Object.extend("Employee");
-			// var employee = new Employee();
-			//
-			// employee.set("firstName", $scope.personalInfo.firstName);
-			// employee.set("lastName", $scope.personalInfo.lastName);
-			// employee.set("emailAddress", $scope.personalInfo.emailAddress);
-			//
-			// employee.save(null, {
-			// 	success: function(result) {
-			// 		// Execute any logic that should take place after the object is saved.
-			// 		console.log(result);
-			// 		createPersonalInfo(result);
-			// 	},
-			// 	error: function(employee, error) {
-			// 		// Execute any logic that should take place if the save fails.
-			// 		// error is a Parse.Error with an error code and message.
-			// 	}
-			// });
+
+			if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
+				var Employee = Parse.Object.extend("Employee");
+				var employee = new Employee();
+
+				employee.set("firstName", $scope.personalInfo.firstName);
+				employee.set("lastName", $scope.personalInfo.lastName);
+				employee.set("emailAddress", $scope.personalInfo.emailAddress);
+
+				employee.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						console.log(result);
+						createPersonalInfo(result);
+					},
+					error: function(employee, error) {
+						// Execute any logic that should take place if the save fails.
+						// error is a Parse.Error with an error code and message.
+					}
+				});
+			}else{
+				console.log('no save!');
+				$scope.showErrorMsg('Please fill-out required fields.');
+			}
 		}
 
-		function showSuccessMsg() {
-			toastr.success('Employee has been created successfully!');
-			$state.go('manageEmployees');
+		$scope.showErrorMsg = function(msg) {
+			toastr.error(msg, 'Error');
 		};
+
+		function showSuccessMsg(msg) {
+			toastr.success(msg);
+		};
+
+		function stringToObject(stringValue){
+			var objectValue = {
+				label : stringValue,
+				value : stringValue
+			};
+
+			return objectValue;
+		}
 
 		function createPersonalInfo(employee){
 			var PersonalInfo = Parse.Object.extend("PersonalInfo");
@@ -100,8 +130,10 @@
 				success: function(result) {
 					// Execute any logic that should take place after the object is saved.
 					createFamilyBackground(employee);
+					showSuccessMsg('Personal Information Successfully Saved.');
 				},
 				error: function(employee, error) {
+					console.log(error);
 					// Execute any logic that should take place if the save fails.
 					// error is a Parse.Error with an error code and message.
 				}
@@ -130,12 +162,47 @@
 			familyBackground.save(null, {
 				success: function(result) {
 					// Execute any logic that should take place after the object is saved.
-					showSuccessMsg();
+					showSuccessMsg('Family Background Successfully Saved.');
+					createEducationalBackground(employee);
 				},
 				error: function(employee, error) {
+					console.log(error);
 					// Execute any logic that should take place if the save fails.
 					// error is a Parse.Error with an error code and message.
 				}
+			});
+		}
+
+		function createEducationalBackground(employee){
+			angular.forEach($scope.educationalBackground, function(value, key) {
+				var EducationalBackground = Parse.Object.extend("EducationalBackground");
+				var educationalBackground = new EducationalBackground();
+
+				educationalBackground.set("employeeId", employee.id);
+				educationalBackground.set("awards", value.awards);
+				educationalBackground.set("degreeCourse", value.degreeCourse);
+				educationalBackground.set("from", value.from);
+				educationalBackground.set("to", value.to);
+				educationalBackground.set("highestGrade", value.highestGrade);
+				educationalBackground.set("levelType", value.levelType.value);
+				educationalBackground.set("schoolName", value.schoolName);
+				educationalBackground.set("yearGraduated", parseInt(value.yearGraduated));
+
+				educationalBackground.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.educationalBackground.length){
+							$state.go('manageEmployees');
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+						// Execute any logic that should take place if the save fails.
+						// error is a Parse.Error with an error code and message.
+					}
+				});
 			});
 		}
 

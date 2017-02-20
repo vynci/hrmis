@@ -1,6 +1,6 @@
 <h4>List of Educational Background</h4>
-
-<h5 ng-if="!educationalBackground.length" style="text-align:center;">Empty List.</h5>
+<br>
+<p ng-if="!educationalBackground.length" style="text-align:center;">Empty List. Click the button below to add.</p>
 
 <div ng-repeat="education in educationalBackground" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
 	<div class="row">
@@ -44,17 +44,23 @@
 				<input type="text" class="form-control" id="inputFirstName" placeholder="Highest Grade/Level/Units Earned" ng-model="education.highestGrade">
 			</div>
 		</div>
-		<div class="col-sm-3">
-			<div class="form-group">
-				<label for="inputLastName">From</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="From" ng-model="education.from">
-			</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>From</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="education.from" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
 		</div>
-		<div class="col-sm-3">
-			<div class="form-group">
-				<label for="inputLastName">To</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="To" ng-model="education.to">
-			</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>To</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="education.to" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
@@ -71,86 +77,17 @@
 
 		</div>
 		<div class="col-sm-4" style="text-align:right;">
-			<button ng-click="removeEducation()" class="btn btn-danger btn-with-icon ">
+			<button ng-click="removeEducation($index)" class="btn btn-danger btn-with-icon ">
 				<i class="ion-trash-a"></i> Remove
 			</button>
 		</div>
 	</div>
 </div>
 
-<hr>
-<h5>Add Education Background</h5>
 <div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputWebsite">Level Type</label>
-			<ui-select ng-model="educationInfo.levelType" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
-				<ui-select-match placeholder="Select Type">
-					<span> {{$select.selected.label}}</span>
-				</ui-select-match>
-				<ui-select-choices repeat="standardItem in levelTypeList">
-					<span ng-bind-html="standardItem.label"></span>
-				</ui-select-choices>
-			</ui-select>
-		</div>
-	</div>
-
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Name of School</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Name of School" ng-model="educationInfo.schoolName">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Degree Course</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Degree Course" ng-model="educationInfo.degreeCourse">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Year Graduated</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Year Graduated" ng-model="educationInfo.yearGraduated">
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Highest Grade/Level/Units Earned</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Highest Grade/Level/Units Earned" ng-model="educationInfo.highestGrade">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">From</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="From" ng-model="educationInfo.from">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">To</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="To" ng-model="educationInfo.to">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Scholarship/Academic honors</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Scholarship/Academic honors" ng-model="educationInfo.awards">
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4" style="text-align:right;">
-		<button ng-click="addEducation()" class="btn btn-success btn-with-icon ">
-			<i class="ion-plus"></i> Add
+	<div class="col-sm-12" style="text-align:center;">
+		<button ng-click="addEducation()" class="btn btn-warning btn-with-icon ">
+			<i class="ion-plus"></i> Add Educational Background
 		</button>
 	</div>
 </div>

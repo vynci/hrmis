@@ -14,6 +14,7 @@
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 
+			getAllEmployees();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -23,25 +24,28 @@
 			$state.go('enrollEmployee');
 		}
 
-		$scope.editEmployee = function(id){
-			console.log(id);
-			$state.go('editEmployee');
+		$scope.editEmployee = function(employee){
+			console.log(employee.id);
+			$state.go('editEmployee', {employeeId: employee.id});
 		}
 
 		$scope.smartTablePageSize = 5;
 		$scope.employees = [];
 
+		function getAllEmployees(){
+			$scope.isLoading = true;			
+			employeeService.getAll()
+			.then(function(results) {
+				// Handle the result
+				$scope.employees = results;
+				$scope.isLoading = false;
+			}, function(err) {
+				console.log(err);
+			}, function(percentComplete) {
+				console.log(percentComplete);
+			});
+		}
 
-		employeeService.getAll()
-		.then(function(results) {
-			// Handle the result
-			console.log(results);
-			$scope.employees = results;
-		}, function(err) {
-			console.log(err);
-		}, function(percentComplete) {
-			console.log(percentComplete);
-		});
 
 
 	}
