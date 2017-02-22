@@ -1,61 +1,73 @@
 <h4>List of Civil Service Eligibility</h4>
 
-<h5 style="text-align:center;">Empty List.</h5>
+<p ng-if="!civilService.length" style="text-align:center;">Empty List. Click the button below to add.</p>
 
-<hr>
-
-<div class="row">
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputFirstName">Career Service</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Career Service">
+<div ng-repeat="service in civilService" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputFirstName">Career Service</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Career Service" ng-model="service.careerService">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">Rating</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Rating" ng-model="service.rating">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">Date of Examination / Conferment</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Date of Examination / Conferment" ng-model="service.examDate">
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">Rating</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Rating">
+
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputFirstName">Place of Examination / Conferment</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Place of Examination / Conferment" ng-model="service.examPlace">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">License Number</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="License Number" ng-model="service.licenseNumber">
+			</div>
+		</div>
+		<div class="col-sm-4 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>Date of Release</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="service.licenseReleaseDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+
 		</div>
 	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">Date of Examination / Conferment</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Date of Examination / Conferment">
+
+	<div class="row">
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4" style="text-align:right;">
+			<button ng-click="removeService($index)" class="btn btn-danger btn-with-icon ">
+				<i class="ion-trash-a"></i> Remove
+			</button>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputFirstName">Place of Examination / Conferment</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Place of Examination / Conferment">
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">License Number</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="License Number">
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">Date of Release</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Date of Release">
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4" style="text-align:right;">
-		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon ">
-			<i class="ion-plus"></i> Add
+	<div class="col-sm-12" style="text-align:center;">
+		<button ng-click="addService()" class="btn btn-warning btn-with-icon ">
+			<i class="ion-plus"></i> Add Civil Service Eligibility
 		</button>
 	</div>
 </div>

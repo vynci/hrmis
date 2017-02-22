@@ -1,40 +1,49 @@
 <h4>List of Other Information</h4>
 
-<h5 style="text-align:center;">Empty List.</h5>
+<p ng-if="!otherInfo.length" style="text-align:center;">Empty List. Click the button below to add.</p>
 
-<hr>
+<div ng-repeat="info in otherInfo" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+	<div class="row">
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputFirstName">Special Skills / Hobbies</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Position Title" ng-model="info.specialSkill">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">Non-Academic Distinction / Recognition</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Department" ng-model="info.nonAcademicRecognition">
+			</div>
+		</div>
+		<div class="col-sm-4">
+			<div class="form-group">
+				<label for="inputLastName">Membership in Association / Organization</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Monthly Salary" ng-model="info.organizationMembership">
+			</div>
+		</div>
+	</div>
 
-<div class="row">
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputFirstName">Special Skills / Hobbies</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Position Title">
+	<div class="row">
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4" style="text-align:right;">
+			<button ng-click="removeOtherInfo($index)" class="btn btn-danger btn-with-icon ">
+				<i class="ion-trash-a"></i> Remove
+			</button>
 		</div>
 	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">Non-Academic Distinction / Recognition</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Department">
-		</div>
-	</div>
-	<div class="col-sm-4">
-		<div class="form-group">
-			<label for="inputLastName">Membership in Association / Organization</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Monthly Salary">
-		</div>
-	</div>
+
 </div>
 
 <div class="row">
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4" style="text-align:right;">
-		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon ">
-			<i class="ion-plus"></i> Add
+	<div class="col-sm-12" style="text-align:center;">
+		<button ng-click="addOtherInfo()" class="btn btn-warning btn-with-icon ">
+			<i class="ion-plus"></i> Add Other Info
 		</button>
 	</div>
 </div>

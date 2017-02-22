@@ -1,65 +1,79 @@
 <h4>List of Voluntary Works</h4>
 <h6>Involvement in civic / Non-Government / People / Voluntary Organization/s</h6>
 
-<h5 style="text-align:center;">Empty List.</h5>
+<p ng-if="!voluntaryWorks.length" style="text-align:center;">Empty List. Click the button below to add.</p>
 
-<hr>
+<div ng-repeat="voluntaryWork in voluntaryWorks" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputFirstName">Name of organization</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Name of organization" ng-model="voluntaryWork.name">
+			</div>
+		</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>From</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="voluntaryWork.inclusiveFromDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+		</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>To</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="voluntaryWork.inclusiveToDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputFirstName">Number of Hours</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Number of Hours" ng-model="voluntaryWork.numberOfHours">
+			</div>
+		</div>
+	</div>
 
-<div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Name of organization</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Name of organization">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Position / Nature of Work</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Position / Nature of Work" ng-model="voluntaryWork.position">
+			</div>
+		</div>
+		<div class="col-sm-3">
+
+		</div>
+		<div class="col-sm-3">
+
+		</div>
+		<div class="col-sm-3">
+
 		</div>
 	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Date From</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Date From">
+
+	<div class="row">
+		<div class="col-sm-4">
+
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Date To</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Date To">
+		<div class="col-sm-4">
+
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Number of Hours</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Number of Hours">
+		<div class="col-sm-4" style="text-align:right;">
+			<button ng-click="removeVoluntaryWork($index)" class="btn btn-danger btn-with-icon ">
+				<i class="ion-trash-a"></i> Remove
+			</button>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Position / Nature of Work</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Position / Nature of Work">
-		</div>
-	</div>
-	<div class="col-sm-3">
-
-	</div>
-	<div class="col-sm-3">
-
-	</div>
-	<div class="col-sm-3">
-
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4" style="text-align:right;">
-		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon ">
-			<i class="ion-plus"></i> Add
+	<div class="col-sm-12" style="text-align:center;">
+		<button ng-click="addVoluntaryWork()" class="btn btn-warning btn-with-icon ">
+			<i class="ion-plus"></i> Add Voluntary Work
 		</button>
 	</div>
 </div>

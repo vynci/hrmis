@@ -46,40 +46,13 @@
 			to : new Date()
 		};
 
+		$scope.civilService = [];
+		$scope.workExperience = [];
+		$scope.voluntaryWorks = [];
+		$scope.trainingPrograms = [];
+		$scope.otherInfo = [];
 		$scope.educationalBackground = [];
-
 		$scope.children = [];
-
-		$scope.createEmployee = function(){
-			console.log('create!');
-			console.log($scope.personalInfo);
-			console.log($scope.familyBackground);
-			console.log($scope.educationalBackground);
-
-			if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
-				var Employee = Parse.Object.extend("Employee");
-				var employee = new Employee();
-
-				employee.set("firstName", $scope.personalInfo.firstName);
-				employee.set("lastName", $scope.personalInfo.lastName);
-				employee.set("emailAddress", $scope.personalInfo.emailAddress);
-
-				employee.save(null, {
-					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
-						console.log(result);
-						createPersonalInfo(result);
-					},
-					error: function(employee, error) {
-						// Execute any logic that should take place if the save fails.
-						// error is a Parse.Error with an error code and message.
-					}
-				});
-			}else{
-				console.log('no save!');
-				$scope.showErrorMsg('Please fill-out required fields.');
-			}
-		}
 
 		$scope.showErrorMsg = function(msg) {
 			toastr.error(msg, 'Error');
@@ -96,6 +69,41 @@
 			};
 
 			return objectValue;
+		}
+
+		$scope.createEmployee = function(){
+			console.log('create!');
+			console.log($scope.personalInfo);
+			console.log($scope.familyBackground);
+			console.log($scope.educationalBackground);
+			console.log($scope.civilService);
+			console.log($scope.workExperience);
+			console.log($scope.voluntaryWorks);
+			console.log($scope.trainingPrograms);
+			console.log($scope.otherInfo);
+			// if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
+			// 	var Employee = Parse.Object.extend("Employee");
+			// 	var employee = new Employee();
+			//
+			// 	employee.set("firstName", $scope.personalInfo.firstName);
+			// 	employee.set("lastName", $scope.personalInfo.lastName);
+			// 	employee.set("emailAddress", $scope.personalInfo.emailAddress);
+			//
+			// 	employee.save(null, {
+			// 		success: function(result) {
+			// 			// Execute any logic that should take place after the object is saved.
+			// 			console.log(result);
+			// 			createPersonalInfo(result);
+			// 		},
+			// 		error: function(employee, error) {
+			// 			// Execute any logic that should take place if the save fails.
+			// 			// error is a Parse.Error with an error code and message.
+			// 		}
+			// 	});
+			// }else{
+			// 	console.log('no save!');
+			// 	$scope.showErrorMsg('Please fill-out required fields.');
+			// }
 		}
 
 		function createPersonalInfo(employee){
@@ -278,19 +286,54 @@
 		};
 
 		$scope.addEducation = function() {
-			console.log('add education!');
-			$scope.inserted = {
-				levelType : $scope.educationInfo.levelType,
-				schoolName : $scope.educationInfo.schoolName,
-				degreeCourse : $scope.educationInfo.degreeCourse,
-				yearGraduated : $scope.educationInfo.yearGraduated,
-				highestGrade : $scope.educationInfo.highestGrade,
-				from : $scope.educationInfo.from,
-				to : $scope.educationInfo.to,
-				awards : $scope.educationInfo.awards
-			};
+			$scope.inserted = {};
 			$scope.educationalBackground.push($scope.inserted);
 		};
+
+		$scope.removeService = function(index){
+			$scope.civilService.splice(index, 1);
+		}
+
+		$scope.addService = function(){
+			$scope.inserted = {};
+			$scope.civilService.push($scope.inserted);
+		}
+
+		$scope.removeExperience = function(index){
+			$scope.workExperience.splice(index, 1);
+		}
+
+		$scope.addExperience = function(){
+			$scope.inserted = {};
+			$scope.workExperience.push($scope.inserted);
+		}
+
+		$scope.removeVoluntaryWork = function(index){
+			$scope.voluntaryWorks.splice(index, 1);
+		}
+
+		$scope.addVoluntaryWork = function(){
+			$scope.inserted = {};
+			$scope.voluntaryWorks.push($scope.inserted);
+		}
+
+		$scope.removeTrainingProgram = function(index){
+			$scope.trainingPrograms.splice(index, 1);
+		}
+
+		$scope.addTrainingProgram = function(){
+			$scope.inserted = {};
+			$scope.trainingPrograms.push($scope.inserted);
+		}
+
+		$scope.removeOtherInfo = function(index){
+			$scope.otherInfo.splice(index, 1);
+		}
+
+		$scope.addOtherInfo = function(){
+			$scope.inserted = {};
+			$scope.otherInfo.push($scope.inserted);
+		}
 
 	}
 

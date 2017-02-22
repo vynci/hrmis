@@ -1,73 +1,87 @@
 <h4>List of Work Experience</h4>
 
-<h5 style="text-align:center;">Empty List.</h5>
+<p ng-if="!workExperience.length" style="text-align:center;">Empty List. Click the button below to add.</p>
 
-<hr>
+<div ng-repeat="experience in workExperience" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputFirstName">Position Title</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Position Title" ng-model="experience.positionTitle">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Department / Agency / Office / Company</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Department" ng-model="experience.department">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Monthly Salary</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Monthly Salary" ng-model="experience.monthlySalary">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputFirstName">Salary Grade & Step Increment</label>
+				<input type="text" class="form-control" id="inputFirstName" placeholder="Salary Grade & Step Increment" ng-model="experience.salaryGrade">
+			</div>
+		</div>
+	</div>
 
-<div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Position Title</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Position Title">
+	<div class="row">
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Status of Appointment</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Status of Appointment" ng-model="experience.statusOfAppointment">
+			</div>
+		</div>
+		<div class="col-sm-3">
+			<div class="form-group">
+				<label for="inputLastName">Government Service</label>
+				<input type="text" class="form-control" id="inputLastName" placeholder="Government Service" ng-model="experience.isGovernmentService">
+			</div>
+		</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>From</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="experience.inclusiveFromDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
+		</div>
+		<div class="col-sm-3 datepicker" ng-controller="EnrollEmployeeCtrl">
+			<label>To</label>
+			<p class="input-group">
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="experience.inclusiveToDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+				</span>
+			</p>
 		</div>
 	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Department / Agency / Office / Company</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Department">
+
+	<div class="row">
+		<div class="col-sm-4">
+
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Monthly Salary</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Monthly Salary">
+		<div class="col-sm-4">
+
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">Salary Grade & Step Increment</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Salary Grade & Step Increment">
+		<div class="col-sm-4" style="text-align:right;">
+			<button ng-click="removeExperience($index)" class="btn btn-danger btn-with-icon ">
+				<i class="ion-trash-a"></i> Remove
+			</button>
 		</div>
 	</div>
 </div>
 
 <div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Status of Appointment</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Status of Appointment">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Government Service</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Government Service">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">From</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="From">
-		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">To</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="To">
-		</div>
-	</div>
-</div>
-
-<div class="row">
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4">
-
-	</div>
-	<div class="col-sm-4" style="text-align:right;">
-		<button ng-click="enrollEmployee()" class="btn btn-success btn-with-icon ">
-			<i class="ion-plus"></i> Add
+	<div class="col-sm-12" style="text-align:center;">
+		<button ng-click="addExperience()" class="btn btn-warning btn-with-icon ">
+			<i class="ion-plus"></i> Add Work Experience
 		</button>
 	</div>
 </div>
