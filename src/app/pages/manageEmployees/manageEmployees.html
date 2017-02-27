@@ -65,7 +65,12 @@
 					<tr>
 						<td colspan="7" class="text-center">
 							<!-- <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div> -->
-							<span ng-if="isLoading">Loading Employees...Please Wait</span>
+							<!-- <span ng-if="isLoading">Loading Employees...Please Wait</span> -->
+							<div class="row" ng-if="isLoading">
+								<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+									<div class="loader"></div>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</tfoot>

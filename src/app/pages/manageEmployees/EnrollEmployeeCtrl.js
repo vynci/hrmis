@@ -81,29 +81,29 @@
 			console.log($scope.voluntaryWorks);
 			console.log($scope.trainingPrograms);
 			console.log($scope.otherInfo);
-			// if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
-			// 	var Employee = Parse.Object.extend("Employee");
-			// 	var employee = new Employee();
-			//
-			// 	employee.set("firstName", $scope.personalInfo.firstName);
-			// 	employee.set("lastName", $scope.personalInfo.lastName);
-			// 	employee.set("emailAddress", $scope.personalInfo.emailAddress);
-			//
-			// 	employee.save(null, {
-			// 		success: function(result) {
-			// 			// Execute any logic that should take place after the object is saved.
-			// 			console.log(result);
-			// 			createPersonalInfo(result);
-			// 		},
-			// 		error: function(employee, error) {
-			// 			// Execute any logic that should take place if the save fails.
-			// 			// error is a Parse.Error with an error code and message.
-			// 		}
-			// 	});
-			// }else{
-			// 	console.log('no save!');
-			// 	$scope.showErrorMsg('Please fill-out required fields.');
-			// }
+			if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
+				var Employee = Parse.Object.extend("Employee");
+				var employee = new Employee();
+
+				employee.set("firstName", $scope.personalInfo.firstName);
+				employee.set("lastName", $scope.personalInfo.lastName);
+				employee.set("emailAddress", $scope.personalInfo.emailAddress);
+
+				employee.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						console.log(result);
+						createPersonalInfo(result);
+					},
+					error: function(employee, error) {
+						// Execute any logic that should take place if the save fails.
+						// error is a Parse.Error with an error code and message.
+					}
+				});
+			}else{
+				console.log('no save!');
+				$scope.showErrorMsg('Please fill-out required fields.');
+			}
 		}
 
 		function createPersonalInfo(employee){
@@ -202,7 +202,9 @@
 						showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.educationalBackground.length){
-							$state.go('manageEmployees');
+							// $state.go('manageEmployees');
+							lastCountIndicator = 0;
+							createCivilService(employee);
 						}
 					},
 					error: function(employee, error) {
@@ -213,6 +215,156 @@
 				});
 			});
 		}
+
+		function createCivilService(employee){
+			angular.forEach($scope.civilService, function(value, key) {
+				var CivilServiceEligibility = Parse.Object.extend("CivilServiceEligibility");
+				var civilServiceEligibility = new CivilServiceEligibility();
+
+				civilServiceEligibility.set("employeeId", employee.id);
+				civilServiceEligibility.set("careerService", value.careerService);
+				civilServiceEligibility.set("rating", parseInt(value.rating));
+				civilServiceEligibility.set("examDate", value.examDate);
+				civilServiceEligibility.set("examPlace", value.examPlace);
+				civilServiceEligibility.set("licenseNumber", value.licenseNumber);
+				civilServiceEligibility.set("licenseReleaseDate", value.licenseReleaseDate);
+
+				civilServiceEligibility.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						showSuccessMsg('Civil Service: ' + value.careerService + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.civilService.length){
+							// $state.go('manageEmployees');
+							lastCountIndicator = 0;
+							createWorkExperience(employee);
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		}
+
+		function createWorkExperience(employee){
+			angular.forEach($scope.workExperience, function(value, key) {
+				var WorkExperience = Parse.Object.extend("WorkExperience");
+				var workExperience = new WorkExperience();
+
+				workExperience.set("employeeId", employee.id);
+				workExperience.set("positionTitle", value.positionTitle);
+				workExperience.set("department", value.department);
+				workExperience.set("monthlySalary", parseInt(value.monthlySalary));
+				workExperience.set("salaryGrade", value.salaryGrade);
+				workExperience.set("statusOfAppointment", value.statusOfAppointment);
+				workExperience.set("isGovernmentService", true);
+				workExperience.set("inclusiveFromDate", value.inclusiveFromDate);
+				workExperience.set("inclusiveToDate", value.inclusiveToDate);
+
+				workExperience.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						showSuccessMsg('Work Experience: ' + value.positionTitle + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.workExperience.length){
+							// $state.go('manageEmployees');
+							lastCountIndicator = 0;
+							createVoluntaryWork(employee);
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		}
+
+		function createVoluntaryWork(employee){
+			angular.forEach($scope.voluntaryWorks, function(value, key) {
+				var VoluntaryWork = Parse.Object.extend("VoluntaryWork");
+				var voluntaryWork = new VoluntaryWork();
+
+				voluntaryWork.set("employeeId", employee.id);
+				voluntaryWork.set("name", value.name);
+				voluntaryWork.set("inclusiveFromDate", value.inclusiveFromDate);
+				voluntaryWork.set("inclusiveToDate", value.inclusiveToDate);
+				voluntaryWork.set("numberOfHours", parseInt(value.numberOfHours));
+				voluntaryWork.set("position", value.position);
+
+				voluntaryWork.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						showSuccessMsg('Voluntary Work: ' + value.name + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.voluntaryWorks.length){
+							// $state.go('manageEmployees');
+							lastCountIndicator = 0;
+							createTrainingProgram(employee);
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		}
+
+		function createTrainingProgram(employee){
+			angular.forEach($scope.trainingPrograms, function(value, key) {
+				var TrainingPrograms = Parse.Object.extend("TrainingPrograms");
+				var trainingPrograms = new TrainingPrograms();
+
+				trainingPrograms.set("employeeId", employee.id);
+				trainingPrograms.set("name", value.name);
+				trainingPrograms.set("inclusiveFromDate", value.inclusiveFromDate);
+				trainingPrograms.set("inclusiveToDate", value.inclusiveToDate);
+				trainingPrograms.set("numberOfHours", parseInt(value.numberOfHours));
+				trainingPrograms.set("conductor", value.conductor);
+
+				trainingPrograms.save(null, {
+					success: function(result) {
+						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.trainingPrograms.length){
+							// $state.go('manageEmployees');
+							lastCountIndicator = 0;
+							createOtherInfo(employee);
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		}
+
+		function createOtherInfo(employee){
+			angular.forEach($scope.otherInfo, function(value, key) {
+				var OtherInfo = Parse.Object.extend("OtherInfo");
+				var otherInfo = new OtherInfo();
+
+				otherInfo.set("employeeId", employee.id);
+				otherInfo.set("specialSkill", value.specialSkill);
+				otherInfo.set("nonAcademicRecognition", value.nonAcademicRecognition);
+				otherInfo.set("organizationMembership", value.organizationMembership);
+
+				otherInfo.save(null, {
+					success: function(result) {
+						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.otherInfo.length){
+							$state.go('manageEmployees');
+							lastCountIndicator = 0;
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		}
+
 
 		$scope.open = function(){
 			if($scope.opened){

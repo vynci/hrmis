@@ -12,9 +12,18 @@
 			<i class="ion-checkmark"></i> Create Employee
 		</button>
 
-		<button ng-if="isEdit" ng-click="updateEmployee()" class="btn btn-success btn-with-icon">
-			<i class="ion-checkmark"></i> Update Information
-		</button>
+		<div class="row" ng-if="isEdit">
+			<div class="col-md-6 col-sm-6">
+				<button ng-click="deletConfirmation()" class="btn btn-danger btn-with-icon">
+					<i class="ion-trash-a"></i> Delete Employee
+				</button>
+			</div>
+			<div class="col-md-6 col-sm-6">
+				<button ng-click="updateEmployee()" class="btn btn-success btn-with-icon">
+					<i class="ion-checkmark"></i> Update Information
+				</button>
+			</div>
+		</div>
 	</div>
 </div>
 <br>
@@ -33,23 +42,23 @@
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/educationalBackground.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Civil Service Eligibility">
+		<uib-tab heading="Civil Service Eligibility" ng-click="profileTabs.civilService()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/civilService.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Work Experience">
+		<uib-tab heading="Work Experience" ng-click="profileTabs.workExperience()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/workExperience.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Voluntary Work">
+		<uib-tab heading="Voluntary Work" ng-click="profileTabs.voluntaryWork()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/voluntaryWork.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Training Programs">
+		<uib-tab heading="Training Programs" ng-click="profileTabs.trainingPrograms()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/trainingPrograms.html'"></div>
 		</uib-tab>
 
-		<uib-tab heading="Other Info">
+		<uib-tab heading="Other Info" ng-click="profileTabs.otherInfo()">
 			<div ng-include="'app/pages/manageEmployees/enrollEmployee/forms/otherInfo.html'"></div>
 		</uib-tab>
 

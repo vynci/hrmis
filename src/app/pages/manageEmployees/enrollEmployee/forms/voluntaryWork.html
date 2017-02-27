@@ -1,7 +1,7 @@
 <h4>List of Voluntary Works</h4>
 <h6>Involvement in civic / Non-Government / People / Voluntary Organization/s</h6>
 
-<p ng-if="!voluntaryWorks.length" style="text-align:center;">Empty List. Click the button below to add.</p>
+<p ng-if="!voluntaryWorks.length && !isLoading" style="text-align:center;">Empty List. Click the button below to add.</p>
 
 <div ng-repeat="voluntaryWork in voluntaryWorks" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
 	<div class="row">
@@ -32,7 +32,7 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				<label for="inputFirstName">Number of Hours</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Number of Hours" ng-model="voluntaryWork.numberOfHours">
+				<input type="number" class="form-control" id="inputFirstName" placeholder="Number of Hours" ng-model="voluntaryWork.numberOfHours">
 			</div>
 		</div>
 	</div>
@@ -67,6 +67,12 @@
 				<i class="ion-trash-a"></i> Remove
 			</button>
 		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="isLoading" style="margin-bottom: 15px;">
+	<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+		<div class="loader"></div>
 	</div>
 </div>
 

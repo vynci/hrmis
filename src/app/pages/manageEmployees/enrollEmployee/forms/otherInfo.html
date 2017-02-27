@@ -1,6 +1,6 @@
 <h4>List of Other Information</h4>
 
-<p ng-if="!otherInfo.length" style="text-align:center;">Empty List. Click the button below to add.</p>
+<p ng-if="!otherInfo.length && !isLoading" style="text-align:center;">Empty List. Click the button below to add.</p>
 
 <div ng-repeat="info in otherInfo" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
 	<div class="row">
@@ -13,13 +13,13 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputLastName">Non-Academic Distinction / Recognition</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="Department" ng-model="info.nonAcademicRecognition">
+				<input type="text" class="form-control" id="inputLastName" placeholder="Non-Academic Distinction / Recognition" ng-model="info.nonAcademicRecognition">
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputLastName">Membership in Association / Organization</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="Monthly Salary" ng-model="info.organizationMembership">
+				<input type="text" class="form-control" id="inputLastName" placeholder="Membership in Association / Organization" ng-model="info.organizationMembership">
 			</div>
 		</div>
 	</div>
@@ -38,6 +38,12 @@
 		</div>
 	</div>
 
+</div>
+
+<div class="row" ng-if="isLoading" style="margin-bottom: 15px;">
+	<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+		<div class="loader"></div>
+	</div>
 </div>
 
 <div class="row">

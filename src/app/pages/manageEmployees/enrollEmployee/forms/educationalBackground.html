@@ -1,8 +1,8 @@
 <h4>List of Educational Background</h4>
 <br>
-<p ng-if="!educationalBackground.length" style="text-align:center;">Empty List. Click the button below to add.</p>
+<p ng-if="!educationalBackground.length && !isLoading" style="text-align:center;">Empty List. Click the button below to add.</p>
 
-<div ng-repeat="education in educationalBackground" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+<div ng-if="!isLoading" ng-repeat="education in educationalBackground" style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
 	<div class="row">
 		<div class="col-sm-3">
 			<div class="form-group">
@@ -33,7 +33,7 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				<label for="inputLastName">Year Graduated</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="Year Graduated" ng-model="education.yearGraduated">
+				<input type="number" class="form-control" id="inputLastName" placeholder="Year Graduated" ng-model="education.yearGraduated">
 			</div>
 		</div>
 	</div>
@@ -81,6 +81,12 @@
 				<i class="ion-trash-a"></i> Remove
 			</button>
 		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="isLoading" style="margin-bottom: 15px;">
+	<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+		<div class="loader"></div>
 	</div>
 </div>
 
