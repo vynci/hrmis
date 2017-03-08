@@ -64,6 +64,7 @@
 			$uibModal.open({
 				animation: true,
 				templateUrl: 'app/pages/manageEmployees/modals/deleteConfirmation.html',
+				controller: 'EditEmployeeCtrl',
 				size: 'md',
 				resolve: {
 					items: function () {
@@ -102,6 +103,38 @@
 
 		function showSuccessMsg(msg) {
 			toastr.success(msg);
+		};
+
+		$scope.deleteEmployee = function(){
+				console.log('delete employee!');
+				var Employee = Parse.Object.extend("Employee");
+				var employee = new Employee();
+
+				employee.id = $stateParams.employeeId;
+
+				employee.destroy({
+					success: function(myObject) {
+						showSuccessMsg('Employee Record Successfully Deleted.');
+						$state.go('manageEmployees');
+					},
+					error: function(myObject, error) {
+						// The delete failed.
+						// error is a Parse.Error with an error code and message.
+					}
+				});
+		}
+
+		$scope.removeChild = function(index) {
+			$scope.familyBackground.children.splice(index, 1);
+		};
+
+		$scope.addChild = function() {
+			console.log('add child!');
+			$scope.inserted = {
+				id: $scope.familyBackground.children.length+1,
+				name: ''
+			};
+			$scope.familyBackground.children.push($scope.inserted);
 		};
 
 		$scope.removeEducation = function(index) {
@@ -335,13 +368,13 @@
 
 				angular.forEach(familyBackground.get('childList'), function(value, key) {
 					children.push({
-						id : value.id,
 						name : value.name,
 						birthDate : new Date(value.birthDate),
 					});
 				});
 
 				$scope.familyBackground = {
+					id : familyBackground.id,
 					spouseInfo : familyBackground.get('spouseInfo'),
 					fatherInfo : familyBackground.get('fatherInfo'),
 					motherInfo : familyBackground.get('motherInfo'),
@@ -561,6 +594,10 @@
 				updatePersonalInfo();
 			}
 
+			if($scope.familyBackground){
+				updateFamilyBackground();
+			}
+
 			if($scope.educationalBackground){
 				updateEducationalBackground();
 			}
@@ -618,7 +655,55 @@
 			personalInfo.save(null, {
 				success: function(result) {
 					// Execute any logic that should take place after the object is saved.
-					showSuccessMsg('Personal Information Successfully Saved.');
+
+					var Employee = Parse.Object.extend("Employee");
+					var employee = new Employee();
+
+					employee.id = $stateParams.employeeId;
+					employee.set("firstName", $scope.personalInfo.firstName);
+					employee.set("lastName", $scope.personalInfo.lastName);
+					employee.set("emailAddress", $scope.personalInfo.emailAddress);
+
+					employee.save(null, {
+						success: function(result) {
+							// Execute any logic that should take place after the object is saved.
+							showSuccessMsg('Personal Information Successfully Saved.');
+						},
+						error: function(employee, error) {
+							console.log(error);
+						}
+					});
+				},
+				error: function(employee, error) {
+					console.log(error);
+				}
+			});
+		}
+
+		function updateFamilyBackground(){
+			var FamilyBackground = Parse.Object.extend("FamilyBackground");
+			var familyBackground = new FamilyBackground();
+			var children = [];
+
+			familyBackground.id = $scope.familyBackground.id;
+			familyBackground.set("employeeId", $stateParams.employeeId);
+			familyBackground.set("spouseInfo", $scope.familyBackground.spouseInfo);
+			familyBackground.set("fatherInfo", $scope.familyBackground.fatherInfo);
+			familyBackground.set("motherInfo", $scope.familyBackground.motherInfo);
+
+			angular.forEach($scope.familyBackground.children, function(value, key) {
+				delete value["$$hashKey"];
+				var child = value;
+
+				children.push(child);
+			});
+
+			familyBackground.set("childList", children);
+
+			familyBackground.save(null, {
+				success: function(result) {
+					// Execute any logic that should take place after the object is saved.
+					showSuccessMsg('Family Background Successfully Saved.');
 				},
 				error: function(employee, error) {
 					console.log(error);

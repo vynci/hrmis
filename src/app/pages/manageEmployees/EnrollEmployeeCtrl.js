@@ -106,6 +106,27 @@
 			console.log($scope.voluntaryWorks);
 			console.log($scope.trainingPrograms);
 			console.log($scope.otherInfo);
+			// if($scope.familyBackground.fatherInfo){
+			// 	$scope.isFamilyBackgroundNotEmpty = true;
+			// }
+			// if($scope.educationalBackground.length){
+			// 	$scope.isEducationalBackgroundNotEmpty = true;
+			// }
+			// if($scope.civilService.length){
+			// 	$scope.isCivilServiceNotEmpty = true;
+			// }
+			// if($scope.workExperience.length){
+			// 	$scope.isWorkExperienceNotEmpty = true;
+			// }
+			// if($scope.voluntaryWorks.length){
+			// 	$scope.isVoluntaryWorksNotEmpty = true;
+			// }
+			// if($scope.trainingPrograms.length){
+			// 	$scope.isTrainingProgramsNotEmpty = true;
+			// }
+			// if($scope.otherInfo.length){
+			// 	$scope.isOtherInfoNotEmpty = true;
+			// }
 			if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
 				var Employee = Parse.Object.extend("Employee");
 				var employee = new Employee();
@@ -171,8 +192,6 @@
 				},
 				error: function(employee, error) {
 					console.log(error);
-					// Execute any logic that should take place if the save fails.
-					// error is a Parse.Error with an error code and message.
 				}
 			});
 		}
@@ -231,7 +250,6 @@
 						showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.educationalBackground.length){
-							// $state.go('manageEmployees');
 							lastCountIndicator = 0;
 							createCivilService(employee);
 						}
@@ -264,7 +282,6 @@
 						showSuccessMsg('Civil Service: ' + value.careerService + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.civilService.length){
-							// $state.go('manageEmployees');
 							lastCountIndicator = 0;
 							createWorkExperience(employee);
 						}
@@ -297,7 +314,6 @@
 						showSuccessMsg('Work Experience: ' + value.positionTitle + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.workExperience.length){
-							// $state.go('manageEmployees');
 							lastCountIndicator = 0;
 							createVoluntaryWork(employee);
 						}
@@ -327,7 +343,6 @@
 						showSuccessMsg('Voluntary Work: ' + value.name + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.voluntaryWorks.length){
-							// $state.go('manageEmployees');
 							lastCountIndicator = 0;
 							createTrainingProgram(employee);
 						}
@@ -356,7 +371,6 @@
 						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.trainingPrograms.length){
-							// $state.go('manageEmployees');
 							lastCountIndicator = 0;
 							createOtherInfo(employee);
 						}
