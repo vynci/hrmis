@@ -23,7 +23,8 @@
     'BlurAdmin.pages.manageUsers',
     'BlurAdmin.pages.auditTrail',
     'BlurAdmin.pages.systemSettings',
-    'BlurAdmin.pages.auth'
+    'BlurAdmin.pages.auth',
+    'BlurAdmin.pages.manageProfile'
   ]).config(routeConfig);
 
   /** @ngInject */

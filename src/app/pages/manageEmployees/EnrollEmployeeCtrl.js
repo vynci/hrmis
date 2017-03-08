@@ -15,7 +15,7 @@
 		$scope.isEdit = false;
 		var lastCountIndicator = 0;
 		var defaultAvatar = "http://hrmis-api.herokuapp.com/parse/files/myAppId/709d67e1750729d0f4f8f15837e28713_Profile-sky-ovnis.jpg";
-		
+
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 
@@ -77,10 +77,10 @@
 				fileReader.readAsDataUrl(data, $scope)
 					.then(function (result) {
 						$scope.personalInfo.avatar = result;
-					});					
+					});
 			}, function(err) {
 				console.log(err);
-			});		
+			});
 		};
 
 		function showSuccessMsg(msg) {
@@ -158,6 +158,8 @@
 
 			if($scope.profilePictureFile){
 				personalInfo.set("avatar", $scope.profilePictureFile._url);
+			}else{
+				personalInfo.set("avatar", defaultAvatar);
 			}
 
 			personalInfo.set("firstName", $scope.personalInfo.firstName);

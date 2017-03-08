@@ -9,12 +9,13 @@
 	.controller('EditEmployeeCtrl', EditEmployeeCtrl);
 
 	/** @ngInject */
-	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader) {
+	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader) {
 		$scope.isEdit = true;
 
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 			getPersonalInfo();
+			getEmployeeInfo($stateParams.employeeId);
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -83,11 +84,9 @@
 			fileInput.click();
 		}
 
-		$scope.onFileSelect = function(data){
-			console.log(data);
-		}
-
 		$scope.getFile = function (data) {
+			console.log(data);
+			$scope.personalInfo.avatar = false;
 			personalInfoService.uploadProfilePicture(data)
 			.then(function(result) {
 				$scope.profilePictureFile = result;
@@ -95,15 +94,63 @@
 				fileReader.readAsDataUrl(data, $scope)
 					.then(function (result) {
 						$scope.personalInfo.avatar = result;
-					});					
+					});
 			}, function(err) {
 				console.log(err);
-			});	
+			});
 		};
 
 		function showSuccessMsg(msg) {
 			toastr.success(msg);
 		};
+
+		$scope.activateEmployee = function(status){
+
+			if(!$scope.employeeInfo.get('userId')){
+				var User = Parse.Object.extend("User");
+				var user = new User();
+
+				user.set('username', $scope.personalInfo.emailAddress);
+				user.set('password', '12345');
+				user.set('email', $scope.personalInfo.emailAddress);
+				user.set('userTypeId', 'RiHzyVvs5F');
+
+				user.save(null, {
+					success: function(user) {
+						// Hooray! Let them use the app now.
+						$scope.employeeInfo.set('isActive', true);
+						$scope.employeeInfo.set('userId', user.id);
+						$scope.employeeInfo.save(null,{
+							success : function(result){
+								showSuccessMsg('Employee Successfully Activated.');
+								$scope.isActive = true;
+							},
+							error : function(){
+								showSuccessMsg('Employee Activation Failed.');
+							}
+						});
+					},
+					error: function(user, error) {
+						// Show the error message somewhere and let the user try again.
+					}
+				});
+			}else{
+				$scope.employeeInfo.set('isActive', status);
+				$scope.employeeInfo.save(null,{
+					success : function(result){
+						if(status){
+							showSuccessMsg('Employee Successfully Activated.');
+						}else{
+							showSuccessMsg('Employee Successfully Deactivated.');
+						}
+						$scope.isActive = status;
+					},
+					error : function(){
+						showSuccessMsg('Employee Activation Failed.');
+					}
+				});
+			}
+		}
 
 		$scope.deleteEmployee = function(){
 				console.log('delete employee!');
@@ -317,6 +364,21 @@
 		$scope.addOtherInfo = function(){
 			$scope.inserted = {};
 			$scope.otherInfo.push($scope.inserted);
+		}
+
+		function getEmployeeInfo(employeeId){
+			employeeService.getById(employeeId)
+			.then(function(results) {
+				// Handle the result
+				console.log(results);
+				$scope.employeeInfo = results[0];
+				$scope.isActive = $scope.employeeInfo.get('isActive');
+			}, function(err) {
+				console.log(err);
+				$state.go('auth');
+			}, function(percentComplete) {
+				console.log(percentComplete);
+			});
 		}
 
 		function getPersonalInfo(){
@@ -628,7 +690,10 @@
 			var personalInfo = new PersonalInfo();
 
 			personalInfo.id = $scope.personalInfo.id;
-			personalInfo.set("avatar",  $scope.profilePictureFile._url);
+			if($scope.profilePictureFile){
+				personalInfo.set("avatar",  $scope.profilePictureFile._url);
+			}
+
 			personalInfo.set("firstName", $scope.personalInfo.firstName);
 			personalInfo.set("middleName", $scope.personalInfo.middleName);
 			personalInfo.set("lastName", $scope.personalInfo.lastName);

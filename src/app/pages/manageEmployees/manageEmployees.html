@@ -58,7 +58,7 @@
 						<td><a class="email-link">{{item.attributes.emailAddress}}</a></td>
 						<td>Engineering</td>
 						<td>DAR</td>
-						<td><button class="status-button btn btn-xs btn-{{item.status.type || 'success'}}">{{item.status.message || 'active'}}</button></td>
+						<td><button class="status-button btn btn-xs btn-{{isActive.color(item.attributes.isActive)}}">{{isActive.label(item.attributes.isActive)}}</button></td>
 					</tr>
 				</tbody>
 				<tfoot>

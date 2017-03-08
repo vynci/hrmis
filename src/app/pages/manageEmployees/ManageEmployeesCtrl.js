@@ -29,11 +29,29 @@
 			$state.go('editEmployee', {employeeId: employee.id});
 		}
 
+		$scope.isActive = {
+			color : function(status){
+				var value = 'success';
+				if(!status){
+					value = 'danger';
+				}
+				return value;
+			},
+
+			label : function(status){
+				var value = 'active';
+				if(!status){
+					value = 'inactive';
+				}
+				return value;
+			}
+		}
+
 		$scope.smartTablePageSize = 5;
 		$scope.employees = [];
 
 		function getAllEmployees(){
-			$scope.isLoading = true;			
+			$scope.isLoading = true;
 			employeeService.getAll()
 			.then(function(results) {
 				// Handle the result

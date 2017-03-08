@@ -1,24 +1,31 @@
-<div class="row">
-	<div class="col-md-4 col-lg-4">
+<div class="row" ng-if="!isEmployee">
+	<div class="col-md-4 col-lg-6">
 		<a href="#/manage-employees" class="btn btn-default btn-with-icon">
 			<i class="ion-chevron-left"></i> Back to Manage Employees
 		</a>
 	</div>
-	<div class="col-md-4 col-lg-4" style="text-align:right">
-
-	</div>
-	<div class="col-md-4 col-lg-4" style="text-align:right">
+	<div class="col-md-4 col-lg-6">
 		<button ng-if="!isEdit" ng-click="createEmployee()" class="btn btn-success btn-with-icon">
 			<i class="ion-checkmark"></i> Create Employee
 		</button>
 
 		<div class="row" ng-if="isEdit">
-			<div class="col-md-6 col-sm-6">
+			<div class="col-md-4 col-sm-4">
 				<button ng-click="deletConfirmation()" class="btn btn-danger btn-with-icon">
 					<i class="ion-trash-a"></i> Delete Employee
 				</button>
 			</div>
-			<div class="col-md-6 col-sm-6">
+
+			<div class="col-md-4 col-sm-4">
+				<button ng-if="!isActive" ng-click="activateEmployee(true)" class="btn btn-info btn-with-icon">
+					<i class="ion-flash"></i> Activate Employee
+				</button>
+				<button ng-if="isActive" ng-click="activateEmployee(false)" class="btn btn-warning btn-with-icon">
+					<i class="ion-nuclear"></i> Deactivate Employee
+				</button>
+			</div>
+
+			<div class="col-md-4 col-sm-4">
 				<button ng-click="updateEmployee()" class="btn btn-success btn-with-icon">
 					<i class="ion-checkmark"></i> Update Information
 				</button>
@@ -26,6 +33,21 @@
 		</div>
 	</div>
 </div>
+
+<div class="row" ng-if="isEmployee">
+	<div class="col-md-4 col-lg-4">
+
+	</div>
+	<div class="col-md-4 col-lg-4" style="text-align:right">
+
+	</div>
+	<div class="col-md-4 col-lg-4" style="text-align:right">
+		<button ng-click="" class="btn btn-success btn-with-icon">
+			<i class="ion-checkmark"></i> Request Update Information
+		</button>
+	</div>
+</div>
+
 <br>
 
 <div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel large-panel">

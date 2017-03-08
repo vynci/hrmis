@@ -13,7 +13,7 @@
 			title: 'My Account',
 			controller : 'AccountCtrl',
 			sidebarMeta: {
-				icon: 'ion-android-contact',
+				icon: 'ion-gear-b',
 				order: 803,
 			},
 		});

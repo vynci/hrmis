@@ -9,7 +9,7 @@
     .controller('BaSidebarCtrl', BaSidebarCtrl);
 
   /** @ngInject */
-  function BaSidebarCtrl($scope, baSidebarService, userService, $uibModal) {
+  function BaSidebarCtrl($scope, baSidebarService, userService, $uibModal, $state, $rootScope) {
 
     var user = Parse.User.current();
 
@@ -55,14 +55,15 @@
 
       }, function(err) {
         console.log(err);
+        $state.go('auth');
       }, function(percentComplete) {
         console.log(percentComplete);
       });
 
     }, function(err) {
       console.log(err);
-    }, function(percentComplete) {
-      console.log(percentComplete);
+      $rootScope.logout();
+      $state.go('auth', {}, {reload: true});
     });
 
     $scope.hoverItem = function ($event) {

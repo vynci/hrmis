@@ -9,9 +9,10 @@
     .controller('AuthCtrl', AuthCtrl);
 
   /** @ngInject */
-  function AuthCtrl($scope, fileReader, $filter, $uibModal, $window, $rootScope, $state, $timeout, $q) {
+  function AuthCtrl($scope, fileReader, $filter, $uibModal, $window, $rootScope, $state, $timeout, $q, userService) {
     console.log('auth!');
     var defer = $q.defer();
+    var defaultAvatar = "http://hrmis-api.herokuapp.com/parse/files/myAppId/709d67e1750729d0f4f8f15837e28713_Profile-sky-ovnis.jpg";
 
     $rootScope.isLogged = false;
     $scope.loginData = {};
@@ -33,10 +34,19 @@
       Parse.User.logIn(email, password, {
         success: function(user) {
           // Do stuff after successful login.
-          console.log(user.attributes);
-          defer.resolve(true);
-          $rootScope.isLogged = true;
-          $state.go('dashboard');
+          userService.userType(user.get('userTypeId'))
+          .then(function(results) {
+            // Handle the result
+            var userType = results[0];
+            defer.resolve(true);
+            $rootScope.isLogged = true;
+            $rootScope.profilePic = defaultAvatar;
+
+            $state.go(userType.get('defaultPage'));
+          }, function(err) {
+            console.log(err);
+          });
+
         },
         error: function(user, error) {
           defer.resolve(true);

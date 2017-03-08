@@ -1,6 +1,4 @@
 'use strict';
-console.log('heyy');
-
 Parse.initialize("myAppId", "myJavascriptKey");
 Parse.serverURL = 'https://hrmis-api.herokuapp.com/parse';
 

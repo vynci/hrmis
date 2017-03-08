@@ -5,7 +5,8 @@
 			<div class="col-sm-9">
 			<div class="userpic">
 				<div class="userpic-wrapper">
-				<img ng-src="{{ personalInfo.avatar }}" ng-click="openPicture($files)">			
+					<img ng-if="personalInfo.avatar" ng-src="{{ personalInfo.avatar }}" ng-click="openPicture($files)">
+					<div ng-if="!personalInfo.avatar" class="loader" style="position: absolute; right: 71px; top: 68px;"></div>
 				</div>
 				<i class="ion-ios-close-outline" ng-click="removePicture()" ng-if="!noPicture"></i>
 				<a href class="change-userpic" ng-click="openPicture()">Change Profile Picture</a>
@@ -46,10 +47,10 @@
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="form-group">
-					<label for="inputLastName">TIN</label>
-					<input type="text" class="form-control" id="inputLastName" placeholder="TIN" ng-model="personalInfo.tinNumber">
+					<label for="inputLastName">Agency Employee No.</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber">
 				</div>
-			</div>			
+			</div>
 		</div>
 	</div>
 </div>
@@ -238,8 +239,8 @@
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
-			<label for="inputLastName">Agency Employee No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber">
+			<label for="inputLastName">TIN</label>
+			<input type="text" class="form-control" id="inputLastName" placeholder="TIN" ng-model="personalInfo.tinNumber">
 		</div>
 	</div>
 
