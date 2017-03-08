@@ -9,7 +9,7 @@
 	.controller('EditEmployeeCtrl', EditEmployeeCtrl);
 
 	/** @ngInject */
-	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService) {
+	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader) {
 		$scope.isEdit = true;
 
 		if(Parse.User.current()){
@@ -75,6 +75,29 @@
 
 		$scope.showErrorMsg = function(msg) {
 			toastr.error(msg, 'Error');
+		};
+
+		$scope.openPicture = function (file) {
+			var fileInput = document.getElementById('uploadFile');
+			fileInput.click();
+		}
+
+		$scope.onFileSelect = function(data){
+			console.log(data);
+		}
+
+		$scope.getFile = function (data) {
+			personalInfoService.uploadProfilePicture(data)
+			.then(function(result) {
+				$scope.profilePictureFile = result;
+				console.log(result);
+				fileReader.readAsDataUrl(data, $scope)
+					.then(function (result) {
+						$scope.personalInfo.avatar = result;
+					});					
+			}, function(err) {
+				console.log(err);
+			});	
 		};
 
 		function showSuccessMsg(msg) {
@@ -271,6 +294,7 @@
 
 				$scope.personalInfo = {
 					id : personalInfo.id,
+					avatar: personalInfo.get('avatar'),
 					firstName : personalInfo.get('firstName'),
 					lastName : personalInfo.get('lastName'),
 					middleName : personalInfo.get('middleName'),
@@ -567,6 +591,7 @@
 			var personalInfo = new PersonalInfo();
 
 			personalInfo.id = $scope.personalInfo.id;
+			personalInfo.set("avatar",  $scope.profilePictureFile._url);
 			personalInfo.set("firstName", $scope.personalInfo.firstName);
 			personalInfo.set("middleName", $scope.personalInfo.middleName);
 			personalInfo.set("lastName", $scope.personalInfo.lastName);

@@ -5,8 +5,8 @@
 	.controller('AccountCtrl', AccountCtrl);
 
 	/** @ngInject */
-	function AccountCtrl($scope, $uibModal, $window, $rootScope) {
-
+	function AccountCtrl($scope, $uibModal, $window, $rootScope, toastr) {
+		console.log('acct controller!');
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 
@@ -15,18 +15,57 @@
 			$state.go('auth');
 		}
 
-		$scope.picture = 'assets/img/app/profile/vince3.jpg';
+		$scope.password = {
+			old : '',
+			new : '',
+			confirmNew : ''
+		}
 
-		$scope.removePicture = function () {
-			$scope.picture = $filter('appImage')('theme/no-photo.png');
-			$scope.noPicture = true;
+		$scope.updateProfile = function(){			
+			updatePassword();
+		}
+
+		function showSuccessMsg(msg) {
+			toastr.success(msg);
 		};
 
-		$scope.uploadPicture = function () {
-			var fileInput = document.getElementById('uploadFile');
-			fileInput.click();
+		function showErrorMsg(msg) {
+			toastr.error(msg, 'Error');
+		};				
 
+		function updatePassword(){
+			console.log($scope.password);
+			if($scope.password.old !== ''){
+				console.log('update password');
+				var user = Parse.User.current();
+
+				Parse.User.logIn(user.get('username'), $scope.password.old, {
+					success: function(user) {
+
+						if($scope.password.new === $scope.password.confirmNew){
+
+							user.set("password", $scope.password.new);
+							user.save()
+							.then(
+								function(user) {
+									console.log('Password changed', user);
+									showSuccessMsg('Password Successfully Updated!');
+								},
+								function(error) {
+									showErrorMsg('Update Password Failed');
+								}
+							);
+						} else {
+							showErrorMsg('New Password does not match!');
+						}
+					},
+					error: function(user, error) {
+						showErrorMsg('Sorry, Current Password is Invalid');
+					}
+				});
+			}
 		};
+
 
 		$scope.socialProfiles = [
 			{

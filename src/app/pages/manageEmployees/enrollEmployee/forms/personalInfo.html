@@ -1,29 +1,60 @@
+
 <div class="row">
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputFirstName">First Name</label>
-			<input type="text" class="form-control"  placeholder="First Name" ng-model="personalInfo.firstName">
+	<div class="col-md-4">
+		<div class="form-group row clearfix">
+			<div class="col-sm-9">
+			<div class="userpic">
+				<div class="userpic-wrapper">
+				<img ng-src="{{ personalInfo.avatar }}" ng-click="openPicture($files)">			
+				</div>
+				<i class="ion-ios-close-outline" ng-click="removePicture()" ng-if="!noPicture"></i>
+				<a href class="change-userpic" ng-click="openPicture()">Change Profile Picture</a>
+				<input type="file" ng-show="false" id="uploadFile" ng-file-select="onFileSelect($files)">
+			</div>
+			</div>
 		</div>
 	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">Middle Name</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="personalInfo.middleName">
+	<div class="col-md-8">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="inputFirstName">First Name</label>
+					<input type="text" class="form-control"  placeholder="First Name" ng-model="personalInfo.firstName">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="inputLastName">Middle Name</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="personalInfo.middleName">
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputSurname">Surname</label>
-			<input type="text" class="form-control" id="inputSurname" placeholder="Last Name" ng-model="personalInfo.lastName">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="inputSurname">Surname</label>
+					<input type="text" class="form-control" id="inputSurname" placeholder="Last Name" ng-model="personalInfo.lastName">
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="inputExtension">Name Extension</label>
+					<input type="text" class="form-control" id="inputExtension" placeholder="Name Extension" ng-model="personalInfo.nameExtension">
+				</div>
+			</div>
 		</div>
-	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputExtension">Name Extension</label>
-			<input type="text" class="form-control" id="inputExtension" placeholder="Name Extension" ng-model="personalInfo.nameExtension">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="inputLastName">TIN</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="TIN" ng-model="personalInfo.tinNumber">
+				</div>
+			</div>			
 		</div>
 	</div>
 </div>
+
+
 
 <hr>
 
@@ -193,28 +224,23 @@
 </div>
 <hr>
 <div class="row">
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputFirstName">Email Address</label>
 			<input type="text" class="form-control" id="inputFirstName" placeholder="Email Address" ng-model="personalInfo.emailAddress">
 		</div>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Cellphone No.</label>
 			<input type="text" class="form-control" id="inputLastName" placeholder="Cellphone No." ng-model="personalInfo.mobileNumber">
 		</div>
 	</div>
-	<div class="col-sm-3">
+	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Agency Employee No.</label>
 			<input type="text" class="form-control" id="inputLastName" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber">
 		</div>
 	</div>
-	<div class="col-sm-3">
-		<div class="form-group">
-			<label for="inputLastName">TIN</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="TIN" ng-model="personalInfo.tinNumber">
-		</div>
-	</div>
+
 </div>

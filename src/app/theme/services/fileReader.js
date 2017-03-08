@@ -48,6 +48,7 @@
       var deferred = $q.defer();
 
       var reader = getReader(deferred, scope);
+      console.log(file);
       reader.readAsDataURL(file);
 
       return deferred.promise;

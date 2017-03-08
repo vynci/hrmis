@@ -9,12 +9,13 @@
 	.controller('EnrollEmployeeCtrl', EnrollEmployeeCtrl);
 
 	/** @ngInject */
-	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr) {
+	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService) {
 		console.log('enroll employee!');
 
 		$scope.isEdit = false;
 		var lastCountIndicator = 0;
-
+		var defaultAvatar = "http://hrmis-api.herokuapp.com/parse/files/myAppId/709d67e1750729d0f4f8f15837e28713_Profile-sky-ovnis.jpg";
+		
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 
@@ -24,6 +25,7 @@
 		}
 
 		$scope.personalInfo = {
+			avatar : defaultAvatar,
 			birthPlace : stringToObject('Cebu City'),
 			citizenship : stringToObject('Filipino'),
 			gender : stringToObject('Male'),
@@ -56,6 +58,29 @@
 
 		$scope.showErrorMsg = function(msg) {
 			toastr.error(msg, 'Error');
+		};
+
+		$scope.openPicture = function (file) {
+			var fileInput = document.getElementById('uploadFile');
+			fileInput.click();
+		}
+
+		$scope.onFileSelect = function(data){
+			console.log(data);
+		}
+
+		$scope.getFile = function (data) {
+			personalInfoService.uploadProfilePicture(data)
+			.then(function(result) {
+				$scope.profilePictureFile = result;
+				console.log(result);
+				fileReader.readAsDataUrl(data, $scope)
+					.then(function (result) {
+						$scope.personalInfo.avatar = result;
+					});					
+			}, function(err) {
+				console.log(err);
+			});		
 		};
 
 		function showSuccessMsg(msg) {
@@ -109,6 +134,10 @@
 		function createPersonalInfo(employee){
 			var PersonalInfo = Parse.Object.extend("PersonalInfo");
 			var personalInfo = new PersonalInfo();
+
+			if($scope.profilePictureFile){
+				personalInfo.set("avatar", $scope.profilePictureFile._url);
+			}
 
 			personalInfo.set("firstName", $scope.personalInfo.firstName);
 			personalInfo.set("middleName", $scope.personalInfo.middleName);

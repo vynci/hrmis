@@ -26,5 +26,18 @@
 			});
 			return defer.promise;
 		};
+
+		this.uploadProfilePicture = function(data) {
+			var defer = $q.defer();
+			var parseFile = new Parse.File(data.name, data);
+
+			parseFile.save().then(function(result) {
+				defer.resolve(result);
+			}, function(error) {
+				defer.reject(error);
+			});	
+
+			return defer.promise;
+		};		
 	}
 })();
