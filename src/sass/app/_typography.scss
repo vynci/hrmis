@@ -37,6 +37,37 @@ h5 {
   font-size: 15px;
 }
 
+.table-heading {
+  vertical-align: middle !important;
+  text-align:center;
+  font-weight: bold;
+}
+
+.heading-center{
+  text-align:center;
+}
+
+.heading-center-subtitle{
+  text-align:center;
+  font-size: smaller;
+  line-height: 18px !important;
+}
+
+.heading-center-bold{
+  text-align:center;
+  font-weight: bold;
+}
+
+.printable-form-field {
+  border-bottom: 2px solid #444;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.borderless td, .borderless th {
+  border: none !important;
+}
+
 .typography-document-samples {
 
 

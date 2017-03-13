@@ -10,6 +10,7 @@
 		.state('reports', {
 			url: '/reports',
 			templateUrl: 'app/pages/reports/reports.html',
+			controller: 'ReportsCrtrl',
 			title: 'Reports',
 			sidebarMeta: {
 				icon: 'ion-android-print',

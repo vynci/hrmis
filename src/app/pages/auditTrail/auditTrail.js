@@ -10,6 +10,7 @@
 		.state('auditTrail', {
 			url: '/audit-trail',
 			templateUrl: 'app/pages/auditTrail/auditTrail.html',
+			controller : 'AuditTrailCtrl',
 			title: 'Audit Trail',
 			sidebarMeta: {
 				icon: 'ion-android-clipboard',

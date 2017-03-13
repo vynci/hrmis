@@ -10,6 +10,8 @@
 		.state('manageUsers', {
 			url: '/manage-users',
 			templateUrl: 'app/pages/manageUsers/manageUsers.html',
+			// controller : 'ManageUsersCtrl',
+			controller : 'ManageUserCtrl',
 			title: 'Manage Users',
 			sidebarMeta: {
 				icon: 'ion-person-stalker',
