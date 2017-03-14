@@ -5,8 +5,11 @@
 	.controller('ReportsCrtrl', ReportsCrtrl);
 
 	/** @ngInject */
-	function ReportsCrtrl($scope, $uibModal, $window, $rootScope, toastr, $state, userService, employeeService, personalInfoService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService) {
+	function ReportsCrtrl($scope, $uibModal, $window, $rootScope, toastr, $state, userService, employeeService, personalInfoService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, systemSettingService) {
 		console.log('ReportsCrtrl!');
+
+		$scope.dateNow = new Date();
+
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 			var user = Parse.User.current();
@@ -16,6 +19,10 @@
 			$rootScope.isLogged = false;
 			$state.go('auth');
 		}
+
+		var monthNames = ["January", "February", "March", "April", "May", "June",
+		"July", "August", "September", "October", "November", "December"
+		];
 
 		function initialize(){
 			getAllEmployees();
@@ -45,6 +52,17 @@
 			});
 		}
 
+		function getSystemSetting(){
+			systemSettingService.getById('rfeNg7kJH2')
+			.then(function(results) {
+				// Handle the result
+				$scope.inCharge = results[0].get('serviceRecordInCharge');
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+
 		function getWorkExperience(id){
 			$scope.isLoading = true;
 
@@ -73,7 +91,7 @@
 			educationalBackgroundService.getByEmployeeId(id)
 			.then(function(results) {
 				// Handle the result
-				$scope.educationalBackground = results[0].get('degreeCourse');
+				$scope.educationalBackground = results[results.length - 1].get('degreeCourse');
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {
@@ -97,10 +115,22 @@
 			}, function(percentComplete) {
 				console.log(percentComplete);
 			});
-		}						
+		}
 
 		$scope.parseDate = function(date){
-			var dateString = date.getMonth() + '-' + date.getDate() + '-' + date.getFullYear();
+			var dateString = '';
+			if(date){
+				dateString = (date.getMonth() + 1) + '-' + date.getDate() + '-' + date.getFullYear();
+			}
+
+			return dateString;
+		}
+
+		$scope.parseDateMonthWord = function(date){
+			var dateString = '';
+			if(date){
+				dateString = monthNames[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear();
+			}
 
 			return dateString;
 		}
@@ -112,6 +142,7 @@
 			getCivilService($scope.selectedEmployee.selected.value);
 			getPersonalInfo($scope.selectedEmployee.selected.value);
 			getEducationalBackground($scope.selectedEmployee.selected.value);
+			getSystemSetting();
 			$scope.isReportGenerated = true;
 		}
 
@@ -123,10 +154,9 @@
 		{
 			var printContents = document.getElementById(divName).innerHTML;
 			var popupWin = window.open('', '_blank', 'width=992,height=768');
-			console.log(printContents);
 
 			popupWin.document.open();
-			popupWin.document.write('<html><head><link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"><link rel="stylesheet" href="app/main.css"></head><body onload="window.print()">'+ printContents +'</body></html>');
+			popupWin.document.write('<html><head><link rel="stylesheet" href="styles/vendor-ac7f6b898b.css"><link rel="stylesheet" href="styles/app-9a53f7ed5f.css""></head><body onload="window.print()">'+ printContents +'</body></html>');
 
 			popupWin.document.close();
 		}

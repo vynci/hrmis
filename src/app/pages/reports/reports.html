@@ -38,64 +38,128 @@
 		</button>
 	</div>
 </div>
+<br><br>
 
-<div id="service-report-printable" ng-if="isReportGenerated">
-	<div class="row">
-		<div class="col-md-12 col-lg-12 heading-center">Republic of the Philippines</div>
-		<div class="col-md-12 col-lg-12 heading-center-bold">DEPARTMENT OF AGRARIAN REFORM</div>
-		<div class="col-md-12 col-lg-12 heading-center">Province of Leyte</div>
-		<div class="col-md-12 col-lg-12 heading-center">Tanghas, Tolosa Leyte</div>
+<div ng-if="!isLoading && isReportGenerated">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th colspan="2" class="table-heading">SERVICE</th>
+				<th colspan="3" class="table-heading">RECORD OF APPOINTMENT</th>
+				<th colspan="2" class="table-heading">OFFICE ENTITY</th>
+				<th rowspan="3" class="table-heading">SICK/VAC.<br>W/O PAY</th>
+				<th colspan="2" class="table-heading">Separation</th>
+			</tr>
+			<tr>
+				<th colspan="2" class="table-heading">(Inclusive Dates)</th>
+				<th rowspan="2" class="table-heading">Designation</th>
+				<th rowspan="2" class="table-heading">Status</th>
+				<th rowspan="2" class="table-heading">Salary</th>
+				<th rowspan="1" class="table-heading">Station/Places</th>
+				<th rowspan="2" class="table-heading">Branch</th>
+				<th rowspan="2" class="table-heading">Date</th>
+				<th rowspan="2" class="table-heading">Cause</th>
+			</tr>
+			<tr>
+				<th class="table-heading">From</th>
+				<th class="table-heading">To</th>
+				<th class="table-heading">Of Assignment</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="workExperience in workExperiences">
+				<td>{{parseDate(workExperience.attributes.inclusiveFromDate)}}</td>
+				<td>{{parseDate(workExperience.attributes.inclusiveToDate)}}</td>
+				<td>{{workExperience.attributes.positionTitle}}</td>
+				<td>{{workExperience.attributes.statusOfAppointment}}</td>
+				<td>{{workExperience.attributes.monthlySalary}}</td>
+				<td>{{workExperience.attributes.department}}</td>
+				<td>Nat'l</td>
+				<td>none</td>
+				<td>-</td>
+				<td>-</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+<div class="row" ng-if="isLoading" style="margin-bottom: 15px;">
+	<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+		<div class="loader"></div>
 	</div>
-	<br>
-	<div class="row">
-		<div class="col-md-12 col-lg-12 heading-center-bold">SERVICE RECORD</div>
+</div>
+
+<div class="row" ng-if="!isLoading && !isReportGenerated">
+	<div class="col-md-4 col-lg-4"></div>
+	<div class="col-md-4 col-lg-4">
+		<p><b>Instructions</b>: </p>
+		<p>1. Select a "Report Type" and "Employee".</p>
+		<p>2. Click the "Generate Report" button to get a preview.</p>
+		<p>3. Click on "Print Report" button to print or save in .pdf the standard template report.</p>
 	</div>
-	<br>
+	<div class="col-md-4 col-lg-4"></div>
+</div>
+
+
+<div id="service-report-printable" style="display:none;">
 	<div>
-		<table class="table borderless">
-			<tr>
-				<td class="table-heading"><div class="printable-form-field">{{personalInfo.lastName}}</div></td>
-				<td class="table-heading"><div class="printable-form-field">{{personalInfo.firstName}}</div></td>
-				<td class="table-heading"><div class="printable-form-field">{{personalInfo.middleName}}</div></td>
-			</tr>
-			<tr>
-				<td class="heading-center-subtitle">Surname</td>
-				<td class="heading-center-subtitle">Given Name</td>
-				<td class="heading-center-subtitle">Middle Initial</td>
-			</tr>
-			<tr>
-				<td> </td> <td> </td><td> </td>
-			</tr>
-			<tr>
-				<td class="table-heading"><div class="printable-form-field">{{personalInfo.birthPlace}}</div></td>
-				<td class="table-heading"><div class="printable-form-field">{{parseDate(personalInfo.birthDate)}}</div></td>
-				<td class="table-heading"><div class="printable-form-field">{{personalInfo.civilStatus}}</div></td>
-			</tr>
-			<tr>
-				<td class="heading-center-subtitle" >Place of Birth</td>
-				<td class="heading-center-subtitle">Date of Birth</td>
-				<td class="heading-center-subtitle">Civil Status</td>
-			</tr>
-			<tr>
-				<td> </td><td> </td><td> </td>
-			</tr>
-			<tr>
-				<td class="table-heading"><div class="printable-form-field">{{educationalBackground}}</div></td>
-				<td></td>
-				<td class="table-heading"><div class="printable-form-field">{{civilService}}</div></td>
-			</tr>
-			<tr>
-				<td class="heading-center-subtitle">Educational Attainment</td>
-				<td></td>
-				<td class="heading-center-subtitle">Civil Service Eligibility</td>
-			</tr>
-		</table>
-	</div>
-	<br>
-	<div>
-		<p>This is to certify that the employee named herein above actually rendered services in this office as shown by the Service Record below each line of which is
-			 supported by appointment and other papers actually issued by this office and approved by the authorities concerned.
-		</p>
+		<div class="row">
+			<div class="col-md-12 col-lg-12 heading-center">Republic of the Philippines</div>
+			<div class="col-md-12 col-lg-12 heading-center-bold">DEPARTMENT OF AGRARIAN REFORM</div>
+			<div class="col-md-12 col-lg-12 heading-center">Province of Leyte</div>
+			<div class="col-md-12 col-lg-12 heading-center">Tanghas, Tolosa Leyte</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-md-12 col-lg-12 heading-center-bold">SERVICE RECORD</div>
+		</div>
+		<br>
+		<div>
+			<table class="table borderless">
+				<tr>
+					<td class="table-heading"><div class="printable-form-field">{{personalInfo.lastName}}</div></td>
+					<td class="table-heading"><div class="printable-form-field">{{personalInfo.firstName}}</div></td>
+					<td class="table-heading"><div class="printable-form-field">{{personalInfo.middleName}}</div></td>
+				</tr>
+				<tr>
+					<td class="heading-center-subtitle">Surname</td>
+					<td class="heading-center-subtitle">Given Name</td>
+					<td class="heading-center-subtitle">Middle Initial</td>
+				</tr>
+				<tr>
+					<td> </td> <td> </td><td> </td>
+				</tr>
+				<tr>
+					<td class="table-heading"><div class="printable-form-field">{{personalInfo.birthPlace}}</div></td>
+					<td class="table-heading"><div class="printable-form-field">{{parseDateMonthWord(personalInfo.birthDate)}}</div></td>
+					<td class="table-heading"><div class="printable-form-field">{{personalInfo.civilStatus}}</div></td>
+				</tr>
+				<tr>
+					<td class="heading-center-subtitle" >Place of Birth</td>
+					<td class="heading-center-subtitle">Date of Birth</td>
+					<td class="heading-center-subtitle">Civil Status</td>
+				</tr>
+				<tr>
+					<td> </td><td> </td><td> </td>
+				</tr>
+				<tr>
+					<td class="table-heading"><div class="printable-form-field">{{educationalBackground}}</div></td>
+					<td></td>
+					<td class="table-heading"><div class="printable-form-field">{{civilService}}</div></td>
+				</tr>
+				<tr>
+					<td class="heading-center-subtitle">Educational Attainment</td>
+					<td></td>
+					<td class="heading-center-subtitle">Civil Service Eligibility</td>
+				</tr>
+			</table>
+		</div>
+		<br>
+		<div>
+			<p>This is to certify that the employee named herein above actually rendered services in this office as shown by the Service Record below each line of which is
+				supported by appointment and other papers actually issued by this office and approved by the authorities concerned.
+			</p>
+		</div>
 	</div>
 	<br>
 	<div>
@@ -140,12 +204,52 @@
 			</tbody>
 		</table>
 	</div>
+	<br>
+	<div>
+		<div>
+			<p style="text-align: center;">
+				Issued in compliance with Executive Order No. 54 date August 10, 1954 and in accordance with Circular
+			</p>
+			<p>
+				No. 58, August 10, 1954 of the system.
+			</p>
+			<p>Legend:</p>
+		</div>
+		<div>
+			<table class="table borderless">
+				<tr>
+					<td class="heading-center-subtitle">a-Salary increase</td>
+					<td class="heading-center-subtitle">e - Sal upgrading</td>
+					<td class="heading-center-subtitle">c - Step Increment</td>
+				<tr>
+				<tr>
+					<td class="heading-center-subtitle">b - Merit Increase</td>
+					<td class="heading-center-subtitle">d - Sal. Standardization</td>
+					<td class="heading-center-subtitle"> </td>
+				<tr>
+			</table>
+		</div>
+		<br><br>
+		<div>
+			<table class="table borderless">
+				<tr>
+					<td class="table-heading"><div class="printable-form-field">{{parseDateMonthWord(dateNow)}}</div></td>
+					<td class="table-heading"><div class="printable-form-field">{{inCharge}}</div></td>
+				</tr>
+				<tr>
+					<td class="heading-center-subtitle">(Date)</td>
+					<td class="heading-center-subtitle">AOV/HRMO III</td>
+					<tr>
+			</table>
+		</div>
+	</div>
+
 </div>
 <br>
 <div class="row">
 	<div class="col-md-12 col-lg-12" style="text-align:center;">
-		<button ng-click="printReport()" class="btn btn-warning btn-with-icon">
-			<i class="ion-clipboard"></i> Print Report
+		<button ng-disabled="!isReportGenerated" ng-click="printReport()" class="btn btn-warning btn-with-icon">
+			<i class="ion-printer"></i> Print Report
 		</button>
 	</div>
 </div>
