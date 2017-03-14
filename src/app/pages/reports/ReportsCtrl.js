@@ -58,6 +58,47 @@
 			});
 		}
 
+		function getCivilService(id){
+			civilServiceEligibilityService.getByEmployeeId(id)
+			.then(function(results) {
+				// Handle the result
+				$scope.civilService = results[0].get('careerService');
+			}, function(err) {
+				console.log(err);
+			}, function(percentComplete) {
+			});
+		}
+
+		function getEducationalBackground(id){
+			educationalBackgroundService.getByEmployeeId(id)
+			.then(function(results) {
+				// Handle the result
+				$scope.educationalBackground = results[0].get('degreeCourse');
+			}, function(err) {
+				console.log(err);
+			}, function(percentComplete) {
+			});
+		}
+
+		function getPersonalInfo(id){
+			personalInfoService.getByEmployeeId(id)
+			.then(function(results) {
+				// Handle the result
+				$scope.personalInfo = {
+					firstName : results[0].get('firstName'),
+					lastName : results[0].get('lastName'),
+					middleName : results[0].get('middleName'),
+					birthPlace : results[0].get('birthPlace'),
+					birthDate : results[0].get('birthDate'),
+					civilStatus : results[0].get('civilStatus')
+				};
+			}, function(err) {
+				console.log(err);
+			}, function(percentComplete) {
+				console.log(percentComplete);
+			});
+		}						
+
 		$scope.parseDate = function(date){
 			var dateString = date.getMonth() + '-' + date.getDate() + '-' + date.getFullYear();
 
@@ -68,6 +109,10 @@
 			console.log($scope.selectedReportType);
 			console.log($scope.selectedEmployee);
 			getWorkExperience($scope.selectedEmployee.selected.value);
+			getCivilService($scope.selectedEmployee.selected.value);
+			getPersonalInfo($scope.selectedEmployee.selected.value);
+			getEducationalBackground($scope.selectedEmployee.selected.value);
+			$scope.isReportGenerated = true;
 		}
 
 		$scope.printReport = function(){

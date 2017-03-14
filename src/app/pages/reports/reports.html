@@ -39,7 +39,7 @@
 	</div>
 </div>
 
-<div id="service-report-printable">
+<div id="service-report-printable" ng-if="isReportGenerated">
 	<div class="row">
 		<div class="col-md-12 col-lg-12 heading-center">Republic of the Philippines</div>
 		<div class="col-md-12 col-lg-12 heading-center-bold">DEPARTMENT OF AGRARIAN REFORM</div>
@@ -54,9 +54,9 @@
 	<div>
 		<table class="table borderless">
 			<tr>
-				<td class="table-heading"><div class="printable-form-field">Caloning</div></td>
-				<td class="table-heading"><div class="printable-form-field">Corazon</div></td>
-				<td class="table-heading"><div class="printable-form-field">M.</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{personalInfo.lastName}}</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{personalInfo.firstName}}</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{personalInfo.middleName}}</div></td>
 			</tr>
 			<tr>
 				<td class="heading-center-subtitle">Surname</td>
@@ -67,9 +67,9 @@
 				<td> </td> <td> </td><td> </td>
 			</tr>
 			<tr>
-				<td class="table-heading"><div class="printable-form-field">Manila</div></td>
-				<td class="table-heading"><div class="printable-form-field">June 21, 1959</div></td>
-				<td class="table-heading"><div class="printable-form-field">Married</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{personalInfo.birthPlace}}</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{parseDate(personalInfo.birthDate)}}</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{personalInfo.civilStatus}}</div></td>
 			</tr>
 			<tr>
 				<td class="heading-center-subtitle" >Place of Birth</td>
@@ -80,9 +80,9 @@
 				<td> </td><td> </td><td> </td>
 			</tr>
 			<tr>
-				<td class="table-heading"><div class="printable-form-field">BS Med. TEch./LLB</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{educationalBackground}}</div></td>
 				<td></td>
-				<td class="table-heading"><div class="printable-form-field">CS Prof</div></td>
+				<td class="table-heading"><div class="printable-form-field">{{civilService}}</div></td>
 			</tr>
 			<tr>
 				<td class="heading-center-subtitle">Educational Attainment</td>
