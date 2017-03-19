@@ -4,9 +4,6 @@
 	<div class="col-md-6 col-lg-6">
 		<div class="row">
 			<div class="col-md-6 col-lg-6" style="text-align:right">
-				<button ng-click="enrollEmployee()" class="btn btn-primary btn-with-icon">
-					<i class="ion-plus"></i> Add Employee
-				</button>
 			</div>
 			<div class="col-md-6 col-lg-6" style="text-align:right">
 				<button ng-click="enrollEmployee()" class="btn btn-primary btn-with-icon">
@@ -35,49 +32,28 @@
 			<th>Created Date</th>
 			<th>Email Verified</th>
 		</tr>
-		<!-- <tr>
-		<th>
-	</th>
-	<th>
-	<input st-search="firstName" placeholder="Search First Name" class="input-sm form-control search-input" type="search"/>
-</th>
-<th><input st-search="lastName" placeholder="Search Last Name" class="input-sm form-control search-input" type="search"/>
-</th>
-<th>
-<input st-search="email" placeholder="Search Email" class="input-sm form-control search-input" type="search"/>
-</th>
-<th>
-<input st-search="desgination" placeholder="Search Desgination" class="input-sm form-control search-input" type="desgination"/>
-</th>
-<th>
-<input st-search="unit" placeholder="Search Unit" class="input-sm form-control search-input" type="unit"/>
-</th>
-<th>
-<input st-search="status" placeholder="Search Status" class="input-sm form-control search-input" type="status"/>
-</th>
-</tr> -->
-</thead>
-<tbody>
-	<tr ng-repeat="item in users" ng-click="editEmployee(item)" style="cursor:pointer;">
-		<td class="table-id">{{$index + 1}}</td>
-		<td>{{item.attributes.username}}</td>
-		<td>{{item.attributes.userTypeId}}</td>
-		<td>{{item.attributes.createdAt}}</td>
-		<td>{{item.attributes.emailVerified || false}}</td>
-	</tr>
-</tbody>
-<tfoot>
-	<tr>
-		<td colspan="7" class="text-center">
-			<!-- <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div> -->
-			<!-- <span ng-if="isLoading">Loading Employees...Please Wait</span> -->
-			<div class="row" ng-if="isLoading">
-				<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
-					<div class="loader"></div>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in users" ng-click="editEmployee(item)" style="cursor:pointer;">
+			<td class="table-id">{{$index + 1}}</td>
+			<td>{{item.attributes.username}}</td>
+			<td>{{item.attributes.userTypeId}}</td>
+			<td>{{item.attributes.createdAt}}</td>
+			<td>{{item.attributes.emailVerified || false}}</td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="7" class="text-center">
+				<!-- <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div> -->
+				<!-- <span ng-if="isLoading">Loading Employees...Please Wait</span> -->
+				<div class="row" ng-if="isLoading">
+					<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+						<div class="loader"></div>
+					</div>
 				</div>
-			</div>
-		</td>
-	</tr>
-</tfoot>
+			</td>
+		</tr>
+	</tfoot>
 </table>
 </div>

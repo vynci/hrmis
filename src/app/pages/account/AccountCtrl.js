@@ -21,7 +21,7 @@
 			confirmNew : ''
 		}
 
-		$scope.updateProfile = function(){			
+		$scope.updateProfile = function(){
 			updatePassword();
 		}
 
@@ -31,7 +31,7 @@
 
 		function showErrorMsg(msg) {
 			toastr.error(msg, 'Error');
-		};				
+		};
 
 		function updatePassword(){
 			console.log($scope.password);
@@ -68,65 +68,65 @@
 
 
 		$scope.socialProfiles = [
-			{
-				name: 'Facebook',
-				href: 'https://www.facebook.com/vince.elizaga/',
-				icon: 'socicon-facebook'
-			},
-			{
-				name: 'Twitter',
-				href: 'https://twitter.com/thevynci',
-				icon: 'socicon-twitter'
-			},
-			{
-				name: 'Google',
-				icon: 'socicon-google'
-			},
-			{
-				name: 'LinkedIn',
-				icon: 'socicon-linkedin'
-			},
-			{
-				name: 'GitHub',
-				href: 'https://github.com/vynci',
-				icon: 'socicon-github'
-			},
-			{
-				name: 'StackOverflow',
-				icon: 'socicon-stackoverflow'
-			},
-			{
-				name: 'Dribbble',
-				icon: 'socicon-dribble'
-			},
-			{
-				name: 'Behance',
-				icon: 'socicon-behace'
-			}
-	];
+	{
+		name: 'Facebook',
+		href: 'https://www.facebook.com/vince.elizaga/',
+		icon: 'socicon-facebook'
+	},
+{
+	name: 'Twitter',
+	href: 'https://twitter.com/thevynci',
+	icon: 'socicon-twitter'
+},
+{
+	name: 'Google',
+	icon: 'socicon-google'
+},
+{
+	name: 'LinkedIn',
+	icon: 'socicon-linkedin'
+},
+{
+	name: 'GitHub',
+	href: 'https://github.com/vynci',
+	icon: 'socicon-github'
+},
+{
+	name: 'StackOverflow',
+	icon: 'socicon-stackoverflow'
+},
+{
+	name: 'Dribbble',
+	icon: 'socicon-dribble'
+},
+{
+	name: 'Behance',
+	icon: 'socicon-behace'
+}
+];
 
-	$scope.unconnect = function (item) {
-		item.href = undefined;
-	};
+$scope.unconnect = function (item) {
+	item.href = undefined;
+};
 
-	$scope.showModal = function (item) {
-		$uibModal.open({
-			animation: false,
-			controller: 'ProfileModalCtrl',
-			templateUrl: 'app/pages/profile/profileModal.html'
-		}).result.then(function (link) {
-			item.href = link;
-		});
-	};
+$scope.showModal = function (item) {
+	$uibModal.open({
+		animation: false,
+		controller: 'ProfileModalCtrl',
+		templateUrl: 'app/pages/profile/profileModal.html'
+	}).result.then(function (link) {
+		item.href = link;
+	});
+};
 
-	$scope.getFile = function () {
-		fileReader.readAsDataUrl($scope.file, $scope)
-		.then(function (result) {
-			$scope.picture = result;
-		});
-	};
+$scope.getFile = function () {
+	fileReader.readAsDataUrl($scope.file, $scope)
+	.then(function (result) {
+		$scope.picture = result;
+	});
+};
 
-	$scope.switches = [true, true, false, true, true, false];
-	}
+$scope.switches = [true, true, false, true, true, false];
+}
 
 })();

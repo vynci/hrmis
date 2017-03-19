@@ -10,7 +10,12 @@
 
   /** @ngInject */
   function DashboardCalendarCtrl(baConfig) {
-    var dashboardColors = baConfig.colors.dashboard;
+    var dashboardColors = {
+      vacation : '#90b900',
+      sick : '#e85656',
+      emergency : '#dfb81c'
+    };
+    console.log(dashboardColors);
     var $element = $('#calendar').fullCalendar({
       //height: 335,
       header: {
@@ -18,17 +23,19 @@
         center: 'title',
         right: 'month,agendaWeek,agendaDay'
       },
-      defaultDate: '2016-03-08',
+      defaultDate: new Date(),
       selectable: true,
       selectHelper: true,
       select: function (start, end) {
-        var title = prompt('Event Title:');
+        console.log('select!');
+        var title = prompt('Employee Name:');
         var eventData;
         if (title) {
           eventData = {
             title: title,
             start: start,
-            end: end
+            end: end,
+            leaveType : leaveType
           };
           $element.fullCalendar('renderEvent', eventData, true); // stick? = true
         }
@@ -36,27 +43,45 @@
       },
       editable: true,
       eventLimit: true, // allow "more" link when too many events
+      eventClick : function(calEvent){
+        console.log(calEvent);
+      },
       events: [
         {
-          title: 'All Day Event',
-          start: '2016-03-01',
-          color: dashboardColors.silverTree
+          title: 'Joel Encina',
+          start: '2017-03-01',
+          color: dashboardColors.sick
         },
         {
-          title: 'Long Event',
-          start: '2016-03-07',
-          end: '2016-03-10',
-          color: dashboardColors.blueStone
+          title: 'Dirk Nowitski',
+          start: '2017-03-01',
+          color: dashboardColors.sick
         },
         {
-          title: 'Dinner',
-          start: '2016-03-14T20:00:00',
-          color: dashboardColors.surfieGreen
+          title: 'Stephen Curry',
+          start: '2017-03-01',
+          color: dashboardColors.emergency
         },
         {
-          title: 'Birthday Party',
-          start: '2016-04-01T07:00:00',
-          color: dashboardColors.gossipDark
+          title: 'Kobe Bryant',
+          start: '2017-03-07',
+          end: '2017-03-10',
+          color: dashboardColors.vacation
+        },
+        {
+          title: 'Dirk Nowitski',
+          start: '2017-03-14',
+          color: dashboardColors.vacation
+        },
+        {
+          title: 'Stephen Curry',
+          start: '2017-03-19',
+          color: dashboardColors.vacation
+        },
+        {
+          title: 'James Harden',
+          start: '2017-04-01',
+          color: dashboardColors.emergency
         }
       ]
     });
