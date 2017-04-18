@@ -11,6 +11,7 @@
 	/** @ngInject */
 	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader) {
 		$scope.isEdit = true;
+		$scope.format = 'MM/dd/yyyy';
 
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;

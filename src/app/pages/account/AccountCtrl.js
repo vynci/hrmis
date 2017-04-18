@@ -6,7 +6,12 @@
 
 	/** @ngInject */
 	function AccountCtrl($scope, $uibModal, $window, $rootScope, toastr) {
-		console.log('acct controller!');
+
+		var userInfo = Parse.User.current();
+		console.log(userInfo.attributes);
+
+		$scope.contactInfo = userInfo.get('username');
+
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 

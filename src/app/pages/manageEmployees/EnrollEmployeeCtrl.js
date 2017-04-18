@@ -10,8 +10,8 @@
 
 	/** @ngInject */
 	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService) {
-		console.log('enroll employee!');
 
+		$scope.format = 'MM/dd/yyyy';
 		$scope.isEdit = false;
 		var lastCountIndicator = 0;
 		var defaultAvatar = "http://hrmis-api.herokuapp.com/parse/files/myAppId/709d67e1750729d0f4f8f15837e28713_Profile-sky-ovnis.jpg";

@@ -1,4 +1,4 @@
-<h4>List of Civil Service Eligibility</h4>
+<h4>Civil Service Eligibility</h4>
 
 <p ng-if="!civilService.length && !isLoading" style="text-align:center;">Empty List. Click the button below to add.</p>
 
@@ -13,7 +13,7 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputLastName">Rating</label>
-				<input type="number" class="form-control" id="inputLastName" placeholder="Rating" ng-model="service.rating">
+				<input type="number" class="form-control" id="inputLastName" placeholder="Rating" min="60" max="100" ng-model="service.rating">
 			</div>
 		</div>
 		<div class="col-sm-4 datepicker" ng-controller="EnrollEmployeeCtrl">

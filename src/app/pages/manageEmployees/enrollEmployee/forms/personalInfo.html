@@ -131,13 +131,13 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputFirstName">Height (m)</label>
-			<input type="number" class="form-control" id="inputFirstName" placeholder="Height" ng-model="personalInfo.height">
+			<input type="number" class="form-control" id="inputFirstName" placeholder="Height" ng-model="personalInfo.height" min="0" max="3">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Weight (kg)</label>
-			<input type="number" class="form-control" id="inputLastName" placeholder="Weight" ng-model="personalInfo.weight">
+			<input type="number" class="form-control" id="inputLastName" placeholder="Weight" ng-model="personalInfo.weight" min="0" max="700">
 		</div>
 	</div>
 	<div class="col-sm-4">
@@ -198,7 +198,7 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Telephone No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="personalInfo.residentialAddressInfo.telNo">
+			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No. (ex: 3462144)" ng-model="personalInfo.residentialAddressInfo.telNo">
 		</div>
 	</div>
 </div>
@@ -219,7 +219,7 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Telephone No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="personalInfo.permanentAddressInfo.telNo">
+			<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No. (ex: 3462144)" ng-model="personalInfo.permanentAddressInfo.telNo">
 		</div>
 	</div>
 </div>
@@ -234,7 +234,7 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Cellphone No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Cellphone No." ng-model="personalInfo.mobileNumber">
+			<input type="text" class="form-control" id="inputLastName" placeholder="Cellphone No. (ex: 09272326087)" ng-model="personalInfo.mobileNumber">
 		</div>
 	</div>
 	<div class="col-sm-4">
