@@ -13,8 +13,26 @@
     return {
       restrict: 'E',
       templateUrl: 'app/theme/components/pageTop/pageTop.html',
-      controller : function(){
-        console.log('hello!');
+      controller : function($scope, $rootScope, systemSettingService){
+
+        getSystemSetting();
+
+        $rootScope.applyNavBarSystemSettings = getSystemSetting;
+
+        function getSystemSetting(){
+          systemSettingService.getById('rfeNg7kJH2')
+          .then(function(results) {
+            // Handle the result
+            $scope.applicationInfo = {
+              accountName : results[0].get('accountName'),
+              accountAddress : results[0].get('accountAddress'),
+              accountContactNumber : results[0].get('accountContactNumber'),
+              accountLogo : results[0].get('accountLogo')
+            };
+          }, function(err) {
+            console.log(err);
+          });
+        }
       }
     };
   }

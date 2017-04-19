@@ -27,6 +27,26 @@
 			return defer.promise;
 		};
 
+		this.getByUserType = function(userTypeId) {
+			var defer = $q.defer();
+			var UserObject = Parse.Object.extend("User");
+			var query = new Parse.Query(UserObject);
+
+			if(userTypeId){
+				query.equalTo("userTypeId", userTypeId);
+			}
+
+			query.find({
+				success: function(results) {
+					defer.resolve(results);
+				},
+				error: function(error) {
+					defer.reject(error);
+				}
+			});
+			return defer.promise;
+		};
+
 		this.getById = function(id) {
 			var defer = $q.defer();
 			var UserObject = Parse.Object.extend("User");

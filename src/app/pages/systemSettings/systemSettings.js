@@ -11,6 +11,7 @@
 			url: '/system-settings',
 			templateUrl: 'app/pages/systemSettings/systemSettings.html',
 			title: 'System Settings',
+			controller : 'SystemSettingsCtrl',
 			sidebarMeta: {
 				icon: 'ion-android-settings',
 				order: 902,

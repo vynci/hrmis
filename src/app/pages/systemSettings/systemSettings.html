@@ -1,1 +1,109 @@
-<h1>System Settings</h1>
+<div ba-panel ba-panel-class="profile-page">
+
+	<h3 class="with-line">Application Settings</h3>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="form-group row clearfix">
+				<div class="col-sm-9">
+					<div class="userpic">
+						<div class="userpic-wrapper">
+							<img ng-if="applicationInfo.accountLogo" ng-src="{{ applicationInfo.accountLogo || defaultLogo}}" ng-click="openPicture($files)">
+							<div ng-if="!applicationInfo.accountLogo" class="loader" style="position: absolute; right: 71px; top: 68px;"></div>
+						</div>
+						<i class="ion-ios-close-outline" ng-click="removePicture()" ng-if="!noPicture"></i>
+						<a href class="change-userpic" ng-click="openPicture()">Change Agency Logo</a>
+						<input type="file" ng-show="false" id="uploadFile" ng-file-select="onFileSelect($files)">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group row clearfix">
+						<label for="inputPassword" class="col-sm-3 control-label" >Agency Name</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="applicationInfo.accountName" id="inputPassword" placeholder="">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group row clearfix">
+						<label for="inputConfirmPassword" class="col-sm-3 control-label">Address</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="applicationInfo.accountAddress" id="inputConfirmPassword" placeholder="">
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group row clearfix">
+						<label for="inputPassword" class="col-sm-3 control-label">Contact Number</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="applicationInfo.accountContactNumber" id="inputPassword" placeholder="">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12" style="text-align: right;">
+			<button type="button" class="btn btn-primary btn-with-icon save-profile" ng-click="updateApplicationSettings()">
+				<i class="ion-android-checkmark-circle"></i>Update Application Settings
+			</button>
+		</div>
+	</div>
+</div>
+
+<div ba-panel ba-panel-class="profile-page">
+	<h3 class="with-line">Change Password</h3>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group row clearfix">
+				<label for="inputPassword" class="col-sm-3 control-label" >Current Password</label>
+
+				<div class="col-sm-9">
+					<input type="password" class="form-control" ng-model="password.old" id="inputPassword" placeholder="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group row clearfix">
+				<label for="inputConfirmPassword" class="col-sm-3 control-label">New Password</label>
+
+				<div class="col-sm-9">
+					<input type="password" class="form-control" ng-model="password.new" id="inputConfirmPassword" placeholder="">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="col-md-12">
+			<div class="form-group row clearfix">
+				<label for="inputPassword" class="col-sm-3 control-label">Confirm New Password</label>
+
+				<div class="col-sm-9">
+					<input type="password" class="form-control" ng-model="password.confirmNew" id="inputPassword" placeholder="">
+				</div>
+			</div>
+		</div>
+	</div>
+	<button type="button" class="btn btn-primary btn-with-icon save-profile" ng-click="updateProfile()">
+		<i class="ion-android-checkmark-circle"></i>Update Profile
+	</button>
+</div>
