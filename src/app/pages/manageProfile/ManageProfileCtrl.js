@@ -19,6 +19,57 @@
 			$state.go('auth');
 		}
 
+		$scope.genderList = [
+			{label: 'Male', value: 'Male'},
+			{label: 'Female', value: 'Female'},
+		];
+
+		$scope.civilStatusList = [
+			{label: 'Single', value: 'Single'},
+			{label: 'Married', value: 'Married'},
+			{label: 'Annulled', value: 'Annulled'},
+			{label: 'Widowed', value: 'Widowed'},
+			{label: 'Separated', value: 'Separated'},
+			{label: 'Others', value: 'Others'}
+		];
+
+		$scope.citizenshipList = [
+			{label: 'Filipino', value: 'Filipino'},
+			{label: 'Austrilian', value: 'Austrilian'},
+			{label: 'American', value: 'American'}
+		];
+
+		$scope.confirmList = [
+			{label: 'Yes', value: 'Yes'},
+			{label: 'No', value: 'No'}
+		];
+
+
+		$scope.bloodTypeList = [
+			{label: 'O-', value: 'O-'},
+			{label: 'O+', value: 'O+'},
+			{label: 'A-', value: 'A-'},
+			{label: 'A+', value: 'A+'},
+			{label: 'B-', value: 'B-'},
+			{label: 'B+', value: 'B+'},
+			{label: 'AB-', value: 'AB-'},
+			{label: 'AB+', value: 'AB+'}
+		];
+
+		$scope.placeList = [
+			{label: 'Tacloban City', value: 'Tacloban City'},
+			{label: 'Cebu City', value: 'Cebu City'},
+			{label: 'Manila', value: 'Manila'}
+		];
+
+		$scope.levelTypeList = [
+			{label: 'Elementary', value: 'Elementary'},
+			{label: 'Secondary', value: 'Secondary'},
+			{label: 'Vocational', value: 'Vocational'},
+			{label: 'College', value: 'College'},
+			{label: 'Graduate Studies', value: 'Graduate Studies'}
+		];
+
 		function initialize(userId){
 			employeeService.getByUserId(userId)
 			.then(function(results) {
@@ -253,6 +304,100 @@
 			});
 		}
 
+		function getOtherInfoB(){
+			$scope.isLoading = true;
+			$scope.otherInfoB = {};
+
+			otherInfoService.infoBgetByEmployeeId(employeeId)
+			.then(function(results) {
+				var data = results[0];
+				if(data){
+					$scope.otherInfoB = {
+						id : data.id,
+						question1A : stringToObject(data.get('question1A')),
+						question1ADetails : data.get('question1ADetails'),
+						question1B : stringToObject(data.get('question1B')),
+						question1BDetails : data.get('question1BDetails'),
+						question2A : stringToObject(data.get('question2A')),
+						question2ADetails : data.get('question2ADetails'),
+						question2B : stringToObject(data.get('question2A')),
+						question2BDetails : data.get('question2ADetails'),
+						question3A : stringToObject(data.get('question3A')),
+						question3ADetails : data.get('question3ADetails'),
+						question4A : stringToObject(data.get('question4A')),
+						question4ADetails : data.get('question4ADetails'),
+						question5A : stringToObject(data.get('question5A')),
+						question5ADetails : data.get('question5ADetails'),
+						question5B : stringToObject(data.get('question4B')),
+						question5BDetails : data.get('question4BDetails'),
+						question6A : stringToObject(data.get('question5A')),
+						question6ADetails : data.get('question5ADetails'),
+						question7A : stringToObject(data.get('question7A')),
+						question7ADetails : data.get('question7ADetails'),
+						question7B : stringToObject(data.get('question7B')),
+						question7BDetails : data.get('question7BDetails'),
+						question7C : stringToObject(data.get('question7C')),
+						question7CDetails : data.get('question7CDetails'),
+						referenceName1 : data.get('referenceName1'),
+						referenceAddress1 : data.get('referenceAddress1'),
+						referenceContactNumber1 : data.get('referenceContactNumber1'),
+						referenceName2 : data.get('referenceName2'),
+						referenceAddress2 : data.get('referenceAddress2'),
+						referenceContactNumber2 : data.get('referenceContactNumber2'),
+						referenceName3 : data.get('referenceName3'),
+						referenceAddress3 : data.get('referenceAddress3'),
+						referenceContactNumber3 : data.get('referenceContactNumber3'),
+						govIssuedIdNumber : data.get('govIssuedIdNumber'),
+						govIssuedDateOfIssuance : data.get('govIssuedDateOfIssuance'),
+						govIssuedId : data.get('govIssuedId')
+					};
+				} else{
+					$scope.otherInfoB = {
+						question1A : '',
+						question1ADetails : '',
+						question1B : '',
+						question1BDetails : '',
+						question2A : '',
+						question2ADetails : '',
+						question2B : '',
+						question2BDetails : '',
+						question3A : '',
+						question3ADetails : '',
+						question4A : '',
+						question4ADetails : '',
+						question5A : '',
+						question5ADetails : '',
+						question5B : '',
+						question5BDetails : '',
+						question6A : '',
+						question6ADetails : '',
+						question7A : '',
+						question7ADetails : '',
+						question7B : '',
+						question7BDetails : '',
+						question7C : '',
+						question7CDetails : '',
+						referenceName1 : '',
+						referenceAddress1 : '',
+						referenceContactNumber1 : '',
+						referenceName2 : '',
+						referenceAddress2 : '',
+						referenceContactNumber2 : '',
+						referenceName3 : '',
+						referenceAddress3 : '',
+						referenceContactNumber3 : '',
+						govIssuedIdNumber : '',
+						govIssuedDateOfIssuance : new Date(),
+						govIssuedId : ''
+					};
+				}
+
+				$scope.isLoading = false;
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
 		$scope.profileTabs = {
 			personalInfo : function(){
 				console.log('personalInfo!');
@@ -290,6 +435,11 @@
 			otherInfo : function(){
 				if(!$scope.otherInfo){
 					getOtherInfo();
+				}
+			},
+			otherInfoB : function(){
+				if(!$scope.otherInfoB){
+					getOtherInfoB();
 				}
 			}
 		}

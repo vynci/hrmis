@@ -37,7 +37,7 @@
 		}
 
 		function getAllEmployees(){
-			employeeService.getAll()
+			employeeService.getAll('', null, null)
 			.then(function(results) {
 				// Handle the result
 				angular.forEach(results, function(value, key) {
@@ -156,7 +156,7 @@
 			var popupWin = window.open('', '_blank', 'width=992,height=768');
 
 			popupWin.document.open();
-			popupWin.document.write('<html><head><link rel="stylesheet" href="styles/vendor-ac7f6b898b.css"><link rel="stylesheet" href="styles/app-9a53f7ed5f.css""></head><body onload="window.print()">'+ printContents +'</body></html>');
+			popupWin.document.write('<html><head><link rel="stylesheet" href="styles/vendor-ac7f6b898b.css"><link rel="stylesheet" href="styles/app-27df361a72.css""></head><body onload="window.print()">'+ printContents +'</body></html>');
 
 			popupWin.document.close();
 		}

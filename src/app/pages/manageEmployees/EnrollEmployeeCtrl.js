@@ -31,7 +31,7 @@
 			gender : stringToObject('Male'),
 			civilStatus : stringToObject('Single'),
 			bloodType : stringToObject('A+'),
-			birthDate : new Date(),
+			birthDate : null,
 			residentialAddressInfo : {},
 			permanentAddressInfo : {}
 		};
@@ -41,6 +41,45 @@
 			fatherInfo : {},
 			motherInfo : {},
 			children : []
+		};
+
+		$scope.otherInfoB = {
+			question1A : {},
+			question1ADetails : '',
+			question1B : {},
+			question1BDetails : '',
+			question2A : {},
+			question2ADetails : '',
+			question2B : {},
+			question2BDetails : '',
+			question3A : {},
+			question3ADetails : '',
+			question4A : {},
+			question4ADetails : '',
+			question5A : {},
+			question5ADetails : '',
+			question5B : {},
+			question5BDetails : '',
+			question6A : {},
+			question6ADetails : '',
+			question7A : {},
+			question7ADetails : '',
+			question7B : {},
+			question7BDetails : '',
+			question7C : {},
+			question7CDetails : '',
+			referenceName1 : '',
+			referenceAddress1 : '',
+			referenceContactNumber1 : '',
+			referenceName2 : '',
+			referenceAddress2 : '',
+			referenceContactNumber2 : '',
+			referenceName3 : '',
+			referenceAddress3 : '',
+			referenceContactNumber3 : '',
+			govIssuedIdNumber : '',
+			govIssuedDateOfIssuance : null,
+			govIssuedId : ''
 		};
 
 		$scope.educationInfo = {
@@ -97,36 +136,7 @@
 		}
 
 		$scope.createEmployee = function(){
-			console.log('create!');
-			console.log($scope.personalInfo);
-			console.log($scope.familyBackground);
-			console.log($scope.educationalBackground);
-			console.log($scope.civilService);
-			console.log($scope.workExperience);
-			console.log($scope.voluntaryWorks);
-			console.log($scope.trainingPrograms);
-			console.log($scope.otherInfo);
-			// if($scope.familyBackground.fatherInfo){
-			// 	$scope.isFamilyBackgroundNotEmpty = true;
-			// }
-			// if($scope.educationalBackground.length){
-			// 	$scope.isEducationalBackgroundNotEmpty = true;
-			// }
-			// if($scope.civilService.length){
-			// 	$scope.isCivilServiceNotEmpty = true;
-			// }
-			// if($scope.workExperience.length){
-			// 	$scope.isWorkExperienceNotEmpty = true;
-			// }
-			// if($scope.voluntaryWorks.length){
-			// 	$scope.isVoluntaryWorksNotEmpty = true;
-			// }
-			// if($scope.trainingPrograms.length){
-			// 	$scope.isTrainingProgramsNotEmpty = true;
-			// }
-			// if($scope.otherInfo.length){
-			// 	$scope.isOtherInfoNotEmpty = true;
-			// }
+			// createOtherInfoB();
 			if($scope.personalInfo.firstName && $scope.personalInfo.lastName && $scope.personalInfo.emailAddress){
 				var Employee = Parse.Object.extend("Employee");
 				var employee = new Employee();
@@ -225,191 +235,278 @@
 				},
 				error: function(employee, error) {
 					console.log(error);
-					// Execute any logic that should take place if the save fails.
-					// error is a Parse.Error with an error code and message.
 				}
 			});
 		}
 
 		function createEducationalBackground(employee){
-			angular.forEach($scope.educationalBackground, function(value, key) {
-				var EducationalBackground = Parse.Object.extend("EducationalBackground");
-				var educationalBackground = new EducationalBackground();
+			if($scope.educationalBackground.length > 0){
+				angular.forEach($scope.educationalBackground, function(value, key) {
+					var EducationalBackground = Parse.Object.extend("EducationalBackground");
+					var educationalBackground = new EducationalBackground();
 
-				educationalBackground.set("employeeId", employee.id);
-				educationalBackground.set("awards", value.awards);
-				educationalBackground.set("degreeCourse", value.degreeCourse);
-				educationalBackground.set("from", value.from);
-				educationalBackground.set("to", value.to);
-				educationalBackground.set("highestGrade", value.highestGrade);
-				educationalBackground.set("levelType", value.levelType.value);
-				educationalBackground.set("schoolName", value.schoolName);
-				educationalBackground.set("yearGraduated", parseInt(value.yearGraduated));
+					educationalBackground.set("employeeId", employee.id);
+					educationalBackground.set("awards", value.awards);
+					educationalBackground.set("degreeCourse", value.degreeCourse);
+					educationalBackground.set("from", value.from);
+					educationalBackground.set("to", value.to);
+					educationalBackground.set("highestGrade", value.highestGrade);
+					educationalBackground.set("levelType", value.levelType.value);
+					educationalBackground.set("schoolName", value.schoolName);
+					educationalBackground.set("yearGraduated", parseInt(value.yearGraduated));
 
-				educationalBackground.save(null, {
-					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
-						showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.educationalBackground.length){
-							lastCountIndicator = 0;
-							createCivilService(employee);
+					educationalBackground.save(null, {
+						success: function(result) {
+							showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.educationalBackground.length){
+								lastCountIndicator = 0;
+								createCivilService(employee);
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-						// Execute any logic that should take place if the save fails.
-						// error is a Parse.Error with an error code and message.
-					}
+					});
 				});
-			});
+			} else {
+				createCivilService(employee);
+			}
 		}
 
 		function createCivilService(employee){
-			angular.forEach($scope.civilService, function(value, key) {
-				var CivilServiceEligibility = Parse.Object.extend("CivilServiceEligibility");
-				var civilServiceEligibility = new CivilServiceEligibility();
+			if($scope.civilService.length > 0){
+				angular.forEach($scope.civilService, function(value, key) {
+					var CivilServiceEligibility = Parse.Object.extend("CivilServiceEligibility");
+					var civilServiceEligibility = new CivilServiceEligibility();
 
-				civilServiceEligibility.set("employeeId", employee.id);
-				civilServiceEligibility.set("careerService", value.careerService);
-				civilServiceEligibility.set("rating", parseInt(value.rating));
-				civilServiceEligibility.set("examDate", value.examDate);
-				civilServiceEligibility.set("examPlace", value.examPlace);
-				civilServiceEligibility.set("licenseNumber", value.licenseNumber);
-				civilServiceEligibility.set("licenseReleaseDate", value.licenseReleaseDate);
+					civilServiceEligibility.set("employeeId", employee.id);
+					civilServiceEligibility.set("careerService", value.careerService);
+					civilServiceEligibility.set("rating", parseInt(value.rating));
+					civilServiceEligibility.set("examDate", value.examDate);
+					civilServiceEligibility.set("examPlace", value.examPlace);
+					civilServiceEligibility.set("licenseNumber", value.licenseNumber);
+					civilServiceEligibility.set("licenseReleaseDate", value.licenseReleaseDate);
 
-				civilServiceEligibility.save(null, {
-					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
-						showSuccessMsg('Civil Service: ' + value.careerService + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.civilService.length){
-							lastCountIndicator = 0;
-							createWorkExperience(employee);
+					civilServiceEligibility.save(null, {
+						success: function(result) {
+							// Execute any logic that should take place after the object is saved.
+							showSuccessMsg('Civil Service: ' + value.careerService + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.civilService.length){
+								lastCountIndicator = 0;
+								createWorkExperience(employee);
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-					}
+					});
 				});
-			});
+			}else{
+				createWorkExperience(employee);
+			}
+
 		}
 
 		function createWorkExperience(employee){
-			angular.forEach($scope.workExperience, function(value, key) {
-				var WorkExperience = Parse.Object.extend("WorkExperience");
-				var workExperience = new WorkExperience();
+			if($scope.workExperience.length > 0){
+				angular.forEach($scope.workExperience, function(value, key) {
+					var WorkExperience = Parse.Object.extend("WorkExperience");
+					var workExperience = new WorkExperience();
 
-				workExperience.set("employeeId", employee.id);
-				workExperience.set("positionTitle", value.positionTitle);
-				workExperience.set("department", value.department);
-				workExperience.set("monthlySalary", parseInt(value.monthlySalary));
-				workExperience.set("salaryGrade", value.salaryGrade);
-				workExperience.set("statusOfAppointment", value.statusOfAppointment);
-				workExperience.set("isGovernmentService", true);
-				workExperience.set("inclusiveFromDate", value.inclusiveFromDate);
-				workExperience.set("inclusiveToDate", value.inclusiveToDate);
+					workExperience.set("employeeId", employee.id);
+					workExperience.set("positionTitle", value.positionTitle);
+					workExperience.set("department", value.department);
+					workExperience.set("monthlySalary", parseInt(value.monthlySalary));
+					workExperience.set("salaryGrade", value.salaryGrade);
+					workExperience.set("statusOfAppointment", value.statusOfAppointment);
+					workExperience.set("isGovernmentService", true);
+					workExperience.set("inclusiveFromDate", value.inclusiveFromDate);
+					workExperience.set("inclusiveToDate", value.inclusiveToDate);
 
-				workExperience.save(null, {
-					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
-						showSuccessMsg('Work Experience: ' + value.positionTitle + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.workExperience.length){
-							lastCountIndicator = 0;
-							createVoluntaryWork(employee);
+					workExperience.save(null, {
+						success: function(result) {
+							// Execute any logic that should take place after the object is saved.
+							showSuccessMsg('Work Experience: ' + value.positionTitle + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.workExperience.length){
+								lastCountIndicator = 0;
+								createVoluntaryWork(employee);
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-					}
+					});
 				});
-			});
+			}else{
+				createVoluntaryWork(employee);
+			}
+
 		}
 
 		function createVoluntaryWork(employee){
-			angular.forEach($scope.voluntaryWorks, function(value, key) {
-				var VoluntaryWork = Parse.Object.extend("VoluntaryWork");
-				var voluntaryWork = new VoluntaryWork();
+			if($scope.voluntaryWorks.length > 0){
+				angular.forEach($scope.voluntaryWorks, function(value, key) {
+					var VoluntaryWork = Parse.Object.extend("VoluntaryWork");
+					var voluntaryWork = new VoluntaryWork();
 
-				voluntaryWork.set("employeeId", employee.id);
-				voluntaryWork.set("name", value.name);
-				voluntaryWork.set("inclusiveFromDate", value.inclusiveFromDate);
-				voluntaryWork.set("inclusiveToDate", value.inclusiveToDate);
-				voluntaryWork.set("numberOfHours", parseInt(value.numberOfHours));
-				voluntaryWork.set("position", value.position);
+					voluntaryWork.set("employeeId", employee.id);
+					voluntaryWork.set("name", value.name);
+					voluntaryWork.set("inclusiveFromDate", value.inclusiveFromDate);
+					voluntaryWork.set("inclusiveToDate", value.inclusiveToDate);
+					voluntaryWork.set("numberOfHours", parseInt(value.numberOfHours));
+					voluntaryWork.set("position", value.position);
 
-				voluntaryWork.save(null, {
-					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
-						showSuccessMsg('Voluntary Work: ' + value.name + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.voluntaryWorks.length){
-							lastCountIndicator = 0;
-							createTrainingProgram(employee);
+					voluntaryWork.save(null, {
+						success: function(result) {
+							// Execute any logic that should take place after the object is saved.
+							showSuccessMsg('Voluntary Work: ' + value.name + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.voluntaryWorks.length){
+								lastCountIndicator = 0;
+								createTrainingProgram(employee);
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-					}
+					});
 				});
-			});
+			}else{
+				createTrainingProgram(employee);
+			}
+
 		}
 
 		function createTrainingProgram(employee){
-			angular.forEach($scope.trainingPrograms, function(value, key) {
-				var TrainingPrograms = Parse.Object.extend("TrainingPrograms");
-				var trainingPrograms = new TrainingPrograms();
+			if($scope.trainingPrograms.length > 0){
+				angular.forEach($scope.trainingPrograms, function(value, key) {
+					var TrainingPrograms = Parse.Object.extend("TrainingPrograms");
+					var trainingPrograms = new TrainingPrograms();
 
-				trainingPrograms.set("employeeId", employee.id);
-				trainingPrograms.set("name", value.name);
-				trainingPrograms.set("inclusiveFromDate", value.inclusiveFromDate);
-				trainingPrograms.set("inclusiveToDate", value.inclusiveToDate);
-				trainingPrograms.set("numberOfHours", parseInt(value.numberOfHours));
-				trainingPrograms.set("conductor", value.conductor);
+					trainingPrograms.set("employeeId", employee.id);
+					trainingPrograms.set("name", value.name);
+					trainingPrograms.set("inclusiveFromDate", value.inclusiveFromDate);
+					trainingPrograms.set("inclusiveToDate", value.inclusiveToDate);
+					trainingPrograms.set("numberOfHours", parseInt(value.numberOfHours));
+					trainingPrograms.set("conductor", value.conductor);
 
-				trainingPrograms.save(null, {
-					success: function(result) {
-						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.trainingPrograms.length){
-							lastCountIndicator = 0;
-							createOtherInfo(employee);
+					trainingPrograms.save(null, {
+						success: function(result) {
+							showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.trainingPrograms.length){
+								lastCountIndicator = 0;
+								createOtherInfo(employee);
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-					}
+					});
 				});
-			});
+			}else{
+				createOtherInfo(employee);
+			}
+
 		}
 
 		function createOtherInfo(employee){
-			angular.forEach($scope.otherInfo, function(value, key) {
-				var OtherInfo = Parse.Object.extend("OtherInfo");
-				var otherInfo = new OtherInfo();
+			if($scope.otherInfo.length > 0){
+				angular.forEach($scope.otherInfo, function(value, key) {
+					var OtherInfo = Parse.Object.extend("OtherInfo");
+					var otherInfo = new OtherInfo();
 
-				otherInfo.set("employeeId", employee.id);
-				otherInfo.set("specialSkill", value.specialSkill);
-				otherInfo.set("nonAcademicRecognition", value.nonAcademicRecognition);
-				otherInfo.set("organizationMembership", value.organizationMembership);
+					otherInfo.set("employeeId", employee.id);
+					otherInfo.set("specialSkill", value.specialSkill);
+					otherInfo.set("nonAcademicRecognition", value.nonAcademicRecognition);
+					otherInfo.set("organizationMembership", value.organizationMembership);
 
-				otherInfo.save(null, {
-					success: function(result) {
-						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
-						lastCountIndicator = lastCountIndicator + 1;
-						if(lastCountIndicator === $scope.otherInfo.length){
-							$state.go('manageEmployees');
-							lastCountIndicator = 0;
+					otherInfo.save(null, {
+						success: function(result) {
+							showSuccessMsg('Other Info: ' + value.name + ' Successfully Saved.');
+							lastCountIndicator = lastCountIndicator + 1;
+							if(lastCountIndicator === $scope.otherInfo.length){
+								// $state.go('manageEmployees');
+								lastCountIndicator = 0;
+							}
+						},
+						error: function(employee, error) {
+							console.log(error);
 						}
-					},
-					error: function(employee, error) {
-						console.log(error);
-					}
+					});
 				});
-			});
+			}else{
+				createOtherInfoB(employee);
+			}
 		}
 
+		function createOtherInfoB(employee){
+			var OtherInfoB = Parse.Object.extend("OtherInfoB");
+			var query = new OtherInfoB();
+
+			query.set("employeeId", employee.id);
+
+			query.set("question1A", $scope.otherInfoB.question1A.value || null);
+			query.set("question1ADetails", $scope.otherInfoB.question1ADetails);
+			query.set("question1B", $scope.otherInfoB.question1B.value || null);
+			query.set("question1BDetails", $scope.otherInfoB.question1BDetails);
+
+			query.set("question2A", $scope.otherInfoB.question2A.value || null);
+			query.set("question2ADetails", $scope.otherInfoB.question2ADetails);
+
+			query.set("question2B", $scope.otherInfoB.question2B.value || null);
+			query.set("question2BDetails", $scope.otherInfoB.question2BDetails);
+
+			query.set("question3A", $scope.otherInfoB.question3A.value || null);
+			query.set("question3ADetails", $scope.otherInfoB.question3ADetails);
+
+			query.set("question4A", $scope.otherInfoB.question4A.value || null);
+			query.set("question4ADetails", $scope.otherInfoB.question4ADetails);
+
+			query.set("question5A", $scope.otherInfoB.question5A.value || null);
+			query.set("question5ADetails", $scope.otherInfoB.question5ADetails);
+			query.set("question5B", $scope.otherInfoB.question5B.value || null);
+			query.set("question5BDetails", $scope.otherInfoB.question5BDetails);
+
+			query.set("question6A", $scope.otherInfoB.question6A.value || null);
+			query.set("question6ADetails", $scope.otherInfoB.question6ADetails);
+
+			query.set("question7A", $scope.otherInfoB.question7A.value || null);
+			query.set("question7ADetails", $scope.otherInfoB.question7ADetails);
+			query.set("question7B", $scope.otherInfoB.question7B.value || null);
+			query.set("question7BDetails", $scope.otherInfoB.question7BDetails);
+			query.set("question7C", $scope.otherInfoB.question7C.value || null);
+			query.set("question7CDetails", $scope.otherInfoB.question7CDetails);
+
+			query.set("referenceName1", $scope.otherInfoB.referenceName1);
+			query.set("referenceAddress1", $scope.otherInfoB.referenceAddress1);
+			query.set("referenceContactNumber1", $scope.otherInfoB.referenceContactNumber1);
+
+			query.set("referenceName2", $scope.otherInfoB.referenceName2);
+			query.set("referenceAddress2", $scope.otherInfoB.referenceAddress2);
+			query.set("referenceContactNumber2", $scope.otherInfoB.referenceContactNumber2);
+
+			query.set("referenceName3", $scope.otherInfoB.referenceName3);
+			query.set("referenceAddress3", $scope.otherInfoB.referenceAddress3);
+			query.set("referenceContactNumber3", $scope.otherInfoB.referenceContactNumber3);
+
+			query.set("govIssuedIdNumber", $scope.otherInfoB.govIssuedIdNumber);
+			query.set("govIssuedId", $scope.otherInfoB.govIssuedId);
+			query.set("govIssuedDateOfIssuance", new Date($scope.otherInfoB.govIssuedDateOfIssuance));
+
+			query.save(null, {
+				success: function(result) {
+					showSuccessMsg('Other Info B: Successfully Saved.');
+					$state.go('manageEmployees');
+				},
+				error: function(employee, error) {
+					console.log(error);
+				}
+			});
+		}
 
 		$scope.open = function(){
 			if($scope.opened){
@@ -445,9 +542,19 @@
 			{label: 'American', value: 'American'}
 		];
 
+		$scope.confirmList = [
+			{label: 'Yes', value: 'Yes'},
+			{label: 'No', value: 'No'}
+		];
+
 		$scope.bloodTypeList = [
+			{label: 'O-', value: 'O-'},
+			{label: 'O+', value: 'O+'},
+			{label: 'A-', value: 'A-'},
 			{label: 'A+', value: 'A+'},
+			{label: 'B-', value: 'B-'},
 			{label: 'B+', value: 'B+'},
+			{label: 'AB-', value: 'AB-'},
 			{label: 'AB+', value: 'AB+'}
 		];
 

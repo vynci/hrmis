@@ -60,10 +60,10 @@
 <hr>
 
 <div class="row">
-	<div class="col-sm-4 datepicker" ng-controller="EnrollEmployeeCtrl">
+	<div class="col-sm-4 datepicker" ng-controller="datepickerpopupCtrl">
 			<label>Date of Birth</label>
 			<p class="input-group">
-				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="personalInfo.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" placeholder="mm/dd/yyyy"  ng-model="personalInfo.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
 				<span class="input-group-btn">
 					<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
 				</span>

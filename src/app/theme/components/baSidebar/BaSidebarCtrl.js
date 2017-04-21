@@ -31,17 +31,17 @@
           userType : results[0].get('type')
         }
 
-        $uibModal.open({
-          animation: true,
-          templateUrl: 'app/theme/components/baSidebar/successModal.html',
-          controller : 'WelcomeModalCtrl',
-          size: 'sm',
-          resolve: {
-            items: function () {
-              return $scope.userinfo;
-            }
-          }
-        });
+        // $uibModal.open({
+        //   animation: true,
+        //   templateUrl: 'app/theme/components/baSidebar/successModal.html',
+        //   controller : 'WelcomeModalCtrl',
+        //   size: 'sm',
+        //   resolve: {
+        //     items: function () {
+        //       return $scope.userinfo;
+        //     }
+        //   }
+        // });
 
         angular.forEach(links, function(value, key) {
           var userSidebarLinks = value;

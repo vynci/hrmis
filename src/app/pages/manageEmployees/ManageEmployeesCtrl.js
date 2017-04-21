@@ -10,11 +10,12 @@
 
 	/** @ngInject */
 	function ManageEmployeesCtrl($scope, $uibModal, $rootScope, $state, employeeService) {
-		console.log('manage employee!');
+		$scope.totalEmployees = 0;
+		$scope.pageLimit = 10;
+
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
-
-			getAllEmployees();
+			getAllEmployees(null, $scope.pageLimit, 0);
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -25,8 +26,20 @@
 		}
 
 		$scope.editEmployee = function(employee){
-			console.log(employee.id);
 			$state.go('editEmployee', {employeeId: employee.id});
+		}
+
+		$scope.search = function(){
+			getAllEmployees($scope.searchParams, $scope.pageLimit)
+		}
+
+		$scope.limitList = function(){
+			getAllEmployees($scope.searchParams, $scope.pageLimit)
+		}
+
+		$scope.changePage = function(page){
+			var skip = page * $scope.pageLimit;
+			getAllEmployees($scope.searchParams, $scope.pageLimit, skip);
 		}
 
 		$scope.isActive = {
@@ -47,20 +60,36 @@
 			}
 		}
 
-		$scope.smartTablePageSize = 5;
 		$scope.employees = [];
 
-		function getAllEmployees(){
+		function getAllEmployees(search, limit, skip, isSearch){
 			$scope.isLoading = true;
-			employeeService.getAll()
+			employeeService.getAll(search || '', limit, skip)
 			.then(function(results) {
 				// Handle the result
 				$scope.employees = results;
+				countEmployees();
+				
 				$scope.isLoading = false;
 			}, function(err) {
 				console.log(err);
-			}, function(percentComplete) {
-				console.log(percentComplete);
+			});
+		}
+
+		function countEmployees(){
+			$scope.isLoading = true;
+			employeeService.count()
+			.then(function(results) {
+				$scope.totalEmployees = results;
+				var numberOfPage = $scope.totalEmployees / $scope.pageLimit;
+				numberOfPage = Math.ceil(numberOfPage);
+				$scope.pageNumbers = [];
+
+				for(var i=0; i<numberOfPage; i++){
+					$scope.pageNumbers.push(i);
+				}
+			}, function(err) {
+				console.log(err);
 			});
 		}
 

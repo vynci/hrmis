@@ -42,9 +42,20 @@
 			{label: 'American', value: 'American'}
 		];
 
+		$scope.confirmList = [
+			{label: 'Yes', value: 'Yes'},
+			{label: 'No', value: 'No'}
+		];
+
+
 		$scope.bloodTypeList = [
+			{label: 'O-', value: 'O-'},
+			{label: 'O+', value: 'O+'},
+			{label: 'A-', value: 'A-'},
 			{label: 'A+', value: 'A+'},
+			{label: 'B-', value: 'B-'},
 			{label: 'B+', value: 'B+'},
+			{label: 'AB-', value: 'AB-'},
 			{label: 'AB+', value: 'AB+'}
 		];
 
@@ -593,6 +604,100 @@
 			});
 		}
 
+		function getOtherInfoB(){
+			$scope.isLoading = true;
+			$scope.otherInfoB = {};
+
+			otherInfoService.infoBgetByEmployeeId($stateParams.employeeId)
+			.then(function(results) {
+				var data = results[0];
+				if(data){
+					$scope.otherInfoB = {
+						id : data.id,
+						question1A : stringToObject(data.get('question1A')),
+						question1ADetails : data.get('question1ADetails'),
+						question1B : stringToObject(data.get('question1B')),
+						question1BDetails : data.get('question1BDetails'),
+						question2A : stringToObject(data.get('question2A')),
+						question2ADetails : data.get('question2ADetails'),
+						question2B : stringToObject(data.get('question2A')),
+						question2BDetails : data.get('question2ADetails'),
+						question3A : stringToObject(data.get('question3A')),
+						question3ADetails : data.get('question3ADetails'),
+						question4A : stringToObject(data.get('question4A')),
+						question4ADetails : data.get('question4ADetails'),
+						question5A : stringToObject(data.get('question5A')),
+						question5ADetails : data.get('question5ADetails'),
+						question5B : stringToObject(data.get('question4B')),
+						question5BDetails : data.get('question4BDetails'),
+						question6A : stringToObject(data.get('question5A')),
+						question6ADetails : data.get('question5ADetails'),
+						question7A : stringToObject(data.get('question7A')),
+						question7ADetails : data.get('question7ADetails'),
+						question7B : stringToObject(data.get('question7B')),
+						question7BDetails : data.get('question7BDetails'),
+						question7C : stringToObject(data.get('question7C')),
+						question7CDetails : data.get('question7CDetails'),
+						referenceName1 : data.get('referenceName1'),
+						referenceAddress1 : data.get('referenceAddress1'),
+						referenceContactNumber1 : data.get('referenceContactNumber1'),
+						referenceName2 : data.get('referenceName2'),
+						referenceAddress2 : data.get('referenceAddress2'),
+						referenceContactNumber2 : data.get('referenceContactNumber2'),
+						referenceName3 : data.get('referenceName3'),
+						referenceAddress3 : data.get('referenceAddress3'),
+						referenceContactNumber3 : data.get('referenceContactNumber3'),
+						govIssuedIdNumber : data.get('govIssuedIdNumber'),
+						govIssuedDateOfIssuance : data.get('govIssuedDateOfIssuance'),
+						govIssuedId : data.get('govIssuedId')
+					};
+				} else{
+					$scope.otherInfoB = {
+						question1A : null,
+						question1ADetails : '',
+						question1B : null,
+						question1BDetails : '',
+						question2A : null,
+						question2ADetails : '',
+						question2B : null,
+						question2BDetails : '',
+						question3A : null,
+						question3ADetails : '',
+						question4A : null,
+						question4ADetails : '',
+						question5A : null,
+						question5ADetails : '',
+						question5B : null,
+						question5BDetails : '',
+						question6A : null,
+						question6ADetails : '',
+						question7A : null,
+						question7ADetails : '',
+						question7B : null,
+						question7BDetails : '',
+						question7C : null,
+						question7CDetails : '',
+						referenceName1 : '',
+						referenceAddress1 : '',
+						referenceContactNumber1 : '',
+						referenceName2 : '',
+						referenceAddress2 : '',
+						referenceContactNumber2 : '',
+						referenceName3 : '',
+						referenceAddress3 : '',
+						referenceContactNumber3 : '',
+						govIssuedIdNumber : '',
+						govIssuedDateOfIssuance : null,
+						govIssuedId : ''
+					};
+				}
+
+				$scope.isLoading = false;
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
 		function stringToObject(stringValue){
 			var objectValue = {
 				label : stringValue,
@@ -640,19 +745,15 @@
 				if(!$scope.otherInfo){
 					getOtherInfo();
 				}
+			},
+			otherInfoB : function(){
+				if(!$scope.otherInfoB){
+					getOtherInfoB();
+				}
 			}
 		}
 
 		$scope.updateEmployee = function(){
-			console.log($scope.personalInfo);
-			console.log($scope.familyBackground);
-			console.log($scope.educationalBackground);
-			console.log($scope.civilService);
-			console.log($scope.workExperience);
-			console.log($scope.voluntaryWorks);
-			console.log($scope.trainingPrograms);
-			console.log($scope.otherInfo);
-
 			if($scope.personalInfo){
 				updatePersonalInfo();
 			}
@@ -683,6 +784,10 @@
 
 			if($scope.otherInfo){
 				updateOtherInfo();
+			}
+
+			if($scope.otherInfoB){
+				updateOtherInfoB();
 			}
 		}
 
@@ -978,7 +1083,7 @@
 
 				otherInfo.save(null, {
 					success: function(result) {
-						showSuccessMsg('Training Program: ' + value.name + ' Successfully Saved.');
+						showSuccessMsg('Other Info A: ' + value.name + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.otherInfo.length){
 							lastCountIndicator = 0;
@@ -989,6 +1094,75 @@
 					}
 				});
 			});
+		}
+
+		function updateOtherInfoB(employee){
+			var lastCountIndicator = 0;
+			console.log($scope.otherInfoB);
+			var OtherInfoB = Parse.Object.extend("OtherInfoB");
+			var query = new OtherInfoB();
+			if($scope.otherInfoB.id){
+				query.id = $scope.otherInfoB.id;
+			}
+			query.set("employeeId", $stateParams.employeeId);
+			query.set("question1A", $scope.otherInfoB.question1A.value);
+			query.set("question1ADetails", $scope.otherInfoB.question1ADetails);
+			query.set("question1B", $scope.otherInfoB.question1B.value);
+			query.set("question1BDetails", $scope.otherInfoB.question1BDetails);
+
+			query.set("question2A", $scope.otherInfoB.question2A.value);
+			query.set("question2ADetails", $scope.otherInfoB.question2ADetails);
+
+			query.set("question2B", $scope.otherInfoB.question2B.value);
+			query.set("question2BDetails", $scope.otherInfoB.question2BDetails);
+
+			query.set("question3A", $scope.otherInfoB.question3A.value);
+			query.set("question3ADetails", $scope.otherInfoB.question3ADetails);
+
+			query.set("question4A", $scope.otherInfoB.question4A.value);
+			query.set("question4ADetails", $scope.otherInfoB.question4ADetails);
+
+			query.set("question5A", $scope.otherInfoB.question5A.value);
+			query.set("question5ADetails", $scope.otherInfoB.question5ADetails);
+			query.set("question5B", $scope.otherInfoB.question5B.value);
+			query.set("question5BDetails", $scope.otherInfoB.question5BDetails);
+
+			query.set("question6A", $scope.otherInfoB.question6A.value);
+			query.set("question6ADetails", $scope.otherInfoB.question6ADetails);
+
+			query.set("question7A", $scope.otherInfoB.question7A.value);
+			query.set("question7ADetails", $scope.otherInfoB.question7ADetails);
+			query.set("question7B", $scope.otherInfoB.question7B.value);
+			query.set("question7BDetails", $scope.otherInfoB.question7BDetails);
+			query.set("question7C", $scope.otherInfoB.question7C.value);
+			query.set("question7CDetails", $scope.otherInfoB.question7CDetails);
+
+			query.set("referenceName1", $scope.otherInfoB.referenceName1);
+			query.set("referenceAddress1", $scope.otherInfoB.referenceAddress1);
+			query.set("referenceContactNumber1", $scope.otherInfoB.referenceContactNumber1);
+
+			query.set("referenceName2", $scope.otherInfoB.referenceName2);
+			query.set("referenceAddress2", $scope.otherInfoB.referenceAddress2);
+			query.set("referenceContactNumber2", $scope.otherInfoB.referenceContactNumber2);
+
+			query.set("referenceName3", $scope.otherInfoB.referenceName3);
+			query.set("referenceAddress3", $scope.otherInfoB.referenceAddress3);
+			query.set("referenceContactNumber3", $scope.otherInfoB.referenceContactNumber3);
+
+			query.set("govIssuedIdNumber", $scope.otherInfoB.govIssuedIdNumber);
+			query.set("govIssuedId", $scope.otherInfoB.govIssuedId);
+			query.set("govIssuedDateOfIssuance", new Date($scope.otherInfoB.govIssuedDateOfIssuance));
+
+			query.save(null, {
+				success: function(result) {
+					showSuccessMsg('Other Info B Successfully Saved.');
+
+				},
+				error: function(employee, error) {
+					console.log(error);
+				}
+			});
+
 		}
 
 }

@@ -1,0 +1,553 @@
+<h4>Other Information B</h4>
+<br>
+<div ng-if="!isLoading">
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">Are you related by consanguinity or affinity to the
+						appointing or recommending authority, or to the chief of bureau or office or to
+						the person who has immediate supervision over you in the Office,
+						Bureau or Department where you will be apppointed,
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						a. within the third degree?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question1A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question1A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question1ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						b. within the fourth degree (for Local Government Unit - Career Employees)?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question1B" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question1B.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question1BDetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Second Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">a. Have you ever been found guilty of any administrative offense?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question2A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question2A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question2ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">b. Have you been criminally charged before any court?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question2B" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question2B.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question2BDetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Third Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						Have you ever been convicted of any crime or violation of any law, decree, ordinance or regulation by any court or tribunal?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question3A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question3A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question3ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Fourth Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						Have you ever been separated from the service in any of the following modes: resignation, retirement, dropped from the rolls, dismissal, termination, end of term, finished contract or phased out (abolition) in the public or private sector?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question4A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question4A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question4ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Fifth Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">a. Have you ever been a candidate in a national or local election held within the last year (except Barangay election)?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question5A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question5A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question5ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">b. Have you resigned from the government service during the three (3)-month period before the last election to promote/actively campaign for a national or local candidate?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question5B" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question5B.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question5BDetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Sixth Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						Have you acquired the status of an immigrant or permanent resident of another country?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question6A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question6A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question6ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Seventh Question -->
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						Pursuant to: (a) Indigenous People's Act (RA 8371); (b) Magna Carta for Disabled Persons (RA 7277); and (c) Solo Parents Welfare Act of 2000 (RA 8972), please answer the following items:
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">
+						a. Are you a member of any indigenous group?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question7A" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question7A.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question7ADetails"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">b. Are you a person with disability?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question7B" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question7B.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question7BDetails"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="inputFirstName">c. Are you a solo parent?
+					</label>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<ui-select ng-model="otherInfoB.question7C" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+						<ui-select-match placeholder="Select">
+							<span> {{$select.selected.label}}</span>
+						</ui-select-match>
+						<ui-select-choices repeat="standardItem in confirmList">
+							<span ng-bind-html="standardItem.label"></span>
+						</ui-select-choices>
+					</ui-select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" ng-if="otherInfoB.question7C.value == 'Yes'">
+			<div class="col-md-12">
+				<div class="form-group">
+					<label for="textarea01">Details</label>
+					<textarea placeholder="Input Details Here" class="form-control" id="textarea01" ng-model="otherInfoB.question7CDetails"></textarea>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<h5>Reference 1</h5>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputFirstName">Name</label>
+					<input type="text" class="form-control" id="inputFirstName" placeholder="Name" ng-model="otherInfoB.referenceName1">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Address</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Address" ng-model="otherInfoB.referenceAddress1">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Contact Number</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Contact Number" ng-model="otherInfoB.referenceContactNumber1">
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h5>Reference 2</h5>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputFirstName">Name</label>
+					<input type="text" class="form-control" id="inputFirstName" placeholder="Name" ng-model="otherInfoB.referenceName2">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Address</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Address" ng-model="otherInfoB.referenceAddress2">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Contact Number</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Contact Number" ng-model="otherInfoB.referenceContactNumber2">
+				</div>
+			</div>
+		</div>
+		<hr>
+		<h5>Reference 3</h5>
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputFirstName">Name</label>
+					<input type="text" class="form-control" id="inputFirstName" placeholder="Name" ng-model="otherInfoB.referenceName3">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Address</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Address" ng-model="otherInfoB.referenceAddress3">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputLastName">Contact Number</label>
+					<input type="text" class="form-control" id="inputLastName" placeholder="Contact Number" ng-model="otherInfoB.referenceContactNumber3">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div style="padding: 10px 20px; border-width: 1px; border-style: solid; margin-bottom: 15px;">
+		<div class="row">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputFirstName">Government Issued ID</label>
+					<input type="text" class="form-control" id="inputFirstName" placeholder="Government Issued ID" ng-model="otherInfoB.govIssuedId">
+				</div>
+			</div>
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="inputFirstName">ID/License/Passport No.</label>
+					<input type="text" class="form-control" id="inputFirstName" placeholder="ID/License/Passport No." ng-model="otherInfoB.govIssuedIdNumber">
+				</div>
+			</div>
+			<div class="col-sm-4 datepicker" ng-controller="datepickerpopupCtrl">
+				<label>Date of Issuance:</label>
+				<p class="input-group">
+					<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" placeholder="mm/dd/yyyy" ng-model="otherInfoB.govIssuedDateOfIssuance" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+					</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row" ng-if="isLoading" style="margin-bottom: 15px;">
+	<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+		<div class="loader"></div>
+	</div>
+</div>
