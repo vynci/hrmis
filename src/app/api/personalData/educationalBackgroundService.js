@@ -15,6 +15,7 @@
 			if(employeeId){
 				query.equalTo("employeeId", employeeId);
 			}
+			query.descending('from');
 
 			query.find({
 				success: function(results) {

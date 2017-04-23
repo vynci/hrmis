@@ -7,7 +7,14 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputFirstName">Career Service</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Career Service" ng-model="service.careerService">
+				<ui-select ng-model="service.careerService" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+					<ui-select-match placeholder="Select">
+						<span> {{$select.selected.label}}</span>
+					</ui-select-match>
+					<ui-select-choices repeat="standardItem in careerServiceList">
+						<span ng-bind-html="standardItem.label"></span>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 		</div>
 		<div class="col-sm-4">
@@ -31,7 +38,19 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputFirstName">Place of Examination / Conferment</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Place of Examination / Conferment" ng-model="service.examPlace">
+				<ui-select ng-model="service.examPlace"
+				class="btn-group bootstrap-select form-control"
+				ng-disabled="false"
+				append-to-body="true"
+				search-enabled="true">
+				<ui-select-match placeholder="Select Place">
+					{{$select.selected.label}}
+				</ui-select-match>
+				<ui-select-choices
+				repeat="city in cityList | filter: $select.search">
+				<span ng-bind-html="city.label"></span>
+			</ui-select-choices>
+		</ui-select>
 			</div>
 		</div>
 		<div class="col-sm-4">

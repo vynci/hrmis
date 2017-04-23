@@ -9,7 +9,7 @@
 	.controller('EditEmployeeCtrl', EditEmployeeCtrl);
 
 	/** @ngInject */
-	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader) {
+	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService) {
 		$scope.isEdit = true;
 		$scope.format = 'MM/dd/yyyy';
 
@@ -17,10 +17,21 @@
 			$rootScope.isLogged = true;
 			getPersonalInfo();
 			getEmployeeInfo($stateParams.employeeId);
+			getCityList('', '08');
+			getOccupationList();
+			getCareerServiceList();
+			getDegreeCourseList();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
 		}
+
+		$scope.cityList = [
+			{label: 'CEBU CITY', value: 'CEBU CITY'},
+			{label: 'MANILA', value: 'MANILA'}
+		];
+
+		$scope.careerServiceList = [];
 
 		$scope.genderList = [
 			{label: 'Male', value: 'Male'},
@@ -47,6 +58,13 @@
 			{label: 'No', value: 'No'}
 		];
 
+		$scope.statusOfAppointmentList = [
+			{label: 'Permanent', value: 'Permanent'},
+			{label: 'Temporary', value: 'Temporary'},
+			{label: 'Probationary', value: 'Probationary'},
+			{label: 'Co-terminus', value: 'Co-terminus'},
+			{label: 'Contractual', value: 'Contractual'}
+		];
 
 		$scope.bloodTypeList = [
 			{label: 'O-', value: 'O-'},
@@ -60,9 +78,7 @@
 		];
 
 		$scope.placeList = [
-			{label: 'Tacloban City', value: 'Tacloban City'},
-			{label: 'Cebu City', value: 'Cebu City'},
-			{label: 'Manila', value: 'Manila'}
+			{label: 'Cebu City', value: 'Cebu City'}
 		];
 
 		$scope.levelTypeList = [
@@ -72,6 +88,9 @@
 			{label: 'College', value: 'College'},
 			{label: 'Graduate Studies', value: 'Graduate Studies'}
 		];
+
+		$scope.occupationList = [];
+		$scope.degreeCourseList = [];
 
 		$scope.deletConfirmation = function (page, size) {
 			$uibModal.open({
@@ -96,6 +115,40 @@
 			fileInput.click();
 		}
 
+		$scope.setEducationAsPrimary = function(education){
+			console.log(education);
+			var lastCountIndicator = 0;
+			angular.forEach($scope.educationalBackground, function(value, key) {
+
+				var EducationalBackground = Parse.Object.extend("EducationalBackground");
+				var educationalBackground = new EducationalBackground();
+
+				educationalBackground.id = value.id;
+
+				if(value.id === education.id){
+					educationalBackground.set("isPrimary", true);
+				}else{
+					educationalBackground.set("isPrimary", false);
+				}
+
+				educationalBackground.save(null, {
+					success: function(result) {
+						// Execute any logic that should take place after the object is saved.
+						showSuccessMsg('Educational Background: ' + value.levelType.value + ' Successfully Saved.');
+						lastCountIndicator = lastCountIndicator + 1;
+						if(lastCountIndicator === $scope.educationalBackground.length){
+							// $state.go('manageEmployees');
+							getEducationalBackground(true);
+							lastCountIndicator = 0;
+						}
+					},
+					error: function(employee, error) {
+						console.log(error);
+					}
+				});
+			});
+		};
+
 		$scope.getFile = function (data) {
 			console.log(data);
 			$scope.personalInfo.avatar = false;
@@ -115,6 +168,21 @@
 		function showSuccessMsg(msg) {
 			toastr.success(msg);
 		};
+
+		function getCityList(cityName, provCode){
+			cityMunicipalityService.getAll(cityName, provCode)
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.cityList.push({
+						label : data.get('citymunDesc'),
+						value : data.get('citymunDesc')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
 
 		$scope.activateEmployee = function(status){
 
@@ -454,36 +522,48 @@
 					motherInfo : familyBackground.get('motherInfo'),
 					children : children
 				}
+
+				$scope.familyBackground.spouseInfo.occupation = {
+					label : $scope.familyBackground.spouseInfo.occupation,
+					value : $scope.familyBackground.spouseInfo.occupation
+				}
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {
 			});
 		}
 
-		function getEducationalBackground(){
-			$scope.isLoading = true;
-			$scope.educationalBackground = []
+		function getEducationalBackground(isDisableLoading){
+			if(!isDisableLoading){
+				$scope.isLoading = true;
+			}
+			$scope.educationalBackground = [];
 
 			educationalBackgroundService.getByEmployeeId($stateParams.employeeId)
 			.then(function(results) {
 				// Handle the result
 				angular.forEach(results, function(value, key) {
+					var degreeCourse = {
+						label : value.get('degreeCourse'),
+						name : value.get('degreeCourse')
+					}
+
 					$scope.educationalBackground.push({
 						id : value.id,
 						levelType : stringToObject(value.get('levelType')),
 						schoolName : value.get('schoolName'),
-						degreeCourse : value.get('degreeCourse'),
+						degreeCourse : degreeCourse,
 						yearGraduated : value.get('yearGraduated'),
 						highestGrade: value.get('highestGrade'),
 						awards : value.get('awards'),
 						from : value.get('from'),
-						to : value.get('to')
+						to : value.get('to'),
+						isPrimary : value.get('isPrimary')
 					});
 				});
 				$scope.isLoading = false;
 			}, function(err) {
 				console.log(err);
-			}, function(percentComplete) {
 			});
 		}
 
@@ -495,12 +575,23 @@
 			.then(function(results) {
 				// Handle the result
 				angular.forEach(results, function(value, key) {
+
+					var careerService = {
+						label : value.get('careerService'),
+						name : value.get('careerService')
+					}
+
+					var examPlace = {
+						label : value.get('examPlace'),
+						name : value.get('examPlace')
+					}
+
 					$scope.civilService.push({
 						id : value.id,
-						careerService : value.get('careerService'),
+						careerService : careerService,
 						rating : value.get('rating'),
 						examDate : value.get('examDate'),
-						examPlace : value.get('examPlace'),
+						examPlace : examPlace,
 						licenseNumber: value.get('licenseNumber'),
 						licenseReleaseDate : value.get('licenseReleaseDate')
 					});
@@ -508,7 +599,6 @@
 				$scope.isLoading = false;
 			}, function(err) {
 				console.log(err);
-			}, function(percentComplete) {
 			});
 		}
 
@@ -519,16 +609,36 @@
 			workExperienceService.getByEmployeeId($stateParams.employeeId)
 			.then(function(results) {
 				angular.forEach(results, function(value, key) {
+					var tmp = value.get('isGovernmentService');
+					if(tmp){
+						tmp = {
+							label : 'Yes',
+							value : 'Yes'
+						};
+					}else{
+						tmp = {
+							label : 'No',
+							value : 'No'
+						};
+					}
+
+					var statusOfAppointment = {
+						label : value.get('statusOfAppointment'),
+						value : value.get('statusOfAppointment')
+					}
+
 					$scope.workExperience.push({
 						id : value.id,
 						positionTitle : value.get('positionTitle'),
 						department : value.get('department'),
 						monthlySalary : value.get('monthlySalary'),
 						salaryGrade : value.get('salaryGrade'),
-						statusOfAppointment: value.get('statusOfAppointment'),
+						isGovernmentService : tmp,
+						statusOfAppointment: statusOfAppointment,
 						inclusiveFromDate : value.get('inclusiveFromDate'),
 						inclusiveToDate : value.get('inclusiveToDate')
 					});
+					console.log($scope.workExperience);
 				});
 				$scope.isLoading = false;
 			}, function(err) {
@@ -791,6 +901,51 @@
 			}
 		}
 
+		function getDegreeCourseList(){
+			refDegreeCourseService.getAll()
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.degreeCourseList.push({
+						label : data.get('name'),
+						value : data.get('name')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getOccupationList(){
+			refOccupationListService.getAll()
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.occupationList.push({
+						label : data.get('name'),
+						value : data.get('name')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getCareerServiceList(){
+			refCareerServiceService.getAll()
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.careerServiceList.push({
+						label : data.get('name'),
+						value : data.get('name')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
 		function updatePersonalInfo(){
 			var PersonalInfo = Parse.Object.extend("PersonalInfo");
 			var personalInfo = new PersonalInfo();
@@ -856,6 +1011,8 @@
 			var familyBackground = new FamilyBackground();
 			var children = [];
 
+			$scope.familyBackground.spouseInfo.occupation = $scope.familyBackground.spouseInfo.occupation.value;
+
 			familyBackground.id = $scope.familyBackground.id;
 			familyBackground.set("employeeId", $stateParams.employeeId);
 			familyBackground.set("spouseInfo", $scope.familyBackground.spouseInfo);
@@ -875,6 +1032,7 @@
 				success: function(result) {
 					// Execute any logic that should take place after the object is saved.
 					showSuccessMsg('Family Background Successfully Saved.');
+					getFamilyBackground();
 				},
 				error: function(employee, error) {
 					console.log(error);
@@ -897,7 +1055,7 @@
 
 				educationalBackground.set("employeeId", $stateParams.employeeId);
 				educationalBackground.set("awards", value.awards);
-				educationalBackground.set("degreeCourse", value.degreeCourse);
+				educationalBackground.set("degreeCourse", value.degreeCourse.value);
 				educationalBackground.set("from", value.from);
 				educationalBackground.set("to", value.to);
 				educationalBackground.set("highestGrade", value.highestGrade);
@@ -917,8 +1075,6 @@
 					},
 					error: function(employee, error) {
 						console.log(error);
-						// Execute any logic that should take place if the save fails.
-						// error is a Parse.Error with an error code and message.
 					}
 				});
 			});
@@ -936,10 +1092,10 @@
 				}
 
 				civilServiceEligibility.set("employeeId", $stateParams.employeeId);
-				civilServiceEligibility.set("careerService", value.careerService);
+				civilServiceEligibility.set("careerService", value.careerService.value);
 				civilServiceEligibility.set("rating", parseInt(value.rating));
 				civilServiceEligibility.set("examDate", value.examDate);
-				civilServiceEligibility.set("examPlace", value.examPlace);
+				civilServiceEligibility.set("examPlace", value.examPlace.value);
 				civilServiceEligibility.set("licenseNumber", value.licenseNumber);
 				civilServiceEligibility.set("licenseReleaseDate", value.licenseReleaseDate);
 
@@ -965,9 +1121,13 @@
 			angular.forEach($scope.workExperience, function(value, key) {
 				var WorkExperience = Parse.Object.extend("WorkExperience");
 				var workExperience = new WorkExperience();
-
+				var isGovernmentService = false;
 				if(value.id){
 					workExperience.id = value.id;
+				}
+
+				if(value.isGovernmentService.value === 'Yes'){
+					isGovernmentService = true;
 				}
 
 				workExperience.set("employeeId", $stateParams.employeeId);
@@ -975,14 +1135,13 @@
 				workExperience.set("department", value.department);
 				workExperience.set("monthlySalary", parseInt(value.monthlySalary));
 				workExperience.set("salaryGrade", value.salaryGrade);
-				workExperience.set("statusOfAppointment", value.statusOfAppointment);
-				workExperience.set("isGovernmentService", true);
+				workExperience.set("statusOfAppointment", value.statusOfAppointment.value);
+				workExperience.set("isGovernmentService", isGovernmentService);
 				workExperience.set("inclusiveFromDate", value.inclusiveFromDate);
 				workExperience.set("inclusiveToDate", value.inclusiveToDate);
 
 				workExperience.save(null, {
 					success: function(result) {
-						// Execute any logic that should take place after the object is saved.
 						showSuccessMsg('Work Experience: ' + value.positionTitle + ' Successfully Saved.');
 						lastCountIndicator = lastCountIndicator + 1;
 						if(lastCountIndicator === $scope.workExperience.length){

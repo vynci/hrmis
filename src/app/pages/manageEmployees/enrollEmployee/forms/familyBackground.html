@@ -26,7 +26,15 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				<label for="inputFirstName">Occupation</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Occupation" ng-model="familyBackground.spouseInfo.occupation">
+				<!-- <input type="text" class="form-control" id="inputFirstName" placeholder="Occupation" ng-model="familyBackground.spouseInfo.occupation"> -->
+				<ui-select ng-model="familyBackground.spouseInfo.occupation" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+				<ui-select-match placeholder="Select Occupation">
+				<span> {{$select.selected.label}}</span>
+				</ui-select-match>
+				<ui-select-choices repeat="standardItem in occupationList">
+				<span ng-bind-html="standardItem.label"></span>
+				</ui-select-choices>
+				</ui-select>
 			</div>
 		</div>
 		<div class="col-sm-3">
@@ -44,7 +52,7 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				<label for="inputLastName">Telephone No.</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="familyBackground.spouseInfo.businessTelephoneNumber">
+				<input type="text" class="form-control" id="inputLastName" placeholder="Telephone No." ng-model="familyBackground.spouseInfo.businessTelephoneNumber" maxlength="11">
 			</div>
 		</div>
 	</div>
@@ -123,7 +131,7 @@
 					<div ng-controller="EnrollEmployeeCtrl">
 							<div class="row">
 								<div class="col-sm-6" style="padding-right: 0px;">
-									<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" ng-model="child.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
+									<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" placeholder="mm/dd/yyyy" ng-model="child.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false" />
 								</div>
 								<div class="col-sm-6" style="padding-left: 0px;">
 									<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>

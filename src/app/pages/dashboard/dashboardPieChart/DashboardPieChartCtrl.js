@@ -9,23 +9,60 @@
       .controller('DashboardPieChartCtrl', DashboardPieChartCtrl);
 
   /** @ngInject */
-  function DashboardPieChartCtrl($scope, $timeout, baConfig, baUtil) {
+  function DashboardPieChartCtrl($scope, $timeout, baConfig, baUtil, employeeService) {
     var pieColor = baUtil.hexToRGB(baConfig.colors.defaultText, 0.2);
-    $scope.charts = [{
-      color: pieColor,
-      description: 'Active Users',
-      stats: '178,391',
-      icon: 'face',
-    }, {
-      color: pieColor,
-      description: 'Inactive Users',
-      stats: '32,592',
-      icon: 'refresh',
+    var activeUsers = [];
+    var inactiveUsers = [];
+
+    getAllEmployees(null, null, null);
+
+    function getAllEmployees(search, limit, skip, isSearch){
+      $scope.isLoading = true;
+      employeeService.getAll(search || '', limit, skip)
+      .then(function(results) {
+        angular.forEach(results, function(value, key) {
+          if(value.get('isActive')){
+            activeUsers.push(value);
+          }else{
+            inactiveUsers.push(value);
+          }
+        });
+
+        $scope.charts = [{
+          color: pieColor,
+          description: 'Active Users',
+          stats: activeUsers.length,
+          percent : calcPercent(results.length, activeUsers.length),
+          icon: 'face',
+        }, {
+          color: pieColor,
+          description: 'Inactive Users',
+          percent : calcPercent(results.length, inactiveUsers.length),
+          stats: inactiveUsers.length,
+          icon: 'refresh',
+        }
+        ];
+
+        $timeout(function () {
+          loadPieCharts();
+          // updatePieCharts();
+        }, 1000);
+
+        $scope.isLoading = false;
+      }, function(err) {
+        console.log(err);
+      });
     }
-    ];
 
     function getRandomArbitrary(min, max) {
       return Math.random() * (max - min) + min;
+    }
+
+    function calcPercent(total, value){
+      var tmp = ( value / total ) * 100;
+      tmp = Math.round(tmp);
+
+      return tmp;
     }
 
     function loadPieCharts() {
@@ -53,13 +90,12 @@
 
     function updatePieCharts() {
       $('.pie-charts .chart').each(function(index, chart) {
-        $(chart).data('easyPieChart').update(getRandomArbitrary(55, 90));
+        console.log(index);
+        console.log(chart);
+        $(chart).data('easyPieChart').update(20);
       });
     }
 
-    $timeout(function () {
-      loadPieCharts();
-      updatePieCharts();
-    }, 1000);
+
   }
 })();

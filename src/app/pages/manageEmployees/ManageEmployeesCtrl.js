@@ -9,13 +9,20 @@
 	.controller('ManageEmployeesCtrl', ManageEmployeesCtrl);
 
 	/** @ngInject */
-	function ManageEmployeesCtrl($scope, $uibModal, $rootScope, $state, employeeService) {
+	function ManageEmployeesCtrl($scope, $uibModal, $rootScope, $state, employeeService, $window) {
 		$scope.totalEmployees = 0;
 		$scope.pageLimit = 10;
 
 		if(Parse.User.current()){
-			$rootScope.isLogged = true;
-			getAllEmployees(null, $scope.pageLimit, 0);
+			if(Parse.User.current().get('userTypeId') === 'J7ELLa1Czi'){
+				$rootScope.isLogged = true;
+				getAllEmployees(null, $scope.pageLimit, 0);
+			}else{
+				Parse.User.logOut().then(function(){
+					$window.location.href = "#/auth";
+					$state.go('auth');
+				});
+			}
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -63,13 +70,14 @@
 		$scope.employees = [];
 
 		function getAllEmployees(search, limit, skip, isSearch){
+			$scope.employees = [];
 			$scope.isLoading = true;
 			employeeService.getAll(search || '', limit, skip)
 			.then(function(results) {
 				// Handle the result
 				$scope.employees = results;
 				countEmployees();
-				
+
 				$scope.isLoading = false;
 			}, function(err) {
 				console.log(err);

@@ -70,6 +70,8 @@
 			{label: 'Graduate Studies', value: 'Graduate Studies'}
 		];
 
+		var changeList = [];
+
 		function initialize(userId){
 			employeeService.getByUserId(userId)
 			.then(function(results) {
@@ -396,6 +398,43 @@
 			}, function(err) {
 				console.log(err);
 			});
+		}
+
+		$scope.requestUpdate = function(){
+			var unique = changeList.filter(function(elem, index, self) {
+				return index == self.indexOf(elem);
+			});
+
+			var requests = [];
+
+			angular.forEach(unique, function(data) {
+				var tmp = data.split(':');
+				var updatedValue = $scope[tmp[0]][tmp[1]];
+
+				if(typeof updatedValue === 'object'){
+					if(updatedValue.value){
+						updatedValue = updatedValue.value;
+					}
+				}
+
+				requests.push({
+					key : data,
+					value : updatedValue
+				});
+			});
+			console.log(requests);
+		}
+
+		$scope.addToChangeList = function(key, value){
+			if(changeList.length > 0){
+				angular.forEach(changeList, function(data, keyName) {
+					if(data.key !== key){
+						changeList.push(key);
+					}
+				});
+			} else{
+				changeList.push(key);
+			}
 		}
 
 		$scope.profileTabs = {
