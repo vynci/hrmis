@@ -20,13 +20,13 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="inputFirstName">First Name</label>
-					<input type="text" class="form-control"  placeholder="First Name" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:firstName')" ng-model="personalInfo.firstName">
+					<input type="text" class="form-control"  placeholder="First Name" maxlength="50" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:firstName')" ng-model="personalInfo.firstName">
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="inputLastName">Middle Name</label>
-					<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="personalInfo.middleName" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:middleName')">
+					<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="Middle Name" ng-model="personalInfo.middleName" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:middleName')">
 				</div>
 			</div>
 		</div>
@@ -34,13 +34,13 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="inputSurname">Surname</label>
-					<input type="text" class="form-control" id="inputSurname" placeholder="Last Name" ng-model="personalInfo.lastName" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:lastName')">
+					<input type="text" class="form-control" id="inputSurname" maxlength="50" placeholder="Last Name" ng-model="personalInfo.lastName" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:lastName')">
 				</div>
 			</div>
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="inputExtension">Name Extension</label>
-					<input type="text" class="form-control" id="inputExtension" placeholder="Name Extension" ng-model="personalInfo.nameExtension" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:nameExtension')">
+					<input type="text" class="form-control" id="inputExtension" maxlength="5" placeholder="Name Extension" ng-model="personalInfo.nameExtension" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:nameExtension')">
 				</div>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="inputLastName">Agency Employee No.</label>
-					<input type="text" class="form-control" id="inputLastName" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:agencyEmployeeNumber')">
+					<input type="text" class="form-control" id="inputLastName" maxlength="12" placeholder="Agency Employee No." ng-model="personalInfo.agencyEmployeeNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:agencyEmployeeNumber')">
 				</div>
 			</div>
 		</div>
@@ -172,25 +172,25 @@
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="inputFirstName">GSIS Id No.</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="GSIS Id No." ng-model="personalInfo.gsisIdNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:gsisIdNumber')">
+			<input type="text" class="form-control" id="inputFirstName" maxlength="15" placeholder="GSIS Id No." ng-model="personalInfo.gsisIdNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:gsisIdNumber')">
 		</div>
 	</div>
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="inputLastName">PAG-IBIG No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="PAG-IBIG No." ng-model="personalInfo.pagibigNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:pagibigNumber')">
+			<input type="text" class="form-control" id="inputLastName" maxlength="15" placeholder="PAG-IBIG No." ng-model="personalInfo.pagibigNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:pagibigNumber')">
 		</div>
 	</div>
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="inputLastName">PhilHealth No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="PhilHealth No." ng-model="personalInfo.philHealthNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:philHealthNumber')">
+			<input type="text" class="form-control" id="inputLastName" maxlength="15" placeholder="PhilHealth No." ng-model="personalInfo.philHealthNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:philHealthNumber')">
 		</div>
 	</div>
 	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="inputLastName">SSS No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="SSS No." ng-model="personalInfo.sssNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:sssNumber')">
+			<input type="text" class="form-control" id="inputLastName" maxlength="15" placeholder="SSS No." ng-model="personalInfo.sssNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:sssNumber')">
 		</div>
 	</div>
 </div>
@@ -198,14 +198,14 @@
 <div class="row">
 	<div class="col-sm-4">
 		<div class="form-group">
-			<label for="inputFirstName">Resedential Address</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Resedential Address" ng-model="personalInfo.residentialAddressInfo.address" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:residentialAddressInfo')">
+			<label for="inputFirstName">Residential Address</label>
+			<input type="text" class="form-control" id="inputFirstName" maxlength="100" placeholder="Resedential Address" ng-model="personalInfo.residentialAddressInfo.address" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:residentialAddressInfo')">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">ZIP Code</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="ZIP Code" ng-model="personalInfo.residentialAddressInfo.zipCode" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:residentialAddressInfo')">
+			<input type="text" class="form-control" id="inputLastName" maxlength="5" placeholder="ZIP Code" ng-model="personalInfo.residentialAddressInfo.zipCode" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:residentialAddressInfo')">
 		</div>
 	</div>
 	<div class="col-sm-4">
@@ -220,13 +220,13 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputFirstName">Permanent Address</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Resedential Address" ng-model="personalInfo.permanentAddressInfo.address" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:permanentAddressInfo')">
+			<input type="text" class="form-control" id="inputFirstName" maxlength="100" placeholder="Resedential Address" ng-model="personalInfo.permanentAddressInfo.address" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:permanentAddressInfo')">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">ZIP Code</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="ZIP Code" ng-model="personalInfo.permanentAddressInfo.zipCode" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:permanentAddressInfo')">
+			<input type="text" class="form-control" id="inputLastName" maxlength="5" placeholder="ZIP Code" ng-model="personalInfo.permanentAddressInfo.zipCode" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:permanentAddressInfo')">
 		</div>
 	</div>
 	<div class="col-sm-4">
@@ -247,7 +247,7 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Cellphone No.</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Cellphone No. (ex: 09272326087)" ng-model="personalInfo.mobileNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:mobileNumber')">
+			<input type="text" class="form-control" maxlength="11" id="inputLastName" placeholder="Cellphone No. (ex: 09272326087)" ng-model="personalInfo.mobileNumber" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:mobileNumber')">
 		</div>
 	</div>
 	<div class="col-sm-4">

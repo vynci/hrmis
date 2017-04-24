@@ -9,7 +9,7 @@
 	.controller('EnrollEmployeeCtrl', EnrollEmployeeCtrl);
 
 	/** @ngInject */
-	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService) {
+	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService, plantillaService) {
 
 		$scope.format = 'MM/dd/yyyy';
 		$scope.isEdit = false;
@@ -22,6 +22,7 @@
 			getOccupationList();
 			getCareerServiceList();
 			getDegreeCourseList();
+			getPlantillaList();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -98,6 +99,34 @@
 		$scope.educationalBackground = [];
 		$scope.children = [];
 		$scope.careerServiceList = [];
+		$scope.positionTitleList = [];
+		$scope.salaryIncrementList = createArrayList(8);
+
+		function createArrayList(num){
+			var x = [];
+
+			for(var i=0; i < num; i++){
+				x.push({
+					label: i + 1,
+					value: i + 1
+				});
+			}
+
+			return x;
+		}
+
+		$scope.computeMonthlySalary = function(experience){
+			if(experience.positionTitle.salaryGrade && experience.salaryIncrement){
+				var tmp = $scope.workExperience;
+				$scope.workExperience = [];
+				angular.forEach(tmp, function(value, key) {
+					if(value.id === experience.id){
+						value.monthlySalary = ( value.positionTitle.salaryGrade * value.salaryIncrement.value);
+					}
+					$scope.workExperience.push(value);
+				});
+			}
+		}
 
 		$scope.showErrorMsg = function(msg) {
 			toastr.error(msg, 'Error');
@@ -169,6 +198,23 @@
 		$scope.searchCity = function(){
 			console.log('search');
 			getCityList($scope.personalInfo.birthPlace, null);
+		}
+
+		function getPlantillaList(){
+			plantillaService.getAll()
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.positionTitleList.push({
+						label : data.get('positionTitle'),
+						value : data.get('positionTitle'),
+						salaryGrade : data.get('salaryGrade'),
+						plantillaId : data.get('plantillaId')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
 		}
 
 		function getCityList(cityName, provCode){
@@ -395,11 +441,19 @@
 						isGovernmentService = true;
 					}
 
+					if(value.salaryIncrement){
+						workExperience.set("salaryIncrement", value.salaryIncrement.value);
+					}
+
+					if(value.statusOfAppointment){
+						workExperience.set("statusOfAppointment", value.statusOfAppointment.value);
+					}
+
 					workExperience.set("employeeId", employee.id);
-					workExperience.set("positionTitle", value.positionTitle);
+					workExperience.set("positionTitle", value.positionTitle.value);
 					workExperience.set("department", value.department);
 					workExperience.set("monthlySalary", parseInt(value.monthlySalary));
-					workExperience.set("salaryGrade", value.salaryGrade);
+					workExperience.set("salaryGrade", value.positionTitle.salaryGrade);
 					workExperience.set("statusOfAppointment", value.statusOfAppointment.value);
 					workExperience.set("isGovernmentService", isGovernmentService);
 					workExperience.set("inclusiveFromDate", value.inclusiveFromDate);

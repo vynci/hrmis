@@ -9,7 +9,7 @@
 	.controller('EditEmployeeCtrl', EditEmployeeCtrl);
 
 	/** @ngInject */
-	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService) {
+	function EditEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, $stateParams, employeeService, personalInfoService, familyBackgroundService, educationalBackgroundService, civilServiceEligibilityService, workExperienceService, voluntaryWorkService, trainingProgramsService, otherInfoService, fileReader, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService,plantillaService) {
 		$scope.isEdit = true;
 		$scope.format = 'MM/dd/yyyy';
 
@@ -21,6 +21,7 @@
 			getOccupationList();
 			getCareerServiceList();
 			getDegreeCourseList();
+			getPlantillaList();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -91,6 +92,22 @@
 
 		$scope.occupationList = [];
 		$scope.degreeCourseList = [];
+		$scope.positionTitleList = [];
+		$scope.salaryGradeList = createArrayList(33);
+		$scope.salaryIncrementList = createArrayList(8);
+
+		function createArrayList(num){
+			var x = [];
+
+			for(var i=0; i < num; i++){
+				x.push({
+					label: i + 1,
+					value: i + 1
+				});
+			}
+
+			return x;
+		}
 
 		$scope.deletConfirmation = function (page, size) {
 			$uibModal.open({
@@ -627,12 +644,23 @@
 						value : value.get('statusOfAppointment')
 					}
 
+					var positionTitle = {
+						label : value.get('positionTitle'),
+						value : value.get('positionTitle'),
+						salaryGrade : value.get('salaryGrade'),
+						plantillaId : value.get('plantillaId')
+					}
+					var salaryIncrement = {
+						label : value.get('salaryIncrement'),
+						value : value.get('salaryIncrement')
+					}
+
 					$scope.workExperience.push({
 						id : value.id,
-						positionTitle : value.get('positionTitle'),
+						positionTitle : positionTitle,
 						department : value.get('department'),
 						monthlySalary : value.get('monthlySalary'),
-						salaryGrade : value.get('salaryGrade'),
+						salaryIncrement : salaryIncrement,
 						isGovernmentService : tmp,
 						statusOfAppointment: statusOfAppointment,
 						inclusiveFromDate : value.get('inclusiveFromDate'),
@@ -808,6 +836,21 @@
 			});
 		}
 
+		$scope.computeMonthlySalary = function(experience){
+			console.log(experience);
+			if(experience.positionTitle.salaryGrade && experience.salaryIncrement){
+				var tmp = $scope.workExperience;
+				$scope.workExperience = [];
+				angular.forEach(tmp, function(value, key) {
+					if(value.id === experience.id){
+						value.monthlySalary = ( value.positionTitle.salaryGrade * value.salaryIncrement.value);
+					}
+					$scope.workExperience.push(value);
+				});
+			}
+
+		}
+
 		function stringToObject(stringValue){
 			var objectValue = {
 				label : stringValue,
@@ -924,6 +967,23 @@
 					$scope.occupationList.push({
 						label : data.get('name'),
 						value : data.get('name')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getPlantillaList(){
+			plantillaService.getAll()
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.positionTitleList.push({
+						label : data.get('positionTitle'),
+						value : data.get('positionTitle'),
+						salaryGrade : data.get('salaryGrade'),
+						plantillaId : data.get('plantillaId')
 					});
 				});
 			}, function(err) {
@@ -1125,17 +1185,24 @@
 				if(value.id){
 					workExperience.id = value.id;
 				}
+				if(value.isGovernmentService){
+					if(value.isGovernmentService.value === 'Yes'){
+						isGovernmentService = true;
+					}
+				}
+				if(value.salaryIncrement){
+					workExperience.set("salaryIncrement", value.salaryIncrement.value);
+				}
 
-				if(value.isGovernmentService.value === 'Yes'){
-					isGovernmentService = true;
+				if(value.statusOfAppointment){
+					workExperience.set("statusOfAppointment", value.statusOfAppointment.value);
 				}
 
 				workExperience.set("employeeId", $stateParams.employeeId);
-				workExperience.set("positionTitle", value.positionTitle);
+				workExperience.set("positionTitle", value.positionTitle.value);
+				workExperience.set("salaryGrade", value.positionTitle.salaryGrade);
 				workExperience.set("department", value.department);
 				workExperience.set("monthlySalary", parseInt(value.monthlySalary));
-				workExperience.set("salaryGrade", value.salaryGrade);
-				workExperience.set("statusOfAppointment", value.statusOfAppointment.value);
 				workExperience.set("isGovernmentService", isGovernmentService);
 				workExperience.set("inclusiveFromDate", value.inclusiveFromDate);
 				workExperience.set("inclusiveToDate", value.inclusiveToDate);

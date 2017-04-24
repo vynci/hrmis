@@ -2,22 +2,14 @@
 	'use strict';
 
 	angular.module('BlurAdmin.api')
-	.service('cityMunicipalityService', cityMunicipalityService);
+	.service('plantillaService', plantillaService);
 
 	/** @ngInject */
-	function cityMunicipalityService($q) {
+	function plantillaService($q) {
 		this.getAll = function(cityName, provCode) {
 			var defer = $q.defer();
-			var cityMunicipality = Parse.Object.extend("CityMunicipality");
-			var query = new Parse.Query(cityMunicipality);
-
-			if(provCode){
-				query.equalTo('regDesc', provCode);
-			}
-
-			query.matches('citymunDesc', cityName);
-
-			query.limit(1000);
+			var Plantilla = Parse.Object.extend("Plantilla");
+			var query = new Parse.Query(Plantilla);
 
 			query.find({
 				success: function(results) {

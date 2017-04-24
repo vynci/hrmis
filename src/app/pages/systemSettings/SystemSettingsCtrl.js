@@ -5,7 +5,7 @@
 	.controller('SystemSettingsCtrl', SystemSettingsCtrl);
 
 	/** @ngInject */
-	function SystemSettingsCtrl($scope, $uibModal, $window, $rootScope, toastr, fileReader, systemSettingService, personalInfoService) {
+	function SystemSettingsCtrl($scope, $uibModal, $window, $rootScope, toastr, fileReader, systemSettingService, personalInfoService, refDegreeCourseService, refOccupationListService, refCareerServiceService, plantillaService) {
 
 		var userInfo = Parse.User.current();
 		$scope.defaultLogo = "http://hrmis-api.herokuapp.com/parse/files/myAppId/f3a897ae507b67008f0cb593e16696a1_logo-23.png";
@@ -13,6 +13,7 @@
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
 			getSystemSetting();
+			getDegreeCourseList();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -33,7 +34,8 @@
 					accountName : results[0].get('accountName'),
 					accountAddress : results[0].get('accountAddress'),
 					accountContactNumber : results[0].get('accountContactNumber'),
-					accountLogo : results[0].get('accountLogo')
+					accountLogo : results[0].get('accountLogo'),
+					serviceRecordInCharge : results[0].get('serviceRecordInCharge') // VALENTINA C. PECAYO
 				};
 			}, function(err) {
 				console.log(err);
@@ -55,6 +57,46 @@
 
 		$scope.onFileSelect = function(data){
 			console.log(data);
+		}
+
+		function getPlantillaList(){
+			plantillaService.getAll()
+			.then(function(results) {
+				// Handle the result
+				$scope.plantillaList = results;
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getDegreeCourseList(){
+			refDegreeCourseService.getAll()
+			.then(function(results) {
+				// Handle the result
+				$scope.degreeCourseList = results;
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getOccupationList(){
+			refOccupationListService.getAll()
+			.then(function(results) {
+				// Handle the result
+				$scope.occupationList = results;
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
+		function getCareerServiceList(){
+			refCareerServiceService.getAll()
+			.then(function(results) {
+				// Handle the result
+				$scope.careerServiceList = results;
+			}, function(err) {
+				console.log(err);
+			});
 		}
 
 		$scope.getFile = function (data) {
@@ -84,6 +126,7 @@
 			query.set("accountName", $scope.applicationInfo.accountName);
 			query.set("accountContactNumber", $scope.applicationInfo.accountContactNumber);
 			query.set("accountAddress", $scope.applicationInfo.accountAddress);
+			query.set("serviceRecordInCharge", $scope.applicationInfo.serviceRecordInCharge);
 
 			query.save(null, {
 				success: function(result) {
@@ -96,6 +139,29 @@
 				}
 			});
 		}
+
+		$scope.settingsTabs = {
+			educationalDegrees : function(){
+				console.log('personalInfo!');
+			},
+			occupation : function(){
+				if(!$scope.occupationList){
+					getOccupationList();
+				}
+			},
+			careerService : function(){
+				if(!$scope.careerServiceList){
+					getCareerServiceList();
+				}
+			},
+			plantilla : function(){
+				console.log('plantilla!');
+				if(!$scope.plantillaList){
+					getPlantillaList();
+				}
+			}
+		}
+
 	}
 
 })();

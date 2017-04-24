@@ -1,6 +1,4 @@
-<div ba-panel ba-panel-class="profile-page">
-
-	<h3 class="with-line">Application Settings</h3>
+<div ba-panel ba-panel-class="profile-page" ba-panel-title="Application Settings">
 	<div class="row">
 		<div class="col-md-4">
 			<div class="form-group row clearfix">
@@ -53,6 +51,18 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="row">
+				<div class="col-md-12">
+					<div class="form-group row clearfix">
+						<label for="inputPassword" class="col-sm-3 control-label">AOV/HRMO</label>
+
+						<div class="col-sm-9">
+							<input type="text" class="form-control" ng-model="applicationInfo.serviceRecordInCharge" id="inputPassword" placeholder="">
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 
@@ -65,45 +75,22 @@
 	</div>
 </div>
 
-<!-- <div ba-panel ba-panel-class="profile-page">
-	<h3 class="with-line">Change Password</h3>
+<div ba-panel ba-panel-class="with-scroll horizontal-tabs tabs-panel large-panel">
+	<uib-tabset active="$tabSetStatus.activeTab">
+		<uib-tab heading="Educational degrees" ng-click="settingsTabs.educationalDegrees()">
+			<div ng-include="'app/pages/systemSettings/settingViews/educationalDegrees.html'"></div>
+		</uib-tab>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="form-group row clearfix">
-				<label for="inputPassword" class="col-sm-3 control-label" >Current Password</label>
+		<uib-tab heading="Occupation" ng-click="settingsTabs.occupation()">
+			<div ng-include="'app/pages/systemSettings/settingViews/occupation.html'"></div>
+		</uib-tab>
 
-				<div class="col-sm-9">
-					<input type="password" class="form-control" ng-model="password.old" id="inputPassword" placeholder="">
-				</div>
-			</div>
-		</div>
-	</div>
+		<uib-tab heading="Career service" ng-click="settingsTabs.careerService()">
+			<div ng-include="'app/pages/systemSettings/settingViews/careerService.html'"></div>
+		</uib-tab>
 
-	<div class="row">
-		<div class="col-md-12">
-			<div class="form-group row clearfix">
-				<label for="inputConfirmPassword" class="col-sm-3 control-label">New Password</label>
-
-				<div class="col-sm-9">
-					<input type="password" class="form-control" ng-model="password.new" id="inputConfirmPassword" placeholder="">
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="col-md-12">
-			<div class="form-group row clearfix">
-				<label for="inputPassword" class="col-sm-3 control-label">Confirm New Password</label>
-
-				<div class="col-sm-9">
-					<input type="password" class="form-control" ng-model="password.confirmNew" id="inputPassword" placeholder="">
-				</div>
-			</div>
-		</div>
-	</div>
-	<button type="button" class="btn btn-primary btn-with-icon save-profile" ng-click="updateProfile()">
-		<i class="ion-android-checkmark-circle"></i>Update Profile
-	</button>
-</div> -->
+		<uib-tab heading="Plantilla items" ng-click="settingsTabs.plantilla()">
+			<div ng-include="'app/pages/systemSettings/settingViews/plantilla.html'"></div>
+		</uib-tab>
+	</uib-tabset>
+</div>

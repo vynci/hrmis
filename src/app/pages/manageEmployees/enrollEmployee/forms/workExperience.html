@@ -7,7 +7,14 @@
 		<div class="col-sm-3">
 			<div class="form-group">
 				<label for="inputFirstName">Position Title</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Position Title" ng-model="experience.positionTitle">
+				<ui-select ng-model="experience.positionTitle" class="btn-group bootstrap-select form-control" ng-change="computeMonthlySalary(experience)" ng-disabled="false" append-to-body="true" search-enabled="false">
+					<ui-select-match placeholder="Select">
+						<span> {{$select.selected.label}}</span>
+					</ui-select-match>
+					<ui-select-choices repeat="standardItem in positionTitleList">
+						<span ng-bind-html="standardItem.label"></span>
+					</ui-select-choices>
+				</ui-select>
 			</div>
 		</div>
 		<div class="col-sm-3">
@@ -18,15 +25,42 @@
 		</div>
 		<div class="col-sm-3">
 			<div class="form-group">
-				<label for="inputLastName">Monthly Salary</label>
-				<input type="number" class="form-control" id="inputLastName" placeholder="Monthly Salary" min="100" max="100000" ng-model="experience.monthlySalary">
+				<label for="inputLastName">Monthly Salary</label><br>
+				<!-- <input type="number" class="form-control" id="inputLastName" placeholder="Monthly Salary" min="100" max="100000" ng-model="experience.monthlySalary"> -->
+				<span><b>{{experience.monthlySalary}}</b></span>
 			</div>
 		</div>
 		<div class="col-sm-3">
-			<div class="form-group">
-				<label for="inputFirstName">Salary Grade & Step Increment</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Salary Grade & Step Increment" ng-model="experience.salaryGrade">
+			<div class="row">
+				<div class="col-md-6 col-lg-6">
+					<div class="form-group">
+						<label for="inputFirstName">Salary Grade</label><br>
+						<span><b>{{experience.positionTitle.salaryGrade}}</b></span>
+						<!-- <ui-select ng-model="experience.salaryGrade" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false">
+							<ui-select-match placeholder="Select">
+								<span> {{$select.selected.label}}</span>
+							</ui-select-match>
+							<ui-select-choices repeat="standardItem in salaryGradeList">
+								<span ng-bind-html="standardItem.label"></span>
+							</ui-select-choices>
+						</ui-select> -->
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-6">
+					<div class="form-group">
+						<label for="inputFirstName">Step Increment</label>
+						<ui-select ng-model="experience.salaryIncrement" class="btn-group bootstrap-select form-control" ng-change="computeMonthlySalary(experience)" ng-disabled="false" append-to-body="true" search-enabled="false">
+							<ui-select-match placeholder="Select">
+								<span> {{$select.selected.label}}</span>
+							</ui-select-match>
+							<ui-select-choices repeat="standardItem in salaryIncrementList">
+								<span ng-bind-html="standardItem.label"></span>
+							</ui-select-choices>
+						</ui-select>
+					</div>
+				</div>
 			</div>
+
 		</div>
 	</div>
 

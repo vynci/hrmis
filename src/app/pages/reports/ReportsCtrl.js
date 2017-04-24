@@ -57,6 +57,7 @@
 			.then(function(results) {
 				// Handle the result
 				$scope.inCharge = results[0].get('serviceRecordInCharge');
+				$scope.address = results[0].get('accountAddress');
 			}, function(err) {
 				console.log(err);
 			});
@@ -80,6 +81,7 @@
 			civilServiceEligibilityService.getByEmployeeId(id)
 			.then(function(results) {
 				// Handle the result
+
 				$scope.civilService = results[0].get('careerService');
 			}, function(err) {
 				console.log(err);
@@ -90,8 +92,14 @@
 		function getEducationalBackground(id){
 			educationalBackgroundService.getByEmployeeId(id)
 			.then(function(results) {
-				// Handle the result
-				$scope.educationalBackground = results[results.length - 1].get('degreeCourse');
+				if(results.length > 0){
+					angular.forEach(results, function(data, key) {
+						if(data.get('isPrimary')){
+							$scope.educationalBackground = data.get('degreeCourse');
+						}
+					});
+				}
+
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {

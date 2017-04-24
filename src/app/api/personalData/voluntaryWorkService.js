@@ -16,6 +16,8 @@
 				query.equalTo("employeeId", employeeId);
 			}
 
+			query.descending('from');
+
 			query.find({
 				success: function(results) {
 					defer.resolve(results);

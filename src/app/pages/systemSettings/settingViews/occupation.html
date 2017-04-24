@@ -1,0 +1,34 @@
+<br>
+<table class="table table-bordered table-hover" st-table="users">
+	<thead>
+		<tr class="sortable ">
+			<th class="table-id">#</th>
+			<th>Occupation</th>
+			<th>Description</th>
+			<th>Created Date</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr ng-repeat="item in occupationList" ng-click="editEmployee(item)" style="cursor:pointer;">
+			<td class="table-id">{{$index + 1}}</td>
+			<td>{{item.attributes.name}}</td>
+			<td>{{item.attributes.description}}</td>
+			<td>{{item.attributes.createdAt}}</td>
+			<td><button class="status-button btn btn-xs btn-danger">Delete</button></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="7" class="text-center">
+				<!-- <div st-pagination="" st-items-by-page="smartTablePageSize" st-displayed-pages="5"></div> -->
+				<!-- <span ng-if="isLoading">Loading Employees...Please Wait</span> -->
+				<div class="row" ng-if="isLoading">
+					<div class="col-sm-12" style="text-align:center; padding-left: 47%;">
+						<div class="loader"></div>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>

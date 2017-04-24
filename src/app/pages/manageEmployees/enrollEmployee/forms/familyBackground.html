@@ -5,19 +5,19 @@
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputFirstName">Surname</label>
-				<input type="text" class="form-control" id="inputFirstName" placeholder="Spouse's Surname" ng-model="familyBackground.spouseInfo.surname">
+				<input type="text" class="form-control" id="inputFirstName" maxlength="50" placeholder="Spouse's Surname" ng-model="familyBackground.spouseInfo.surname">
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputLastName">First Name</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.spouseInfo.firstName">
+				<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="First Name" ng-model="familyBackground.spouseInfo.firstName">
 			</div>
 		</div>
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label for="inputLastName">Middle Name</label>
-				<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.spouseInfo.middleName">
+				<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="Middle Name" ng-model="familyBackground.spouseInfo.middleName">
 			</div>
 		</div>
 	</div>
@@ -64,19 +64,19 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputFirstName">Surname</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Father's Surname" ng-model="familyBackground.fatherInfo.surname">
+			<input type="text" class="form-control" id="inputFirstName" maxlength="50" placeholder="Father's Surname" ng-model="familyBackground.fatherInfo.surname">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">First Name</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.fatherInfo.firstName">
+			<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="First Name" ng-model="familyBackground.fatherInfo.firstName">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Middle Name</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.fatherInfo.middleName">
+			<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="Middle Name" ng-model="familyBackground.fatherInfo.middleName">
 		</div>
 	</div>
 </div>
@@ -86,19 +86,19 @@
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputFirstName">Surname</label>
-			<input type="text" class="form-control" id="inputFirstName" placeholder="Mother's Surname" ng-model="familyBackground.motherInfo.surname">
+			<input type="text" class="form-control" id="inputFirstName" maxlength="50" placeholder="Mother's Surname" ng-model="familyBackground.motherInfo.surname">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">First Name</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="First Name" ng-model="familyBackground.motherInfo.firstName">
+			<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="First Name" ng-model="familyBackground.motherInfo.firstName">
 		</div>
 	</div>
 	<div class="col-sm-4">
 		<div class="form-group">
 			<label for="inputLastName">Middle Name</label>
-			<input type="text" class="form-control" id="inputLastName" placeholder="Middle Name" ng-model="familyBackground.motherInfo.middleName">
+			<input type="text" class="form-control" id="inputLastName" maxlength="50" placeholder="Middle Name" ng-model="familyBackground.motherInfo.middleName">
 		</div>
 	</div>
 </div>
@@ -123,7 +123,7 @@
 					{{$index + 1}}
 				</td>
 				<td>
-					<span editable-text="child.name" e-name="name" e-form="rowform" e-required>
+					<span editable-text="child.name" e-name="name" e-form="rowform" e-maxlength="100" e-required>
 						{{ child.name || 'empty' }}
 					</span>
 				</td>
