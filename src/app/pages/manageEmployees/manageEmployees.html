@@ -40,7 +40,7 @@
 				<th><b>Last Name</b></th>
 				<th><b>Email</b></th>
 				<th><b>Designation</b></th>
-				<th><b>Unit</b></th>
+				<th><b>Appointment</b></th>
 				<th><b>Status</b></th>
 			</tr>
 
@@ -51,8 +51,8 @@
 				<td class="table-id">{{item.attributes.firstName}}</td>
 				<td>{{item.attributes.lastName}}</td>
 				<td><a class="email-link">{{item.attributes.emailAddress}}</a></td>
-				<td>Engineering</td>
-				<td>DAR</td>
+				<td>{{item.attributes.positionTitle}}</td>
+				<td>{{item.attributes.statusOfAppointment}}</td>
 				<td><button class="status-button btn btn-xs btn-{{isActive.color(item.attributes.isActive)}}">{{isActive.label(item.attributes.isActive)}}</button></td>
 			</tr>
 		</tbody>

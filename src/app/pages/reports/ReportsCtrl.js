@@ -28,8 +28,7 @@
 			getAllEmployees();
 			$scope.reportTypes = [
 				{label: 'Service Records', value: 1},
-				{label: 'Test Report #1', value: 2},
-				{label: 'Test Report #2', value: 3},
+				{label: 'Personal Data Sheet', value: 2},
 			];
 			$scope.selectedReportType = {};
 			$scope.selectedEmployee = {};
@@ -58,6 +57,7 @@
 				// Handle the result
 				$scope.inCharge = results[0].get('serviceRecordInCharge');
 				$scope.address = results[0].get('accountAddress');
+				$scope.isSystemSettingsFetched = true;
 			}, function(err) {
 				console.log(err);
 			});
@@ -71,6 +71,7 @@
 			.then(function(results) {
 				$scope.workExperiences = results;
 				$scope.isLoading = false;
+				$scope.isWorkExperienceFetched = true;
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {
@@ -81,8 +82,8 @@
 			civilServiceEligibilityService.getByEmployeeId(id)
 			.then(function(results) {
 				// Handle the result
-
 				$scope.civilService = results[0].get('careerService');
+				$scope.isCivilServiceFetched = true;
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {
@@ -96,6 +97,7 @@
 					angular.forEach(results, function(data, key) {
 						if(data.get('isPrimary')){
 							$scope.educationalBackground = data.get('degreeCourse');
+							$scope.isEducationalBackgroundFetched = true;
 						}
 					});
 				}
@@ -118,6 +120,7 @@
 					birthDate : results[0].get('birthDate'),
 					civilStatus : results[0].get('civilStatus')
 				};
+				$scope.isPersonalInfoFetched = true;
 			}, function(err) {
 				console.log(err);
 			}, function(percentComplete) {
@@ -144,8 +147,12 @@
 		}
 
 		$scope.generateReport = function(){
-			console.log($scope.selectedReportType);
-			console.log($scope.selectedEmployee);
+			$scope.isSystemSettingsFetched = false;
+			$scope.isWorkExperienceFetched = false;
+			$scope.isCivilServiceFetched = false;
+			$scope.isEducationalBackgroundFetched = false;
+			$scope.isPersonalInfoFetched = false;			
+
 			getWorkExperience($scope.selectedEmployee.selected.value);
 			getCivilService($scope.selectedEmployee.selected.value);
 			getPersonalInfo($scope.selectedEmployee.selected.value);

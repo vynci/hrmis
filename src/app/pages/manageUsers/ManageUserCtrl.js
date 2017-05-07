@@ -8,6 +8,7 @@
 	function ManageUserCtrl($scope, $uibModal, $window, $rootScope, toastr, $state, userService) {
 		console.log('ManageUserCtrl!');
 		$scope.users = [];
+		var modalInstance;
 
 		if(Parse.User.current()){
 			$rootScope.isLogged = true;
@@ -19,6 +20,8 @@
 		}
 
 		function initialize(){
+			$scope.users = [];
+
 			userService.getByUserType('J7ELLa1Czi')
 			.then(function(results) {
 				// Handle the result
@@ -37,8 +40,16 @@
 			});
 		}
 
+		function showSuccessMsg(msg) {
+			toastr.success(msg);
+		};
+
+		function showErrorMsg(msg) {
+			toastr.error(msg, 'Error');
+		};
+
 		$scope.addUser = function(){
-			$uibModal.open({
+			modalInstance = $uibModal.open({
 				animation: true,
 				templateUrl: 'app/pages/manageUsers/addUserModal.html',
 				controller : 'AddUserModalCtrl',
@@ -49,7 +60,43 @@
 					}
 				}
 			});
+
+			modalInstance.result.then(function(submitVar) {
+				initialize();
+			});
 		}
+
+		$scope.actionUser = function(item, action){
+			item.set('isActive', action);
+
+			item.save(null, {useMasterKey:true}, {
+				success: function(user) {
+					showSuccessMsg('User Successfully Activated.');
+					initialize();
+				},
+				error: function(user, error) {
+					showErrorMsg('Something went wrong, Please Try Again.');
+				}
+			});
+		}
+
+		$scope.deletConfirmation = function (item) {
+			modalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/deleteConfirmation.html',
+				controller: 'DeleteItemModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return item;
+					}
+				}
+			});
+
+			modalInstance.result.then(function(submitVar) {
+				initialize();
+			});
+		};
 
 	}
 

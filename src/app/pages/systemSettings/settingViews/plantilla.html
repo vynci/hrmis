@@ -1,12 +1,19 @@
 <br>
+<div class="row">
+	<div class="col-lg-12">
+		<button class="btn btn-success" ng-click="addPlantilla()">Add Item</button>
+	</div>
+</div>
+<br>
+
 <table class="table table-bordered table-hover" st-table="users">
 	<thead>
 		<tr class="sortable ">
-			<th class="table-id">#</th>
-			<th>Position Title</th>
-			<th>Salary Grade</th>
-			<th>Item Number</th>
-			<th>Action</th>
+			<th class="table-id"><b>#</b></th>
+			<th><b>Position Title</b></th>
+			<th><b>Salary Grade</b></th>
+			<th><b>Item Number</b></th>
+			<th><b>Action</b></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -15,7 +22,7 @@
 			<td>{{item.attributes.positionTitle}}</td>
 			<td>{{item.attributes.salaryGrade}}</td>
 			<td>{{item.attributes.itemNo}}</td>
-			<td><button class="status-button btn btn-xs btn-danger">Delete</button></td>
+			<td><button class="status-button btn btn-xs btn-primary" ng-click="editPlantillaItem(item)">Edit</button> <button class="status-button btn btn-xs btn-danger" ng-click="deletConfirmation(item)">Delete</button></td>
 		</tr>
 	</tbody>
 	<tfoot>

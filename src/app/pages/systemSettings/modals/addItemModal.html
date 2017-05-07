@@ -1,0 +1,22 @@
+<div class="modal-content">
+  <div class="modal-header bg-success">
+  </i><span>{{modalType}} {{itemType}}</span>
+  </div>
+  <div class="modal-body text-center" style="padding: 40px !important;">
+
+    <div class="form-group row clearfix" style="text-align: left;">
+      <label for="inputEmail3" class="control-label"><b>Item Name</b></label>
+      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="item.name">
+    </div>
+
+    <div class="form-group row clearfix" style="text-align: left;">
+      <label for="inputEmail3" class="control-label"><b>Description</b></label>
+      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="item.description">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="saveItem()">Save</button>
+    <button type="button" class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+  </div>
+</div>

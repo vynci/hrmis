@@ -1,0 +1,27 @@
+<div class="modal-content">
+  <div class="modal-header bg-success">
+  </i><span>{{modalType}} Plantilla</span>
+  </div>
+  <div class="modal-body text-center" style="padding: 40px !important;">
+
+    <div class="form-group row clearfix" style="text-align: left;">
+      <label for="inputEmail3" class="control-label"><b>Position Title</b></label>
+      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="item.positionTitle">
+    </div>
+
+    <div class="form-group row clearfix" style="text-align: left;">
+      <label for="inputEmail3" class="control-label"><b>Salary Grade</b></label>
+      <input type="number" min="0" class="form-control" id="inputEmail3" placeholder="" ng-model="item.salaryGrade">
+    </div>
+
+    <div class="form-group row clearfix" style="text-align: left;">
+      <label for="inputEmail3" class="control-label"><b>Item number</b></label>
+      <input type="text" class="form-control" id="inputEmail3" placeholder="" ng-model="item.itemNo">
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" ng-click="saveItem()">Save</button>
+    <button type="button" class="btn btn-default" ng-click="$dismiss()">Cancel</button>
+  </div>
+</div>

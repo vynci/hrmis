@@ -9,7 +9,7 @@
 	.controller('ManageEmployeesCtrl', ManageEmployeesCtrl);
 
 	/** @ngInject */
-	function ManageEmployeesCtrl($scope, $uibModal, $rootScope, $state, employeeService, $window) {
+	function ManageEmployeesCtrl($scope, $uibModal, $rootScope, $state, employeeService, $window, workExperienceService) {
 		$scope.totalEmployees = 0;
 		$scope.pageLimit = 10;
 
@@ -75,8 +75,25 @@
 			employeeService.getAll(search || '', limit, skip)
 			.then(function(results) {
 				// Handle the result
-				$scope.employees = results;
+				// $scope.employees = results;
 				countEmployees();
+
+				angular.forEach(results, function(value, key) {
+					workExperienceService.getByEmployeeId(value.id)
+					.then(function(results) {
+						if(results.length > 0){
+							value.set('positionTitle', results[0].get('positionTitle'));
+							value.set('statusOfAppointment', results[0].get('statusOfAppointment'));
+						}else{
+							value.set('positionTitle', 'n/a');
+							value.set('statusOfAppointment', 'n/a');
+						}
+
+						$scope.employees.push(value);
+					}, function(err) {
+						console.log(err);
+					});
+				});
 
 				$scope.isLoading = false;
 			}, function(err) {

@@ -248,7 +248,7 @@
 <br>
 <div class="row">
 	<div class="col-md-12 col-lg-12" style="text-align:center;">
-		<button ng-disabled="!isReportGenerated" ng-click="printReport()" class="btn btn-warning btn-with-icon">
+		<button ng-disabled="!isSystemSettingsFetched && !isWorkExperienceFetched && !isCivilServiceFetched && !isEducationalBackgroundFetched && !isPersonalInfoFetched" ng-click="printReport()" class="btn btn-warning btn-with-icon">
 			<i class="ion-printer"></i> Print Report
 		</button>
 	</div>

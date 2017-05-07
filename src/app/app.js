@@ -1,5 +1,5 @@
 'use strict';
-Parse.initialize("myAppId", "myJavascriptKey");
+Parse.initialize("myAppId", "myJavascriptKey", "myMasterKey");
 Parse.serverURL = 'https://hrmis-api.herokuapp.com/parse';
 
 angular.module('BlurAdmin', [

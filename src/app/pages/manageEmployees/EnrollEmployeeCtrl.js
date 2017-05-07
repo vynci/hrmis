@@ -9,7 +9,7 @@
 	.controller('EnrollEmployeeCtrl', EnrollEmployeeCtrl);
 
 	/** @ngInject */
-	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService, plantillaService) {
+	function EnrollEmployeeCtrl($scope, $uibModal, $rootScope, $state, toastr, fileReader, personalInfoService, cityMunicipalityService, refOccupationListService, refCareerServiceService, refDegreeCourseService, plantillaService, refProvinceService) {
 
 		$scope.format = 'MM/dd/yyyy';
 		$scope.isEdit = false;
@@ -23,6 +23,7 @@
 			getCareerServiceList();
 			getDegreeCourseList();
 			getPlantillaList();
+			getProvinceList();
 		}else{
 			$rootScope.isLogged = false;
 			$state.go('auth');
@@ -31,6 +32,7 @@
 		$scope.personalInfo = {
 			avatar : defaultAvatar,
 			birthPlace : stringToObject('Cebu City'),
+			birthPlaceProvince : null,
 			citizenship : stringToObject('Filipino'),
 			gender : stringToObject('Male'),
 			civilStatus : stringToObject('Single'),
@@ -232,6 +234,21 @@
 			});
 		}
 
+		function getProvinceList(cityName, provCode){
+			refProvinceService.getAll(cityName, provCode)
+			.then(function(results) {
+				// Handle the result
+				angular.forEach(results, function(data, key) {
+					$scope.provinceList.push({
+						label : data.get('provDesc'),
+						value : data.get('provDesc')
+					});
+				});
+			}, function(err) {
+				console.log(err);
+			});
+		}
+
 		function getDegreeCourseList(){
 			refDegreeCourseService.getAll()
 			.then(function(results) {
@@ -293,6 +310,7 @@
 			personalInfo.set("nameExtension", $scope.personalInfo.nameExtension);
 			personalInfo.set("birthDate", $scope.personalInfo.birthDate);
 			personalInfo.set("birthPlace", $scope.personalInfo.birthPlace.value);
+			personalInfo.set("birthPlaceProvince", $scope.personalInfo.birthPlaceProvince.value);
 			personalInfo.set("gender", $scope.personalInfo.gender.value);
 			personalInfo.set("civilStatus", $scope.personalInfo.civilStatus.value);
 			personalInfo.set("citizenship", $scope.personalInfo.citizenship.value);
@@ -671,9 +689,7 @@
 		];
 
 		$scope.citizenshipList = [
-			{label: 'Filipino', value: 'Filipino'},
-			{label: 'Austrilian', value: 'Austrilian'},
-			{label: 'American', value: 'American'}
+			{label: 'Filipino', value: 'Filipino'}
 		];
 
 		$scope.statusOfAppointmentList = [
@@ -710,6 +726,8 @@
 			{label: 'MANILA', value: 'MANILA'}
 		];
 
+		$scope.provinceList = [];
+
 		$scope.occupationList = [];
 		$scope.degreeCourseList = [];
 
@@ -726,7 +744,6 @@
 		};
 
 		$scope.addChild = function() {
-			console.log('add child!');
 			$scope.inserted = {
 				id: $scope.familyBackground.children.length+1,
 				name: ''

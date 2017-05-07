@@ -26,6 +26,11 @@
 			accountLogo: ''
 		};
 
+		var deleteModalInstance;
+		var addModalInstance;
+
+		$scope.currentTab = 'educationalDegrees';
+
 		function getSystemSetting(){
 			systemSettingService.getById('rfeNg7kJH2')
 			.then(function(results) {
@@ -138,24 +143,148 @@
 					showErrorMsg('Something went wrong, Please Try Again.');
 				}
 			});
+		};
+
+		$scope.addPlantilla = function(type){
+			addModalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/addPlantillaModal.html',
+				controller: 'AddPlantillaModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return type;
+					}
+				}
+			});
+
+			addModalInstance.result.then(function(submitVar) {
+				getPlantillaList();
+			});
+		};
+
+		$scope.editPlantillaItem = function(data, type){
+			addModalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/addPlantillaModal.html',
+				controller: 'EditPlantillaModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return type;
+					},
+					currentData : function(){
+						return data;
+					}
+				}
+			});
+
+			addModalInstance.result.then(function(submitVar) {
+				getPlantillaList();
+			});
 		}
+
+		$scope.addItem = function(type){
+			addModalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/addItemModal.html',
+				controller: 'AddItemModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return type;
+					}
+				}
+			});
+
+			addModalInstance.result.then(function(submitVar) {
+				if(submitVar === 'RefDegreeCourse'){
+					getDegreeCourseList();
+				} else if(submitVar === 'RefOccupationList'){
+					getOccupationList();
+				} else if(submitVar === 'RefCareerService'){
+					getCareerServiceList();
+				} else if(submitVar === 'Plantilla'){
+					getPlantillaList();
+				}
+			});
+		};
+
+		$scope.editItem = function(data, type){
+			addModalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/addItemModal.html',
+				controller: 'EditItemModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return type;
+					},
+					currentData : function(){
+						return data;
+					}
+				}
+			});
+
+			addModalInstance.result.then(function(submitVar) {
+				if(submitVar === 'RefDegreeCourse'){
+					getDegreeCourseList();
+				} else if(submitVar === 'RefOccupationList'){
+					getOccupationList();
+				} else if(submitVar === 'RefCareerService'){
+					getCareerServiceList();
+				} else if(submitVar === 'Plantilla'){
+					getPlantillaList();
+				}
+			});
+		}
+
+		$scope.deletConfirmation = function (item) {
+			deleteModalInstance = $uibModal.open({
+				animation: true,
+				templateUrl: 'app/pages/systemSettings/modals/deleteConfirmation.html',
+				controller: 'DeleteItemModalCtrl',
+				size: 'md',
+				resolve: {
+					items: function () {
+						return item;
+					}
+				}
+			});
+
+			deleteModalInstance.result.then(function(submitVar) {
+				if(submitVar === 'delete:success'){
+					if($scope.currentTab === 'educationalDegrees'){
+						getDegreeCourseList();
+					} else if($scope.currentTab === 'occupationList'){
+						getOccupationList();
+					} else if($scope.currentTab === 'careerServiceList'){
+						getCareerServiceList();
+					} else if($scope.currentTab === 'plantillaList'){
+						getPlantillaList();
+					}
+				}
+			});
+		};
 
 		$scope.settingsTabs = {
 			educationalDegrees : function(){
-				console.log('personalInfo!');
+				$scope.currentTab = 'educationalDegrees';
 			},
 			occupation : function(){
+				$scope.currentTab = 'occupationList';
 				if(!$scope.occupationList){
 					getOccupationList();
 				}
 			},
 			careerService : function(){
+				$scope.currentTab = 'careerServiceList';
 				if(!$scope.careerServiceList){
 					getCareerServiceList();
 				}
 			},
 			plantilla : function(){
-				console.log('plantilla!');
+				$scope.currentTab = 'plantillaList';
 				if(!$scope.plantillaList){
 					getPlantillaList();
 				}

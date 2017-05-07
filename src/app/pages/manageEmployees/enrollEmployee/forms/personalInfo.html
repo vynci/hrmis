@@ -58,7 +58,7 @@
 <hr>
 
 <div class="row">
-	<div class="col-sm-4 datepicker" ng-controller="datepickerpopupCtrl">
+	<div class="col-sm-3 datepicker" ng-controller="datepickerpopupCtrl">
 			<label>Date of Birth</label>
 			<p class="input-group">
 				<input type="text" class="form-control" uib-datepicker-popup="{{format}}" datepicker-options="options" placeholder="mm/dd/yyyy"  ng-model="personalInfo.birthDate" is-open="opened" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" show-button-bar="false"/>
@@ -67,18 +67,9 @@
 				</span>
 			</p>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
 		<div class="form-group">
-			<label for="inputWebsite">Place of Birth</label>
-			<!-- <ui-select ng-model="personalInfo.birthPlace" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:birthPlace')">
-				<ui-select-match placeholder="Select Place">
-					<span> {{$select.selected.label}}</span>
-				</ui-select-match>
-				<ui-select-choices repeat="standardItem in cityList">
-					<span ng-bind-html="standardItem.label"></span>
-				</ui-select-choices>
-			</ui-select> -->
-
+			<label for="inputWebsite">Place of Birth (City/Town)</label>
 			<ui-select ng-model="personalInfo.birthPlace"
 			class="btn-group bootstrap-select form-control"
 			ng-disabled="false"
@@ -92,10 +83,27 @@
 			<span ng-bind-html="city.label"></span>
 			</ui-select-choices>
 			</ui-select>
-
 		</div>
 	</div>
-	<div class="col-sm-4">
+	<div class="col-sm-3">
+		<div class="form-group">
+			<label for="inputWebsite">Place of Birth (Province)</label>
+			<ui-select ng-model="personalInfo.birthPlaceProvince"
+			class="btn-group bootstrap-select form-control"
+			ng-disabled="false"
+			append-to-body="true"
+			search-enabled="true">
+			<ui-select-match placeholder="Select Province">
+				{{$select.selected.label}}
+			</ui-select-match>
+			<ui-select-choices
+			repeat="province in provinceList | filter: $select.search">
+			<span ng-bind-html="province.label"></span>
+		</ui-select-choices>
+	</ui-select>
+</div>
+</div>
+	<div class="col-sm-3">
 		<div class="form-group">
 			<label for="inputFirstName">Sex</label>
 			<ui-select ng-model="personalInfo.gender" class="btn-group bootstrap-select form-control" ng-disabled="false" append-to-body="true" search-enabled="false" ng-model-options="{ updateOn: 'blur' }" ng-change="addToChangeList('personalInfo:gender')">

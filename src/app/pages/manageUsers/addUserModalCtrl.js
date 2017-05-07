@@ -39,9 +39,11 @@
           var User = Parse.Object.extend("User");
           var user = new User();
 
+          user.set('name', $scope.newUser.name);
           user.set('username', $scope.newUser.email);
           user.set('password', $scope.newUser.password);
           user.set('email', $scope.newUser.email);
+          user.set('isActive', true);
           user.set('userTypeId', 'J7ELLa1Czi');
 
           user.save(null, {
